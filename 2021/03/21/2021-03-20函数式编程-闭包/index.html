@@ -131,7 +131,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-03-20 22:37:48
+        <i class="fas fa-edit"></i>&nbsp;2021-03-21 00:18:59
     </span>
     
     
@@ -148,7 +148,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br/>
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
 
 <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</p>
 <p>闭包的本质：函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈上移除，<strong>但是堆上的作用域成员因为被外部引用不能释放</strong>，因此内部函数依然可以访问外部函数的成员</p>
@@ -159,12 +159,12 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeFn1();<span class="comment">//调用完成后msg被释放</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn2</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//内部有函数并访问了外部函数的成员</span></span><br><span class="line">    <span class="built_in">console</span>.log(msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = makeFn2()<span class="comment">//fn引用了makeFn2中的函数，外部对内部有引用，使其不能被释放</span></span><br><span class="line">fn()<span class="comment">//延长了外部函数内部成员的作用范围</span></span><br></pre></td></tr></table></figure>
-<br/>
+<br>
 
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makePower</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(number, power)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求平方</span></span><br><span class="line"><span class="keyword">let</span> power2 = makePower(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> power3 = makePower(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makePower</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(number, power)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求平方</span></span><br><span class="line"><span class="keyword">let</span> power2 = makePower(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> power3 = makePower(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power3(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<br>
 
-
-
+<p><img src="/2021/03/21//aa.png" alt="qwer"></p>
 
         </div>
 
@@ -172,6 +172,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="2021/03/21/test/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">test</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">

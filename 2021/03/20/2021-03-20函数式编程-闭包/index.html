@@ -9,7 +9,7 @@
     
     <title>
         
-            函数式编程—— 前置知识（二） |
+            函数式编程 —— 闭包 |
         
         kadina&#39;s Blog
     </title>
@@ -113,7 +113,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">函数式编程—— 前置知识（二）</span>
+            <span class="title-hover-animation">函数式编程 —— 闭包</span>
         </div>
 
         
@@ -131,7 +131,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-03-18 23:18:13
+        <i class="fas fa-edit"></i>&nbsp;2021-03-20 22:37:48
     </span>
     
     
@@ -148,34 +148,18 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><p>一等公民的概念没有明确定义</p>
-<p>在编程语言中，一等公民可以作为函数参数，可以作为函数返回值，也可以赋值给变量。</p>
-<p>对于 JavaScript 来说，函数可以赋值给变量，也可以作为函数参数，还可以作为函数返回值，因此 JavaScript 中函数是一等公民。</p>
-<p>别的能做的，函数都能做，别的不能做的，函数也能做。</p>
-<p>函数为第一公民是函数式编程的必要条件。higher-order functions，即高阶函数，就是使用函数作为参数的函数，它在函数式编程中很常见</p>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
-<li><strong>函数是一等公民</strong> </li>
-<li><strong>高阶函数</strong> </li>
-<li><strong>闭包</strong></li>
-</ul>
-<h3 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h3><p><u>MDN First-class Function</u></p>
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br/>
+
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</p>
+<p>闭包的本质：函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈上移除，<strong>但是堆上的作用域成员因为被外部引用不能释放</strong>，因此内部函数依然可以访问外部函数的成员</p>
 <ul>
-<li><strong>函数可以存储在变量中</strong> </li>
-<li><strong>函数作为参数</strong> </li>
-<li><strong>函数作为返回值</strong></li>
+<li><strong>闭包（Closure）：函数和其周围的状态（此法环境）的引用捆绑在一起形成闭包</strong> <ul>
+<li><strong>可以在另一作用域中调用一个函数的内部函数并访问到该函数的作用域中的成员</strong> </li>
 </ul>
-<p>在JavaScript中<strong>函数就是一个普通的对象</strong>（可以通过new Function()），我们可以把函数存储到变量/数组中，它还可以作为另一个函数的参数和返回值，甚至我们可以在程序运行的时候通过new Function(‘alert(1)’)来构造一个新的函数。</p>
-<h4 id="把函数赋值给变量"><a href="#把函数赋值给变量" class="headerlink" title="把函数赋值给变量"></a>把函数赋值给变量</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//把函数赋值给变量</span></span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Hello First-class Function&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个示例</span></span><br><span class="line"><span class="keyword">const</span> BlogController = &#123;</span><br><span class="line">  <span class="function"><span class="title">index</span>(<span class="params">posts</span>)</span>&#123; <span class="keyword">return</span> Views.index(posts) &#125;,<span class="comment">//增强写法</span></span><br><span class="line">  <span class="function"><span class="title">show</span>(<span class="params">post</span>)</span>&#123; <span class="keyword">return</span> Views.show(post) &#125;,</span><br><span class="line">  <span class="function"><span class="title">create</span>(<span class="params">attrs</span>)</span>&#123; <span class="keyword">return</span> Db.create(attrs) &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//优化</span></span><br><span class="line"><span class="keyword">const</span> BlogController = &#123;</span><br><span class="line">  index: Views.index,</span><br><span class="line">  show: Views.show，</span><br><span class="line">  create: Db.create</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<br/>
-
-<h4 id="高阶函数-函数作为参数"><a href="#高阶函数-函数作为参数" class="headerlink" title="高阶函数-函数作为参数"></a>高阶函数-函数作为参数</h4><h5 id="什么是高阶函数"><a href="#什么是高阶函数" class="headerlink" title="什么是高阶函数"></a>什么是高阶函数</h5><ul>
-<li>高阶函数（High-order function）react中的高阶组件（High-order component）本质就是高阶函数</li>
-<li>可以把函数作为参数传递给例外一个函数</li>
-<li>可以把函数作为另一个函数的返回结果</li>
+</li>
 </ul>
-<h6 id="函数作为参数"><a href="#函数作为参数" class="headerlink" title="函数作为参数"></a>函数作为参数</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//高阶函数-函数作为参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foreEach</span> (<span class="params">arr, fu</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">    fn(arr[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeFn1();<span class="comment">//调用完成后msg被释放</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn2</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//内部有函数并访问了外部函数的成员</span></span><br><span class="line">    <span class="built_in">console</span>.log(msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = makeFn2()<span class="comment">//fn引用了makeFn2中的函数，外部对内部有引用，使其不能被释放</span></span><br><span class="line">fn()<span class="comment">//延长了内部成员的作用范围</span></span><br></pre></td></tr></table></figure>
 <br/>
-
 
 
 
@@ -190,10 +174,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="2021/03/15/2021-03-15函数式编程-前置知识（一）/"
+                           href="2021/03/20/2021-03-20函数式编程-前置知识（三）/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程—— 前置知识（一）</span>
+                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -302,7 +286,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91"><span class="nav-text">函数是一等公民</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%8A%E5%87%BD%E6%95%B0%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F"><span class="nav-text">把函数赋值给变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">高阶函数-函数作为参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-text">什么是高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">函数作为参数</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-text">闭包</span></a>
     </div>
 </div>
         </aside>

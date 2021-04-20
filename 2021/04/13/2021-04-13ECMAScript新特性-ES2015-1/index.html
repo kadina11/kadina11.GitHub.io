@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            ECMAScript新特性 —— ES2015(1) |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">ECMAScript新特性 —— ES2015(1)</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-04-13 22:21:41
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="ECMAScript新特性"><a href="#ECMAScript新特性" class="headerlink" title="ECMAScript新特性"></a>ECMAScript新特性</h1><p>JavaScript语言本身就是指的是ECMAScript</p>
+<p>为了理解语言和平台之间的关系，区分ECMAScript和JavaScript，系统了解ECMAScript发展过程和新特性</p>
+<p>实际上JavaScript是ECMAScript的扩展语言，ECMAScript只提供了最基本的语法</p>
+<h2 id="JavaScript-Web"><a href="#JavaScript-Web" class="headerlink" title="JavaScript @ Web"></a>JavaScript @ Web</h2><p>在浏览器环境中JavaScript等于ECMAScript和Web APIs包括BOM和DOM操作。<br><img src="/2021/04/13/2021-04-13ECMAScript新特性-ES2015-1/web.png" alt="javascript@web" loading="lazy"></p>
+<h2 id="JavaScript-Node-js"><a href="#JavaScript-Node-js" class="headerlink" title="JavaScript @ Node.js"></a>JavaScript @ Node.js</h2><p>在node.js环境中中JavaScript等于ECMAScript和Node APIs包括fs和net模块提供的API。<br><img src="/2021/04/13/2021-04-13ECMAScript新特性-ES2015-1/node.png" alt="javascript@node" loading="lazy"></p>
+<h2 id="ES2015"><a href="#ES2015" class="headerlink" title="ES2015"></a>ES2015</h2><ul>
+<li>解决原有语法上的一些问题或不足</li>
+<li>对原有语法进行增强</li>
+<li>全新的对象、全新的方法、全新的功能</li>
+<li>全新的数据类型和数据结构</li>
+</ul>
+<h2 id="ES2015-let与块级作用域"><a href="#ES2015-let与块级作用域" class="headerlink" title="ES2015 let与块级作用域"></a>ES2015 let与块级作用域</h2><p> let 不会编程提升<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt; <span class="number">3</span>;i++)&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; <span class="number">3</span>;i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j &lt; <span class="number">3</span>;j++)&#123;</span><br><span class="line">  <span class="keyword">var</span> j = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(j)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">foo</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> k = <span class="number">0</span>;k &lt; <span class="number">3</span>;k++)&#123;</span><br><span class="line">  <span class="keyword">let</span> k = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(k)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">foo</span></span><br><span class="line"><span class="comment">foo</span></span><br><span class="line"><span class="comment">foo</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="keyword">let</span> k = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span>(k &lt; <span class="number">3</span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> k = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(k)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">k ++</span><br><span class="line"><span class="keyword">if</span>(k &lt; <span class="number">3</span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> k = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(k)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">k ++</span><br><span class="line"><span class="keyword">if</span>(k &lt; <span class="number">3</span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> k = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(k)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)<span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(b)<span class="comment">//报错</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">&#x27;foo&#x27;</span>;</span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-const"><a href="#ES2015-const" class="headerlink" title="ES2015 const"></a>ES2015 const</h2><p>恒量，常量（变量声明后，指向不能修改）<br>可以修改指向的内部成员<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">&#x27;aaa&#x27;</span>;</span><br><span class="line">a = <span class="string">&#x27;bbb&#x27;</span>;</span><br><span class="line"><span class="comment">//报错，const的指向不能改变</span></span><br><span class="line"><span class="keyword">const</span> b </span><br><span class="line">b = <span class="string">&#x27;ccc&#x27;</span>;</span><br><span class="line"><span class="comment">//报错，声明时必须赋值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line">obj.name = <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line"><span class="comment">//没有改变const 的指向，不报错</span></span><br></pre></td></tr></table></figure></p>
+<p>最佳实践，主用const</p>
+<br>
+
+<h2 id="ES2015-数组的解构"><a href="#ES2015-数组的解构" class="headerlink" title="ES2015 数组的解构"></a>ES2015 数组的解构</h2><p> Destructuring<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]</span><br><span class="line"></span><br><span class="line"> <span class="comment">//以前</span></span><br><span class="line"> <span class="keyword">const</span> foo = arr[<span class="number">0</span>]</span><br><span class="line"> <span class="keyword">const</span> bar = arr[<span class="number">1</span>]</span><br><span class="line"> <span class="keyword">const</span> baz = arr[<span class="number">2</span>]</span><br><span class="line"><span class="built_in">console</span>.log(foo, bar, baz)</span><br><span class="line"></span><br><span class="line"><span class="comment">//解构写法</span></span><br><span class="line"><span class="keyword">const</span> [foo, bar, baz] = arr</span><br><span class="line"><span class="built_in">console</span>.log(foo, bar, baz)</span><br><span class="line"></span><br><span class="line"><span class="comment">//只获取指定位置成员</span></span><br><span class="line"><span class="keyword">const</span> [, , baz] = arr</span><br><span class="line"><span class="built_in">console</span>.log(baz)<span class="comment">//300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//解构最后一个设为...rest，获取之后成员的数组</span></span><br><span class="line"><span class="keyword">const</span> [foo, ...rest] = arr</span><br><span class="line"><span class="built_in">console</span>.log(rest)<span class="comment">//[200, 300]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//超过范围</span></span><br><span class="line"><span class="keyword">const</span> [foo, bar, baz, more] = arr</span><br><span class="line"><span class="built_in">console</span>.log(more)<span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//设定默认值</span></span><br><span class="line"><span class="keyword">const</span> [foo, bar, baz, more = <span class="string">&#x27;default value&#x27;</span>] = arr</span><br><span class="line"><span class="built_in">console</span>.log(more)<span class="comment">//default value</span></span><br><span class="line"></span><br><span class="line">实际应用</span><br><span class="line"><span class="keyword">const</span> path = <span class="string">&#x27;/foo/bar/baz&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> tmp = path.split(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> rootDir = tmp[<span class="number">1</span>]</span><br><span class="line"><span class="built_in">console</span>.log(rootDir)<span class="comment">//foo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="keyword">const</span> [, rootDir]</span><br><span class="line"><span class="built_in">console</span>.log(rootDir)<span class="comment">//foo</span></span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-对象的解构"><a href="#ES2015-对象的解构" class="headerlink" title="ES2015 对象的解构"></a>ES2015 对象的解构</h2><p> //对象没有下标，不能按顺序提取，根据属性名提取<br> Destructuring<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">&#x27;aaa&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//属性：重命名 = 默认值</span></span><br><span class="line"><span class="keyword">const</span> &#123;<span class="attr">name</span>: objName = <span class="string">&#x27;bbb&#x27;</span> &#125; = obj</span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-模板字符串"><a href="#ES2015-模板字符串" class="headerlink" title="ES2015 模板字符串"></a>ES2015 模板字符串</h2><p> <strong>${}中的内容就是JavaScript,可以嵌入语句，内容的返回值会作为输出</strong><br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;jack&#x27;</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`hey,</span></span><br><span class="line"><span class="string">           <span class="subst">$&#123;name&#125;</span>`</span></span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-带标签的模板字符串"><a href="#ES2015-带标签的模板字符串" class="headerlink" title="ES2015 带标签的模板字符串"></a>ES2015 带标签的模板字符串</h2><p> 对模板进行加工,<strong>标签即函数</strong>,第一个入参即按照表达式分割过后的数组,可以用来对模板字符串进行处理<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;jack&#x27;</span></span><br><span class="line"><span class="keyword">const</span> gender = <span class="literal">true</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="built_in">console</span>.log<span class="string">`hello world`</span></span><br><span class="line"><span class="comment">//[&#x27;hello world&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTagFun</span>(<span class="params">strings, name, gender</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings, name, gender)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> str = myTagFun<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,is <span class="subst">$&#123;gender&#125;</span>`</span></span><br><span class="line"><span class="comment">//[&#x27;hello,&#x27;, &#x27;is &#x27;], jack, true</span></span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-字符串的扩展方法"><a href="#ES2015-字符串的扩展方法" class="headerlink" title="ES2015 字符串的扩展方法"></a>ES2015 字符串的扩展方法</h2><ul>
+<li>includes()</li>
+<li>startsWith()</li>
+<li>endsWith()<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> msg = <span class="string">&#x27;Error: foo is not defined&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(msg.includes(<span class="string">&#x27;Error&#x27;</span>))<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.startsWith(<span class="string">&#x27;foo&#x27;</span>))<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.endsWith(<span class="string">&#x27;defined&#x27;</span>))<span class="comment">//true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h2 id="ES2015-参数默认值"><a href="#ES2015-参数默认值" class="headerlink" title="ES2015 参数默认值"></a>ES2015 参数默认值</h2><p> <strong>参数默认值必须在最后，否则无法正常工作</strong><br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">bar, enable = <span class="literal">true</span></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<br>
+
+<h2 id="ES2015-剩余参数"><a href="#ES2015-剩余参数" class="headerlink" title="ES2015 剩余参数"></a>ES2015 剩余参数</h2><p> …的rest用法<br> <strong>剩余参数必须在最后，且只能有一次</strong><br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">bar, ...args</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)<span class="comment">//[2, 3, 4]</span></span><br></pre></td></tr></table></figure><br><br></p>
+<h2 id="ES2015-展示数组"><a href="#ES2015-展示数组" class="headerlink" title="ES2015 展示数组"></a>ES2015 展示数组</h2><p> …的spread用法<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"></span><br><span class="line"> <span class="comment">//之前只能用apply发放，因为apply可以接受数组参数</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">console</span>, arr)<span class="comment">// a, b, c</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(...arr)</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="2021/04/20/2021-04-20ECMAScript新特性-ES2015-2/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">ECMAScript新特性 —— ES2015(2)</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="2021/04/06/2021-04-06Promise实现-核心逻辑实现/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Promise实现 —— 核心逻辑实现</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-text">ECMAScript新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-Web"><span class="nav-text">JavaScript @ Web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-Node-js"><span class="nav-text">JavaScript @ Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015"><span class="nav-text">ES2015</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-let%E4%B8%8E%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-text">ES2015 let与块级作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-const"><span class="nav-text">ES2015 const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E6%95%B0%E7%BB%84%E7%9A%84%E8%A7%A3%E6%9E%84"><span class="nav-text">ES2015 数组的解构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84"><span class="nav-text">ES2015 对象的解构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">ES2015 模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%B8%A6%E6%A0%87%E7%AD%BE%E7%9A%84%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">ES2015 带标签的模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-text">ES2015 字符串的扩展方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-text">ES2015 参数默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0"><span class="nav-text">ES2015 剩余参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES2015-%E5%B1%95%E7%A4%BA%E6%95%B0%E7%BB%84"><span class="nav-text">ES2015 展示数组</span></a>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

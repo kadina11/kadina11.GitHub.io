@@ -16,15 +16,18 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.1"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
 
 
 <body>
 <div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
     
 
     
@@ -34,13 +37,67 @@
 <main class="page-container">
 
     
+        <div class="first-screen-container flex-center fade-in-down-animation">
+    <div class="content flex-center">
+        <div class="description">
+            道阻且长 行则将至
+        </div>
+        
+            <div class="s-icon-list">
+                
+                    
+                        
+                            <span class="s-icon-item github">
+                                <a target="_blank" href="https://github.com/kadina11">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </span>
+                        
+                    
+                
+                    
+                        
+                            <span class="s-icon-item weixin">
+                                <a target="_blank" href="/images/wechat.jpg">
+                                    <i class="fab fa-weixin"></i>
+                                </a>
+                            </span>
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        
+                            <span class="s-icon-item email">
+                                <a href="mailto:njzhtjn@outlook.com">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </span>
+                        
+                    
+                
+            </div>
+        
+    </div>
+</div>
+
+    
 
     <div class="page-main-content">
 
         <div class="page-main-content-top">
             <header class="header-wrapper">
 
-    <div class="header-content">
+    <div class="header-content has-first-screen">
         <div class="left">
             <a class="logo-title" href="/">
                 kadina&#39;s Blog
@@ -53,7 +110,7 @@
                     
                         <li class="menu-item">
                             <a class="active"
-                               href="/"
+                               href="index.html"
                             >
                                 HOME
                             </a>
@@ -67,10 +124,48 @@
                             </a>
                         </li>
                     
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
                     
                 </ul>
             </div>
             <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -84,12 +179,32 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class="active"
-                       href="/">HOME</a>
+                       href="index.html">HOME</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
                        href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
                 </li>
             
         </ul>
@@ -115,7 +230,35 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2016/">
+                    <a href="2021/04/22/test/">
+                        test
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Apr 22 2021 11:13:47 GMT+0800">2021-04-22</span></span>
+        
+        
+    </div>
+
+    <a href="2021/04/22/test/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2016/">
                         ECMAScript新特性 —— ES2016&amp;ES2017
                     </a>
                 </h3>
@@ -135,7 +278,7 @@ ECMAScript新特性ES2016indexOf 不能判断NaN
         
     </div>
 
-    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2016/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2016/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -145,7 +288,7 @@ ECMAScript新特性ES2016indexOf 不能判断NaN
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2015-3/">
+                    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-3/">
                         ECMAScript新特性 —— ES2015(3)
                     </a>
                 </h3>
@@ -165,7 +308,7 @@ ECMAScript新特性ES2016indexOf 不能判断NaN
         
     </div>
 
-    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2015-3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -175,7 +318,7 @@ ECMAScript新特性ES2016indexOf 不能判断NaN
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2015-2/">
+                    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-2/">
                         ECMAScript新特性 —— ES2015(2)
                     </a>
                 </h3>
@@ -195,7 +338,7 @@ ES2015 箭头函数 箭头函数：出现的作用除了让函数的书写变得
         
     </div>
 
-    <a href="2021/04/20/2021-04-20ECMAScript新特性-ES2015-2/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/20/2021-04-20ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-2/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -205,7 +348,7 @@ ES2015 箭头函数 箭头函数：出现的作用除了让函数的书写变得
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/13/2021-04-13ECMAScript新特性-ES2015-1/">
+                    <a href="2021/04/13/2021-04-13ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-1/">
                         ECMAScript新特性 —— ES2015(1)
                     </a>
                 </h3>
@@ -225,7 +368,7 @@ ES2015 箭头函数 箭头函数：出现的作用除了让函数的书写变得
         
     </div>
 
-    <a href="2021/04/13/2021-04-13ECMAScript新特性-ES2015-1/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/13/2021-04-13ECMAScript%E6%96%B0%E7%89%B9%E6%80%A7-ES2015-1/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -235,7 +378,7 @@ ES2015 箭头函数 箭头函数：出现的作用除了让函数的书写变得
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/06/2021-04-06Promise实现-核心逻辑实现/">
+                    <a href="2021/04/06/2021-04-06Promise%E5%AE%9E%E7%8E%B0-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0/">
                         Promise实现 —— 核心逻辑实现
                     </a>
                 </h3>
@@ -255,7 +398,7 @@ Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等...
         
     </div>
 
-    <a href="2021/04/06/2021-04-06Promise实现-核心逻辑实现/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/06/2021-04-06Promise%E5%AE%9E%E7%8E%B0-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -265,7 +408,7 @@ Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等...
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/06/2021-04-06JavaScript异步编程-Generator/">
+                    <a href="2021/04/06/2021-04-06JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-Generator/">
                         JavaScript异步编程 —— Generator
                     </a>
                 </h3>
@@ -284,7 +427,7 @@ G...
         
     </div>
 
-    <a href="2021/04/06/2021-04-06JavaScript异步编程-Generator/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/06/2021-04-06JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-Generator/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -294,7 +437,7 @@ G...
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/05/2021-04-05JavaScript异步函数-Promise/">
+                    <a href="2021/04/05/2021-04-05JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-Promise/">
                         JavaScript异步函数 —— Promise
                     </a>
                 </h3>
@@ -315,7 +458,7 @@ Promise对象的then方法会返回一个全新的Promise对象
         
     </div>
 
-    <a href="2021/04/05/2021-04-05JavaScript异步函数-Promise/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/05/2021-04-05JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-Promise/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -325,7 +468,7 @@ Promise对象的then方法会返回一个全新的Promise对象
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/04/04/2021-04-04JavaScript异步函数-前置知识/">
+                    <a href="2021/04/04/2021-04-04JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">
                         JavaScript异步函数 —— 前置知识
                     </a>
                 </h3>
@@ -346,7 +489,7 @@ JavaScript环境以单线程模式执行，因为最早设计javaScript实现页
         
     </div>
 
-    <a href="2021/04/04/2021-04-04JavaScript异步函数-前置知识/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/04/04/2021-04-04JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -356,7 +499,7 @@ JavaScript环境以单线程模式执行，因为最早设计javaScript实现页
                 
 
                 <h3 class="home-article-title">
-                    <a href="2021/03/30/2021-03-30函数式编程-Folktale/">
+                    <a href="2021/03/30/2021-03-30%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Folktale/">
                         函数式编程 —— Folktale
                     </a>
                 </h3>
@@ -380,40 +523,7 @@ folktale一个标准的函数式编程库
         
     </div>
 
-    <a href="2021/03/30/2021-03-30函数式编程-Folktale/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="2021/03/23/2021-03-23函数式编程-lodash-FP模块/">
-                        函数式编程lodash —— FP模块
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        文章内容输入来源：拉勾教育大前端训练营
-
-lodash中的FP模块
-lodash的fp模块提供了实用的对函数式编程友好的方法
-提供了不可变auto-curries iteratee-first data-last的方法
-lodash和lodash/f...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Mar 23 2021 22:04:45 GMT+0800">2021-03-23</span></span>
-        
-        
-    </div>
-
-    <a href="2021/03/23/2021-03-23函数式编程-lodash-FP模块/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="2021/03/30/2021-03-30%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Folktale/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -451,6 +561,20 @@ lodash和lodash/f...
             2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
         </div>
         
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
         <div class="theme-info info-item">
             Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
         </div>
@@ -484,6 +608,15 @@ lodash和lodash/f...
 
         <!-- rss -->
         
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
 
         
             <li class="tools-item tool-scroll-to-top flex-center">
@@ -514,6 +647,35 @@ lodash和lodash/f...
 
 
     
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
 </main>
 
@@ -523,11 +685,15 @@ lodash和lodash/f...
 <script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
 
 
+    <script src="/js/local-search.js"></script>
+
 
 
     <script src="/js/code-copy.js"></script>
 
 
+
+    <script src="/js/lazyload.js"></script>
 
 
 <div class="post-scripts">

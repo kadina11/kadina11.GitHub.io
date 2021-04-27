@@ -19,7 +19,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.1"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
@@ -237,10 +237,10 @@
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makePower</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(number, power)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求平方</span></span><br><span class="line"><span class="keyword">let</span> power2 = makePower(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> power3 = makePower(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power3(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
 <br>
 
-<h3 id="断点查看执行过程"><a href="#断点查看执行过程" class="headerlink" title="断点查看执行过程"></a>断点查看执行过程</h3><p><img lazyload src="/images/loading.svg" data-src="closure1.png" alt="开始" loading="lazy"></p>
-<p><img lazyload src="/images/loading.svg" data-src="closure2.png" alt="执行中" loading="lazy"></p>
-<p><img lazyload src="/images/loading.svg" data-src="closure3.png" alt="结束" loading="lazy"><br><br></p>
-<p><strong>let作用域在script中，而var定义的对象会挂载在全局对象上</strong><br>闭包相关的外部函数是makePower<br>在内存中，外部函数被移除，相关的变量被保留<br><img lazyload src="/images/loading.svg" data-src="closure4.png" alt="闭包" loading="lazy"></p>
+<h3 id="断点查看执行过程"><a href="#断点查看执行过程" class="headerlink" title="断点查看执行过程"></a>断点查看执行过程</h3><p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure1.png" alt="开始" loading="lazy"></p>
+<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure2.png" alt="执行中" loading="lazy"></p>
+<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure3.png" alt="结束" loading="lazy"><br><br></p>
+<p><strong>let作用域在script中，而var定义的对象会挂载在全局对象上</strong><br>闭包相关的外部函数是makePower<br>在内存中，外部函数被移除，相关的变量被保留<br><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure4.png" alt="闭包" loading="lazy"></p>
 
         </div>
 
@@ -542,8 +542,6 @@
     <script src="/js/code-copy.js"></script>
 
 
-
-    <script src="/js/lazyload.js"></script>
 
 
 <div class="post-scripts">

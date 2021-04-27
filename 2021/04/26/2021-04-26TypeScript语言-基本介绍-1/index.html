@@ -19,7 +19,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.1"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
@@ -200,12 +200,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>381 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>416 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
         </span>
     
     
@@ -223,7 +223,7 @@
         <div class="article-content markdown-body">
             <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><p>前端领域的第二语言</p>
 <p>任何一种JavaScript运行环境都支持TypeScript，相比于Flow TypeScript功能更为强大，生态也更健全，更完善</p>
-<p><img lazyload src="/images/loading.svg" data-src="typescript1.png" alt="typescript" loading="lazy"></p>
+<p><img src="/2021/04/26/2021-04-26TypeScript语言-基本介绍-1/typescript1.png" alt="typescript" loading="lazy"></p>
 <h2 id="TypeScript-原始类型"><a href="#TypeScript-原始类型" class="headerlink" title="TypeScript 原始类型"></a>TypeScript 原始类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a: string = <span class="string">&#x27;string&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> b: number = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c:boolean = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> d: <span class="keyword">void</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> e: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> f: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//非严格模式</span></span><br><span class="line"><span class="keyword">const</span> g: string = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> h: <span class="keyword">void</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> i: <span class="keyword">void</span> = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 <br>
 
@@ -253,6 +253,9 @@
 <br>
 
 <h2 id="TypeScript-任意类型"><a href="#TypeScript-任意类型" class="headerlink" title="TypeScript 任意类型"></a>TypeScript 任意类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stringify</span> (<span class="params">val: any</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">JSON</span>.stringify(val)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-隐式类型推断"><a href="#TypeScript-隐式类型推断" class="headerlink" title="TypeScript 隐式类型推断"></a>TypeScript 隐式类型推断</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">18</span><span class="comment">//等同于 let age: number = 18</span></span><br><span class="line"></span><br><span class="line">age = <span class="string">&#x27;string&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> foo<span class="comment">//等同于 let foo: any</span></span><br><span class="line"></span><br><span class="line">foo = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">foo = <span class="string">&#x27;string&#x27;</span></span><br></pre></td></tr></table></figure>
 <br>
         </div>
 
@@ -498,7 +501,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript"><span class="nav-text">TypeScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%8E%9F%E5%A7%8B%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 原始类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%A0%87%E5%87%86%E5%BA%93%E7%94%B3%E6%98%8E"><span class="nav-text">TypeScript 标准库申明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-text">TypeScript 作用域问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-Object%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript Object类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 数组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 元组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 函数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 任意类型</span></a>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript"><span class="nav-text">TypeScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%8E%9F%E5%A7%8B%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 原始类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%A0%87%E5%87%86%E5%BA%93%E7%94%B3%E6%98%8E"><span class="nav-text">TypeScript 标准库申明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-text">TypeScript 作用域问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-Object%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript Object类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 数组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 元组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 函数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 任意类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="nav-text">TypeScript 隐式类型推断</span></a>
     </div>
 </div>
         </aside>
@@ -554,8 +557,6 @@
     <script src="/js/code-copy.js"></script>
 
 
-
-    <script src="/js/lazyload.js"></script>
 
 
 <div class="post-scripts">

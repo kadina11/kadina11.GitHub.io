@@ -233,12 +233,12 @@
 </ul>
 <br>
 
-<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>下面这张图表示程序中使用函数处理数据的过程，给fn函数输入参数a，返回结果b。可以想象成a数据通过一个管道得到了b数据。<br><img lazyload src="/images/loading.svg" data-src="2021-03-22%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88/fn.png" alt="管道" loading="lazy"></p>
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>下面这张图表示程序中使用函数处理数据的过程，给fn函数输入参数a，返回结果b。可以想象成a数据通过一个管道得到了b数据。<br><img lazyload src="/images/loading.svg" data-src="fn.png" alt="fn" loading="lazy"></p>
 <br>
 
 <p>当fn函数比较复杂的时候，我们可以把函数fn拆分成多个小函数，此时多了中间运算过程长生的m和n</p>
 <p>下面这张图中可以想象成把fn管道拆分成了3个管道f1,f2,f3,数据a通过管道f3得到结果m.m再通过管道f2得到结果n，n通过管道得到最终结果b</p>
-<p><img lazyload src="/images/loading.svg" data-src="2021-03-22%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88/fn_mn.png" alt="管道" loading="lazy"></p>
+<p><img lazyload src="/images/loading.svg" data-src="fn_mn.png" alt="fn_mn" loading="lazy"></p>
 <br>
 
 <h2 id="函数组合-1"><a href="#函数组合-1" class="headerlink" title="函数组合"></a>函数组合</h2><p> 如果一个函数要经过多个函数处理才能得到最终结果，这个时候可以把中间过程的函数合并成一个函数</p>

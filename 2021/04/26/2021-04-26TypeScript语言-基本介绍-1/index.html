@@ -9,7 +9,7 @@
     
     <title>
         
-            JavaScript异步函数 —— 前置知识 |
+            2021-04-26TypeScript语言 —— 基本介绍（1） |
         
         kadina&#39;s Blog
     </title>
@@ -174,7 +174,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">JavaScript异步函数 —— 前置知识</span>
+            <span class="title-hover-animation">2021-04-26TypeScript语言 —— 基本介绍（1）</span>
         </div>
 
         
@@ -192,7 +192,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-04-04 14:07:13
+        <i class="fas fa-edit"></i>&nbsp;2021-04-26 23:38:36
     </span>
     
     
@@ -200,12 +200,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>680 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>381 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
         </span>
     
     
@@ -221,32 +221,38 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<p>JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。</p>
-<p>优点：安全，简单<br>缺点：出现假死情况</p>
-<p>为了防止出现这种阻塞执行问题。JavaScript将任务的执行模式分成了两种（<strong>运行环境的API是以同步或异步模式的方式工作</strong>）</p>
-<ul>
-<li>同步模式（Synchronous）</li>
-<li>异步模式（Asynchronous）</li>
-</ul>
-<p>异步调用有各自的time line，不会受到调用栈和消息队列影响</p>
-<h1 id="内容概要："><a href="#内容概要：" class="headerlink" title="内容概要："></a>内容概要：</h1><ul>
-<li>同步模式与异步模式表象上的差异</li>
-<li>事件循环与消息队列</li>
-<li>异步编程的集中方式</li>
-<li>Promise异步方案、宏任务/微任务队列（es6）</li>
-<li>Generator异步方案（es6）、Async/Await语法糖（es8）</li>
-</ul>
-<h2 id="同步模式"><a href="#同步模式" class="headerlink" title="同步模式"></a>同步模式</h2><p>代码在调用栈中依次执行，通俗的说：js在执行引擎中维护了一个正在工作的工作表</p>
-<h2 id="异步模式"><a href="#异步模式" class="headerlink" title="异步模式"></a>异步模式</h2><p>不会等待这个任务结束才去执行下一个任务，任务开启过后就立即往后执行下一个任务，后续逻辑一般会通过回调函数的方式定义,<br>难点：执行顺序混乱</p>
-<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下代码执行顺序</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;global begin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;time1 invoke&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;time2 invoke&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time2inner</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;time2inner invoke&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;global end&#x27;</span>)</span><br></pre></td></tr></table></figure>
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><p>前端领域的第二语言</p>
+<p>任何一种JavaScript运行环境都支持TypeScript，相比于Flow TypeScript功能更为强大，生态也更健全，更完善</p>
+<p><img lazyload src="/images/loading.svg" data-src="typescript1.png" alt="typescript" loading="lazy"></p>
+<h2 id="TypeScript-原始类型"><a href="#TypeScript-原始类型" class="headerlink" title="TypeScript 原始类型"></a>TypeScript 原始类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a: string = <span class="string">&#x27;string&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> b: number = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c:boolean = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> d: <span class="keyword">void</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> e: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> f: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//非严格模式</span></span><br><span class="line"><span class="keyword">const</span> g: string = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> h: <span class="keyword">void</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> i: <span class="keyword">void</span> = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 <br>
 
-<p><img lazyload src="/images/loading.svg" data-src="Asynchronous1.png" alt="开始" loading="lazy"></p>
-<p>加载全部代码，在调用栈中压入一个匿名的全局调用，依次执行每行代码，同步API和同步模式一致，打印global begin,<br>web API为timer1开启一个倒计时器，<strong>倒计时器单独工作，不会受当前js线程影响，有各自的time line，不会受到调用栈和消息队列影响</strong>，开始过后即开始执行，打印global end后，整体的匿名调用就执行完成，清空调用栈。<br><img lazyload src="/images/loading.svg" data-src="Asynchronous2.png" alt="开始" loading="lazy"><br>调用栈清空后，此时Event loop发挥作用，监听调用栈和消息队列。<br>timer2倒计时器先结束，timer2函数放置于消息队列，消息队列发生改变，Event loop将消息队列中第一个压入调用栈，开启新一轮的执行<br><img lazyload src="/images/loading.svg" data-src="Asynchronous3.png" alt="开始" loading="lazy"></p>
-<p>过程又遇到异步调用，放入API中单独执行<br><img lazyload src="/images/loading.svg" data-src="Asynchronous4.png" alt="开始" loading="lazy"></p>
-<p>直到调用栈和消息队列中没有需要执行的任务，整体代码执行完成。<br><strong>js引擎先做完调用栈中的所有任务，然后通过事件循环从消息队列中依次取出任务执行</strong><br><img lazyload src="/images/loading.svg" data-src="Asynchronous5.png" alt="开始" loading="lazy"></p>
+<h2 id="TypeScript-标准库申明"><a href="#TypeScript-标准库申明" class="headerlink" title="TypeScript 标准库申明"></a>TypeScript 标准库申明</h2><p>内置对象所对应的声明</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES2015才有</span></span><br><span class="line"><span class="keyword">const</span> a: symbol = symbol()</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-作用域问题"><a href="#TypeScript-作用域问题" class="headerlink" title="TypeScript 作用域问题"></a>TypeScript 作用域问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加模块作用域</span></span><br><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-Object类型"><a href="#TypeScript-Object类型" class="headerlink" title="TypeScript Object类型"></a>TypeScript Object类型</h2><p>//泛指所有非原始类型，数组，对象，函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo:object = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// [] //&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj: &#123;<span class="attr">foo</span>: number, <span class="attr">bar</span>: string &#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-数组类型"><a href="#TypeScript-数组类型" class="headerlink" title="TypeScript 数组类型"></a>TypeScript 数组类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr1: <span class="built_in">Array</span>&lt;number&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2: number[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-元组类型"><a href="#TypeScript-元组类型" class="headerlink" title="TypeScript 元组类型"></a>TypeScript 元组类型</h2><p>//明确元素数量和类型的数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tuple: [number, string] = [<span class="number">18</span>, <span class="string">&#x27;aaa&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [age, name] = tuple</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-枚举类型"><a href="#TypeScript-枚举类型" class="headerlink" title="TypeScript 枚举类型"></a>TypeScript 枚举类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PostStatus1 = &#123;</span><br><span class="line">  Draft: <span class="number">0</span>,</span><br><span class="line">  Unpublished: <span class="number">1</span>,</span><br><span class="line">  Publish: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不指定，枚举值自增</span></span><br><span class="line">enum PostStatus2 &#123;</span><br><span class="line">  Draft = <span class="number">6</span>,</span><br><span class="line">  Unpublished,</span><br><span class="line">  Publish</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//常量枚举</span></span><br><span class="line"><span class="keyword">const</span> enum PostStatus3 &#123;</span><br><span class="line">  Draft = <span class="string">&#x27;a&#x27;</span>,</span><br><span class="line">  Unpublished = <span class="string">&#x27;b&#x27;</span>,</span><br><span class="line">  Publish = <span class="string">&#x27;c&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> post = &#123;</span><br><span class="line">  title: <span class="string">&#x27;Hello World&#x27;</span>,</span><br><span class="line">  content: <span class="string">&#x27;Hello World Hello World&#x27;</span>,</span><br><span class="line">  status1: PostStatus1.Draft,</span><br><span class="line">  status2: PostStatus2.Unpublished,</span><br><span class="line">  status3: PostStatus3.Publish</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-函数类型"><a href="#TypeScript-函数类型" class="headerlink" title="TypeScript 函数类型"></a>TypeScript 函数类型</h2><p>//定义入参和返回值类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a: number, b: number, ...rest:number</span>): <span class="title">string</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;foo&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> func: <span class="function">(<span class="params">a: number</span>) =&gt;</span> string = <span class="function"><span class="keyword">function</span>(<span class="params">n: number</span>): <span class="title">string</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="TypeScript-任意类型"><a href="#TypeScript-任意类型" class="headerlink" title="TypeScript 任意类型"></a>TypeScript 任意类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stringify</span> (<span class="params">val: any</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">JSON</span>.stringify(val)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <br>
         </div>
 
@@ -258,13 +264,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="../../05/2021-04-05JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-Promise/"
+                           href="../../27/2021-04-27TypeScript%E8%AF%AD%E8%A8%80-TypeScript-2/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">JavaScript异步函数 —— Promise</span>
+                                <span class="post-nav-title-item">2021-04-27TypeScript语言 —— 基本介绍（2）</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -274,10 +280,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="../../../03/30/2021-03-30%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Folktale/"
+                           href="../../25/2021-04-25TypeScript%E8%AF%AD%E8%A8%80-Flow/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— Folktale</span>
+                                <span class="post-nav-title-item">TypeScript语言 —— Flow</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -492,7 +498,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%A6%81%EF%BC%9A"><span class="nav-text">内容概要：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">同步模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">异步模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-text">例子：</span></a>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript"><span class="nav-text">TypeScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%8E%9F%E5%A7%8B%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 原始类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%A0%87%E5%87%86%E5%BA%93%E7%94%B3%E6%98%8E"><span class="nav-text">TypeScript 标准库申明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-text">TypeScript 作用域问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-Object%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript Object类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 数组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 元组类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 函数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">TypeScript 任意类型</span></a>
     </div>
 </div>
         </aside>

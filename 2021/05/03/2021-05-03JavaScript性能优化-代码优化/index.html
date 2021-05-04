@@ -9,7 +9,7 @@
     
     <title>
         
-            2021-04-27TypeScript语言 —— 基本介绍（2） |
+            JavaScript性能优化 —— 代码优化 |
         
         kadina&#39;s Blog
     </title>
@@ -174,7 +174,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">2021-04-27TypeScript语言 —— 基本介绍（2）</span>
+            <span class="title-hover-animation">JavaScript性能优化 —— 代码优化</span>
         </div>
 
         
@@ -192,12 +192,16 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-04-27 08:40:35
+        <i class="fas fa-edit"></i>&nbsp;2021-05-03 12:30:41
     </span>
     
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>412 Words</span>
+        </span>
     
     
         <span class="article-min2read article-meta-item">
@@ -217,7 +221,46 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="JavaScript性能优化"><a href="#JavaScript性能优化" class="headerlink" title="JavaScript性能优化"></a>JavaScript性能优化</h1><p><a class="link" target="_blank" rel="noopener" href="https://jsperf.com/">https://jsperf.com/<i class="fas fa-external-link-alt"></i></a><br>Jsperf使用流程</p>
+<ul>
+<li>使用GitHub账号登录</li>
+<li>填写个人信息</li>
+<li>填写详细的测试用例信息（title，slug）</li>
+<li>填写准备代码（DON操作时经常使用）</li>
+<li>填写必要有setup与teardown代码</li>
+</ul>
+<h2 id="慎用全局变量"><a href="#慎用全局变量" class="headerlink" title="慎用全局变量"></a>慎用全局变量</h2><p><strong>为什么要慎用</strong></p>
+<ul>
+<li>全局变量变量定义在全局执行上下文，是所有作用域链的顶端</li>
+<li>全局执行上下文一直存在于上下文执行栈，直到程序退出</li>
+<li>如果某个局部作用域出现了同名变量则会遮蔽或污染全局</li>
+</ul>
+<h2 id="缓存全局变量"><a href="#缓存全局变量" class="headerlink" title="缓存全局变量"></a>缓存全局变量</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/cache1.png" alt="缓存对比" loading="lazy"></p>
+<h2 id="通过原型对象新增方法"><a href="#通过原型对象新增方法" class="headerlink" title="通过原型对象新增方法"></a>通过原型对象新增方法</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/prototype1.png" alt="原型对比" loading="lazy"></p>
+<h2 id="避开闭包陷阱"><a href="#避开闭包陷阱" class="headerlink" title="避开闭包陷阱"></a>避开闭包陷阱</h2><ul>
+<li>闭包是一种强大的语法</li>
+<li>闭包使用不当很容易出现内存泄漏</li>
+<li>不要为了闭包而闭包</li>
+</ul>
+<p> 将引用清空，便于内存回收</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;btn1&#x27;</span>)</span><br><span class="line">   el.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="number">111</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   el = <span class="literal">null</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> foo()</span><br></pre></td></tr></table></figure>
+
+<h2 id="避免属性访问方法的使用"><a href="#避免属性访问方法的使用" class="headerlink" title="避免属性访问方法的使用"></a>避免属性访问方法的使用</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/proto1.png" alt="避免属性访问方法" loading="lazy"></p>
+<h2 id="For循环优化"><a href="#For循环优化" class="headerlink" title="For循环优化"></a>For循环优化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000</span>).fill(<span class="number">1</span>)</span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//修改</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = arr.length;i&lt; len;i++)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="选择最优的循环方法"><a href="#选择最优的循环方法" class="headerlink" title="选择最优的循环方法"></a>选择最优的循环方法</h2><p>forEach、for、for in比较<br><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/array1.png" alt="循环方法比较" loading="lazy"></p>
+<h2 id="文档碎片优化节点添加"><a href="#文档碎片优化节点添加" class="headerlink" title="文档碎片优化节点添加"></a>文档碎片优化节点添加</h2><p><strong>节点的添加操作必然会有回流和重绘，对性能消耗比较大</strong><br><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/createDocumentFragment.png" alt="文档碎片优化节点添加" loading="lazy"></p>
+<h2 id="克隆优化节点操作"><a href="#克隆优化节点操作" class="headerlink" title="克隆优化节点操作"></a>克隆优化节点操作</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/clone.png" alt="克隆优化节点操作" loading="lazy"></p>
+<h2 id="直接量替换new-Object"><a href="#直接量替换new-Object" class="headerlink" title="直接量替换new Object"></a>直接量替换new Object</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/newobject.png" alt="直接量替换new" loading="lazy"></p>
+<h2 id="JSBench-使用"><a href="#JSBench-使用" class="headerlink" title="JSBench 使用"></a>JSBench 使用</h2><p><a class="link" target="_blank" rel="noopener" href="https://jsbench.me/">https://jsbench.me/<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="堆栈中代码执行流程"><a href="#堆栈中代码执行流程" class="headerlink" title="堆栈中代码执行流程"></a>堆栈中代码执行流程</h2><p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params">b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a+b+c)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> baz</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn = foo(<span class="number">2</span>)</span><br><span class="line">fn(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
         </div>
 
         
@@ -229,10 +272,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="../../26/2021-04-26TypeScript%E8%AF%AD%E8%A8%80-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D-1/"
+                           href="../../02/2021-05-02JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-V8/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">2021-04-26TypeScript语言 —— 基本介绍（1）</span>
+                                <span class="post-nav-title-item">JavaScript性能优化 —— V8</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -447,7 +490,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">JavaScript性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%8E%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">慎用全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">缓存全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95"><span class="nav-text">通过原型对象新增方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%BC%80%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1"><span class="nav-text">避开闭包陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">避免属性访问方法的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96"><span class="nav-text">For循环优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%96%B9%E6%B3%95"><span class="nav-text">选择最优的循环方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%A2%8E%E7%89%87%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0"><span class="nav-text">文档碎片优化节点添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="nav-text">克隆优化节点操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E9%87%8F%E6%9B%BF%E6%8D%A2new-Object"><span class="nav-text">直接量替换new Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSBench-%E4%BD%BF%E7%94%A8"><span class="nav-text">JSBench 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E4%B8%AD%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">堆栈中代码执行流程</span></a>
     </div>
 </div>
         </aside>

@@ -9,7 +9,7 @@
     
     <title>
         
-            函数式编程 —— 闭包 |
+            JavaScript性能优化 —— V8 |
         
         kadina&#39;s Blog
     </title>
@@ -174,7 +174,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">函数式编程 —— 闭包</span>
+            <span class="title-hover-animation">JavaScript性能优化 —— V8</span>
         </div>
 
         
@@ -192,7 +192,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-03-21 00:18:59
+        <i class="fas fa-edit"></i>&nbsp;2021-05-02 12:49:07
     </span>
     
     
@@ -200,12 +200,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>470 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>991 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>3 Mins</span>
         </span>
     
     
@@ -221,26 +221,98 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</p>
-<p>闭包的本质：函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈上移除，<strong>但是堆上的作用域成员因为被外部引用不能释放</strong>，因此内部函数依然可以访问外部函数的成员</p>
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="JavaScript性能优化"><a href="#JavaScript性能优化" class="headerlink" title="JavaScript性能优化"></a>JavaScript性能优化</h1><h2 id="V8引擎"><a href="#V8引擎" class="headerlink" title="V8引擎"></a>V8引擎</h2><ul>
+<li>V8是一款主流的JavaScript执行引擎</li>
+<li>V8采用即时编译</li>
+<li>V8内存设限（64位不超过1.5G，32位一般800兆）</li>
+</ul>
+<p> <strong>超过1.5G时，增量标记算法需要50ms，非增量标记1s</strong></p>
+<h2 id="V8垃圾回收策略"><a href="#V8垃圾回收策略" class="headerlink" title="V8垃圾回收策略"></a>V8垃圾回收策略</h2><ul>
+<li>分代回收思想</li>
+<li>内存分为新生代、老生代</li>
+<li>针对不同对象采用不同算法</li>
+</ul>
+<h2 id="V8常用的GC算法"><a href="#V8常用的GC算法" class="headerlink" title="V8常用的GC算法"></a>V8常用的GC算法</h2><ul>
+<li>分代回收</li>
+<li>空间复制</li>
+<li>标记清除</li>
+<li>标记整理</li>
+<li>标记增量（提高效率）</li>
+</ul>
+<h2 id="V8内存分配"><a href="#V8内存分配" class="headerlink" title="V8内存分配"></a>V8内存分配</h2><ul>
+<li>V8内存空间一分为二</li>
+<li>小空间用于存储新生代对象（62位32M|32位16M）</li>
+<li>新生代指存活时间较短的对象</li>
+</ul>
+<h2 id="V8如何回收新生代对象"><a href="#V8如何回收新生代对象" class="headerlink" title="V8如何回收新生代对象"></a>V8如何回收新生代对象</h2><ul>
+<li>回收过程采用复制算法+标记整理</li>
+<li>新生代内存区分为两个等大小空间</li>
+<li>使用空间为From，空闲空间为To</li>
+<li>活动对象存储于From空间</li>
+<li>标记整理后将活动对象拷贝至To</li>
+<li>From与To空间交换完成释放</li>
+</ul>
+<p><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v81.png" alt="V8内存分配" loading="lazy"></p>
+<h3 id="回收细节说明"><a href="#回收细节说明" class="headerlink" title="回收细节说明"></a>回收细节说明</h3><p> <strong>拷贝过程中可能出现晋升</strong>，晋升就是将新生代对象移至老生代<br> 触发条件</p>
 <ul>
-<li><strong>闭包（Closure）：函数和其周围的状态（此法环境）的引用捆绑在一起形成闭包</strong> <ul>
-<li><strong>可以在另一作用域中调用一个函数的内部函数并访问到该函数的作用域中的成员</strong> </li>
+<li>一轮GC还存活的新生代需要晋升</li>
+<li>To空间使用率超过25%（没有足够空间存放新对象）</li>
 </ul>
-</li>
+<h2 id="V8如何回收老生代对象"><a href="#V8如何回收老生代对象" class="headerlink" title="V8如何回收老生代对象"></a>V8如何回收老生代对象</h2><h3 id="老生代对象说明"><a href="#老生代对象说明" class="headerlink" title="老生代对象说明"></a>老生代对象说明</h3><ul>
+<li>老生代对象存放于老生代区域</li>
+<li>老生代区域64位操作系统1.4G，32位操作系统700M</li>
+<li>老生代对象就是指存货时间较长的对象</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeFn1();<span class="comment">//调用完成后msg被释放</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFn2</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;Hello Function&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//内部有函数并访问了外部函数的成员</span></span><br><span class="line">    <span class="built_in">console</span>.log(msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = makeFn2()<span class="comment">//fn引用了makeFn2中的函数，外部对内部有引用，使其不能被释放</span></span><br><span class="line">fn()<span class="comment">//延长了外部函数内部成员的作用范围</span></span><br></pre></td></tr></table></figure>
-<br>
-
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makePower</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(number, power)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求平方</span></span><br><span class="line"><span class="keyword">let</span> power2 = makePower(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> power3 = makePower(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power3(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
-<br>
-
-<h3 id="断点查看执行过程"><a href="#断点查看执行过程" class="headerlink" title="断点查看执行过程"></a>断点查看执行过程</h3><p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure1.png" alt="开始" loading="lazy"></p>
-<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure2.png" alt="执行中" loading="lazy"></p>
-<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure3.png" alt="结束" loading="lazy"> 9-0c’vvvvvvvvvvvv’SXDZZZZZZZZZZZZZZZZZZZZZZZXS<br><br></p>
-<p><strong>let作用域在script中，而var定义的对象会挂载在全局对象上</strong><br>闭包相关的外部函数是makePower<br>在内存中，外部函数被移除，相关的变量被保留<br><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure4.png" alt="闭包" loading="lazy"></p>
+<h3 id="老生代对象回收实现"><a href="#老生代对象回收实现" class="headerlink" title="老生代对象回收实现"></a>老生代对象回收实现</h3><ul>
+<li>主要采用标记清除、标记整理、增量标记算法</li>
+<li>首先使用标记清除完成垃圾空间的回收</li>
+<li>采用标记整理进行空间优化（<strong>当晋升发生，且老生代空间不足时，触发标记整理</strong>）</li>
+<li>采用增量标记进行效率优化</li>
+</ul>
+<h3 id="细节对比"><a href="#细节对比" class="headerlink" title="细节对比"></a>细节对比</h3><ul>
+<li>新生代区域垃圾回收使用空间换时间</li>
+<li>老生代区域，内存大，数据多不适合空间复制算法</li>
+</ul>
+<h3 id="标记增量如何优化垃圾回收"><a href="#标记增量如何优化垃圾回收" class="headerlink" title="标记增量如何优化垃圾回收"></a>标记增量如何优化垃圾回收</h3><p><strong>垃圾回收工作时会阻塞JavaScript执行</strong><br> <img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v82.png" alt="标记增量如何优化垃圾回收" loading="lazy"></p>
+<h2 id="Performance工具介绍"><a href="#Performance工具介绍" class="headerlink" title="Performance工具介绍"></a>Performance工具介绍</h2><ul>
+<li>GC的目的是为了实现内存空间的良性循环</li>
+<li>良性循环的基石是合理利用</li>
+</ul>
+<h3 id="内存问题的外在表现"><a href="#内存问题的外在表现" class="headerlink" title="内存问题的外在表现"></a>内存问题的外在表现</h3><ul>
+<li>页面出现延时加载或经常性暂停</li>
+<li>页面持续性出现糟糕的性能</li>
+<li>页面的性能随时间延长越来越差</li>
+</ul>
+<h3 id="界定内存问题的标准"><a href="#界定内存问题的标准" class="headerlink" title="界定内存问题的标准"></a>界定内存问题的标准</h3><ul>
+<li>内存泄漏：内存使用持续升高</li>
+<li>内存膨胀：在多数设备上都存在性能问题</li>
+<li>频繁垃圾回收：通过内存变化图进行分析</li>
+</ul>
+<h3 id="监控内存的几种方式"><a href="#监控内存的几种方式" class="headerlink" title="监控内存的几种方式"></a>监控内存的几种方式</h3><ul>
+<li>浏览器任务管理器</li>
+<li>Timeline 时序图记录</li>
+<li>堆快照查找分离 DOM</li>
+<li>判断是否存在频繁的垃圾回收</li>
+</ul>
+<h3 id="任务管理器监控内存"><a href="#任务管理器监控内存" class="headerlink" title="任务管理器监控内存"></a>任务管理器监控内存</h3><p><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v83.png" alt="任务管理器监控内存" loading="lazy"></p>
+<h3 id="Timeline记录内存"><a href="#Timeline记录内存" class="headerlink" title="Timeline记录内存"></a>Timeline记录内存</h3><p>可以查看每个事件的内存消耗和界面变化，更便于定位代码块<br><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v84.png" alt="Timeline记录内存" loading="lazy"></p>
+<h3 id="堆快照查找分离DOM"><a href="#堆快照查找分离DOM" class="headerlink" title="堆快照查找分离DOM"></a>堆快照查找分离DOM</h3><p>对当前JS堆进行照片留存，照片可以看到所有信息，这就是如何监控的由来<br>使用时，专门针对分离DOM的查找行为<br>什么是分离DOM</p>
+<ul>
+<li>界面元素存活在DOM树上</li>
+<li>垃圾对象时的DOM节点（从当前DOM树上进行了脱离，且JS未引用）</li>
+<li>分离状态的DOM节点（从当前DOM树上进行了脱离，但JS引用，内存泄漏）<br><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v85.png" alt="Timeline记录内存" loading="lazy"></li>
+</ul>
+<h3 id="判断是否存在频繁GC"><a href="#判断是否存在频繁GC" class="headerlink" title="判断是否存在频繁GC"></a>判断是否存在频繁GC</h3><p><strong>为什么确定频繁垃圾回收</strong></p>
+<ul>
+<li>GC工作时应用程序是停止的</li>
+<li>频繁且过长的GC会导致应用假死</li>
+<li>用户使用中感知应用卡顿</li>
+</ul>
+<p><strong>判断频繁垃圾回收</strong></p>
+<ul>
+<li>Timeline中频繁的上升下降</li>
+<li>任务管理器中数据频繁的增加减小</li>
+</ul>
 
         </div>
 
@@ -252,13 +324,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="../2021-03-21%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E7%BA%AF%E5%87%BD%E6%95%B0/"
+                           href="../../03/2021-05-03JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 纯函数</span>
+                                <span class="post-nav-title-item">JavaScript性能优化 —— 代码优化</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -268,10 +340,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="../../20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/"
+                           href="../../../04/29/2021-04-29JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
+                                <span class="post-nav-title-item">JavaScript性能优化 —— 垃圾回收</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -486,7 +558,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E6%9F%A5%E7%9C%8B%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-text">断点查看执行过程</span></a>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">JavaScript性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%BC%95%E6%93%8E"><span class="nav-text">V8引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="nav-text">V8垃圾回收策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%B8%B8%E7%94%A8%E7%9A%84GC%E7%AE%97%E6%B3%95"><span class="nav-text">V8常用的GC算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-text">V8内存分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E6%96%B0%E7%94%9F%E4%BB%A3%E5%AF%B9%E8%B1%A1"><span class="nav-text">V8如何回收新生代对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%94%B6%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E"><span class="nav-text">回收细节说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E8%80%81%E7%94%9F%E4%BB%A3%E5%AF%B9%E8%B1%A1"><span class="nav-text">V8如何回收老生代对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%81%E7%94%9F%E4%BB%A3%E5%AF%B9%E8%B1%A1%E8%AF%B4%E6%98%8E"><span class="nav-text">老生代对象说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%81%E7%94%9F%E4%BB%A3%E5%AF%B9%E8%B1%A1%E5%9B%9E%E6%94%B6%E5%AE%9E%E7%8E%B0"><span class="nav-text">老生代对象回收实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%86%E8%8A%82%E5%AF%B9%E6%AF%94"><span class="nav-text">细节对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E5%A2%9E%E9%87%8F%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-text">标记增量如何优化垃圾回收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="nav-text">Performance工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%96%E5%9C%A8%E8%A1%A8%E7%8E%B0"><span class="nav-text">内存问题的外在表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%95%8C%E5%AE%9A%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%87%E5%87%86"><span class="nav-text">界定内存问题的标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E5%86%85%E5%AD%98%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-text">监控内存的几种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E7%9B%91%E6%8E%A7%E5%86%85%E5%AD%98"><span class="nav-text">任务管理器监控内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timeline%E8%AE%B0%E5%BD%95%E5%86%85%E5%AD%98"><span class="nav-text">Timeline记录内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%BF%AB%E7%85%A7%E6%9F%A5%E6%89%BE%E5%88%86%E7%A6%BBDOM"><span class="nav-text">堆快照查找分离DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E9%A2%91%E7%B9%81GC"><span class="nav-text">判断是否存在频繁GC</span></a>
     </div>
 </div>
         </aside>

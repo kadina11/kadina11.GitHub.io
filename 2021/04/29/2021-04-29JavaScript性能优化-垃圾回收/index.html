@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            JavaScript性能优化 —— 垃圾回收 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">JavaScript性能优化 —— 垃圾回收</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-04-29 19:03:13
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>985 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>3 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="JavaScript性能优化"><a href="#JavaScript性能优化" class="headerlink" title="JavaScript性能优化"></a>JavaScript性能优化</h1><p>如何编写高性能的JavaScript</p>
+<p>任何提高运行效率，降低运行开销的行为，都能算性能优化</p>
+<p>内容概要</p>
+<ul>
+<li>内存管理</li>
+<li>垃圾回收与常见的GC算法</li>
+<li>V8引擎的垃圾回收</li>
+<li>Performance工具</li>
+</ul>
+<h2 id="JavaScript-内存管理"><a href="#JavaScript-内存管理" class="headerlink" title="JavaScript 内存管理"></a>JavaScript 内存管理</h2><h3 id="内存管理介绍"><a href="#内存管理介绍" class="headerlink" title="内存管理介绍"></a>内存管理介绍</h3><ul>
+<li>内存：由可读写单元组成，表示一片可操作空间</li>
+<li>管理：人为的去操作一片空间的申请、使用和释放</li>
+<li>内存管理：开发者主动申请空间、使用空间、释放空间</li>
+<li>管理流程：申请 — 使用 — 释放</li>
+</ul>
+<h3 id="JavaScript-中的内存管理"><a href="#JavaScript-中的内存管理" class="headerlink" title="JavaScript 中的内存管理"></a>JavaScript 中的内存管理</h3><ul>
+<li>申请内存空间</li>
+<li>使用内存空间</li>
+<li>释放内存空间</li>
+</ul>
+<h2 id="JavaScript-中的垃圾回收"><a href="#JavaScript-中的垃圾回收" class="headerlink" title="JavaScript 中的垃圾回收"></a>JavaScript 中的垃圾回收</h2><ul>
+<li>JavaScript 中的内存管理是自动的</li>
+<li>对象不再被引用时是垃圾</li>
+<li>对象不能从根上访问到时是垃圾<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//申请</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line">obj.name = <span class="string">&#x27;xm&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//释放</span></span><br><span class="line">obj = <span class="literal">null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="可达对象"><a href="#可达对象" class="headerlink" title="可达对象"></a>可达对象</h3><ul>
+<li>可以访问到的对象就是可达对象（引用、作用域链）</li>
+<li>可达的标准就是从根出发是否能够被找到</li>
+<li>JavaScript 中的根就可以理解为是全局变量对象（全局执行上下文）</li>
+</ul>
+<p><strong>不是只有通过根可以直接找到的对象才是可达对象</strong><br><strong>在一个作用域连上，只要通过根可以有路径查找到的对象都是可达对象</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createGroup</span>(<span class="params">obj1, obj2</span>)</span>&#123;</span><br><span class="line">  obj1.next = obj22</span><br><span class="line">  obj2.prev = obj1</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    obj1,</span><br><span class="line">    obj2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = createGroup(&#123;<span class="attr">name</span>: <span class="string">&#x27;obj1&#x27;</span>&#125;, &#123;<span class="attr">name</span>: <span class="string">&#x27;obj2&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc1.png" alt="可达对象" loading="lazy"></p>
+<h2 id="GC算法介绍"><a href="#GC算法介绍" class="headerlink" title="GC算法介绍"></a>GC算法介绍</h2><ul>
+<li>GC是一种机制，垃圾回收器完成具体的工作</li>
+<li>GC可以找到内存中的垃圾、并释放和回收空间</li>
+<li>算法就是工作时查找和回收所遵循的规则</li>
+</ul>
+<h3 id="GC中的垃圾是什么"><a href="#GC中的垃圾是什么" class="headerlink" title="GC中的垃圾是什么"></a>GC中的垃圾是什么</h3><ul>
+<li><p>程序中不再需要使用的对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  name = <span class="string">&#x27;xm&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;name&#125;</span> is a coder`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+<br></li>
+<li><p>程序中不能再访问的对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> name = <span class="string">&#x27;xm&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;name&#125;</span> is a coder`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="常见的GC算法"><a href="#常见的GC算法" class="headerlink" title="常见的GC算法"></a>常见的GC算法</h3><ul>
+<li>引用计数</li>
+<li>标记清除</li>
+<li>标记整理</li>
+<li>分代回收</li>
+</ul>
+<h2 id="引用计数算法实现原理"><a href="#引用计数算法实现原理" class="headerlink" title="引用计数算法实现原理"></a>引用计数算法实现原理</h2><p> 核心思想：设置引用数，判断当前引用数是否为0</p>
+<h3 id="引用计数器"><a href="#引用计数器" class="headerlink" title="引用计数器"></a>引用计数器</h3><ul>
+<li>引用关系发生改变时，修改引用数字</li>
+<li>引用数字为0时立即回收</li>
+</ul>
+<h3 id="引用技术算法优点"><a href="#引用技术算法优点" class="headerlink" title="引用技术算法优点"></a>引用技术算法优点</h3><ul>
+<li>发现垃圾时立即回收</li>
+<li>最大限度减少程序暂停</li>
+</ul>
+<h3 id="引用技术算法缺点"><a href="#引用技术算法缺点" class="headerlink" title="引用技术算法缺点"></a>引用技术算法缺点</h3><ul>
+<li>无法回收循环引用对象</li>
+<li>时间开销大</li>
+<li>资源消耗大</li>
+</ul>
+<p>循环引用，引用数字无法变为0，不会被回收</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> obj1 = &#123;&#125;</span><br><span class="line">  <span class="keyword">const</span> obj2 = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  obj1.name = obj2</span><br><span class="line">  obj2.name = obj1</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;test&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="标记清除算法实现原理"><a href="#标记清除算法实现原理" class="headerlink" title="标记清除算法实现原理"></a>标记清除算法实现原理</h2><p>核心思想：将垃圾回收分成标记和清除两个阶段，遍历所有对象找标记活动对象，遍历所有对象清除没有标记对象（同时抹掉一阶段标记，方便下次操作）</p>
+<p>a1和a2在局部作用域，不可达，不被标记，被清除<br><strong>回收空间放在空闲列表中，方便后续代码申请空间使用</strong><br><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc2.png" alt="标记清除算法" loading="lazy"></p>
+<h3 id="标记清除算法优点"><a href="#标记清除算法优点" class="headerlink" title="标记清除算法优点"></a>标记清除算法优点</h3><ul>
+<li>回收循环引用的对象</li>
+</ul>
+<h3 id="标记清除算法缺点"><a href="#标记清除算法缺点" class="headerlink" title="标记清除算法缺点"></a>标记清除算法缺点</h3><ul>
+<li>不会立即回收垃圾对象</li>
+<li>空间碎片化（回收空间地址不连续）<br>红色可达，蓝色不可达<br>头存放语言信息（大小，地址），域存放数据<br><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc3.png" alt="标记清除算法缺点" loading="lazy"></li>
+</ul>
+<h2 id="标记整理算法实现原理"><a href="#标记整理算法实现原理" class="headerlink" title="标记整理算法实现原理"></a>标记整理算法实现原理</h2><ul>
+<li>标记整理可以看做是标记清除算法的增强</li>
+<li>标记阶段的操作和标记清除算法一致</li>
+<li>清除阶段会先执行整理，移动对象位置</li>
+</ul>
+<h3 id="标记整理算法优点"><a href="#标记整理算法优点" class="headerlink" title="标记整理算法优点"></a>标记整理算法优点</h3><ul>
+<li>减少碎片化空间</li>
+</ul>
+<h3 id="标记整理算法缺点"><a href="#标记整理算法缺点" class="headerlink" title="标记整理算法缺点"></a>标记整理算法缺点</h3><ul>
+<li>不会立即回收垃圾对象</li>
+</ul>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../../05/02/2021-05-02JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-V8/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">JavaScript性能优化 —— V8</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../27/2021-04-27TypeScript%E8%AF%AD%E8%A8%80-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D-2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">TypeScript语言 —— 基本介绍（2）</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">JavaScript性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">JavaScript 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D"><span class="nav-text">内存管理介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">JavaScript 中的内存管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-text">JavaScript 中的垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%BE%BE%E5%AF%B9%E8%B1%A1"><span class="nav-text">可达对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-text">GC算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GC%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">GC中的垃圾是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84GC%E7%AE%97%E6%B3%95"><span class="nav-text">常见的GC算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">引用计数算法实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-text">引用计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%8A%80%E6%9C%AF%E7%AE%97%E6%B3%95%E4%BC%98%E7%82%B9"><span class="nav-text">引用技术算法优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%8A%80%E6%9C%AF%E7%AE%97%E6%B3%95%E7%BC%BA%E7%82%B9"><span class="nav-text">引用技术算法缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">标记清除算法实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95%E4%BC%98%E7%82%B9"><span class="nav-text">标记清除算法优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95%E7%BC%BA%E7%82%B9"><span class="nav-text">标记清除算法缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">标记整理算法实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95%E4%BC%98%E7%82%B9"><span class="nav-text">标记整理算法优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95%E7%BC%BA%E7%82%B9"><span class="nav-text">标记整理算法缺点</span></a>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

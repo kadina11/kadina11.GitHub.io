@@ -200,12 +200,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>412 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>6 Mins</span>
         </span>
     
     
@@ -255,12 +255,39 @@
 <h2 id="克隆优化节点操作"><a href="#克隆优化节点操作" class="headerlink" title="克隆优化节点操作"></a>克隆优化节点操作</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/clone.png" alt="克隆优化节点操作" loading="lazy"></p>
 <h2 id="直接量替换new-Object"><a href="#直接量替换new-Object" class="headerlink" title="直接量替换new Object"></a>直接量替换new Object</h2><p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/newobject.png" alt="直接量替换new" loading="lazy"></p>
 <h2 id="JSBench-使用"><a href="#JSBench-使用" class="headerlink" title="JSBench 使用"></a>JSBench 使用</h2><p><a class="link" target="_blank" rel="noopener" href="https://jsbench.me/">https://jsbench.me/<i class="fas fa-external-link-alt"></i></a></p>
-<h2 id="堆栈中代码执行流程"><a href="#堆栈中代码执行流程" class="headerlink" title="堆栈中代码执行流程"></a>堆栈中代码执行流程</h2><p>示例</p>
+<h2 id="堆栈中代码执行流程"><a href="#堆栈中代码执行流程" class="headerlink" title="堆栈中代码执行流程"></a>堆栈中代码执行流程</h2><p>浏览器提供执行环境栈，用于存放执行上下文，<br>执行时，先创建全局执行上下文,VO:变量对象<strong>基本对象存在栈中</strong>，foo是引用类型，在堆区中开辟一片区域,地址：AB1<br>foo函数被调用，开辟一个新的执行上下文，函数创建一个this指向，初始化作用域链，baz是引用类型，在堆区中开辟一片区域,地址：AB2，AO中初始化参数<br>fn指向AB2,产生闭包，EC（foo）空间不被释放，按照浏览器执行机制，把EC（foo）往下压，压到最后<br>执行fn(3)，产生一个新的执行上下文，AO中初始化参数，沿着作用域链找到参数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params">b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a+b+c)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> baz</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn = foo(<span class="number">2</span>)</span><br><span class="line">fn(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<br>
 
+<p><img src="/2021/05/03/2021-05-03JavaScript性能优化-代码优化/jsprocess.png" alt="堆栈中代码执行流程" loading="lazy"></p>
+<h2 id="减少判断层级"><a href="#减少判断层级" class="headerlink" title="减少判断层级"></a>减少判断层级</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params">part, chapter</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = [<span class="string">&#x27;ES2016&#x27;</span>, <span class="string">&#x27;Vue&#x27;</span>, <span class="string">&#x27;React&#x27;</span>, <span class="string">&#x27;Node&#x27;</span>]</span><br><span class="line">  <span class="keyword">if</span>(part)&#123;</span><br><span class="line">    <span class="keyword">if</span>(parts.includes(part))&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;属于当前课程&#x27;</span>)</span><br><span class="line">      <span class="keyword">if</span>(chapter &gt; <span class="number">5</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;您需要提供VIP身份&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请确认模块信息&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params">part, chapter</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = [<span class="string">&#x27;ES2016&#x27;</span>, <span class="string">&#x27;Vue&#x27;</span>, <span class="string">&#x27;React&#x27;</span>, <span class="string">&#x27;Node&#x27;</span>]</span><br><span class="line">  <span class="keyword">if</span>(!part)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请确认模块信息&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(parts.includes(part)) <span class="keyword">return</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;属于当前课程&#x27;</span>)</span><br><span class="line">  <span class="keyword">if</span>(chapter &gt; <span class="number">5</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;您需要提供VIP身份&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
 
+<h2 id="减少作用域链查找层级"><a href="#减少作用域链查找层级" class="headerlink" title="减少作用域链查找层级"></a>减少作用域链查找层级</h2><p>优化后：以空间换时间，具体情况要考虑产品</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;name&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  name = <span class="string">&#x27;new Name&#x27;</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">baz</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">28</span></span><br><span class="line">    <span class="built_in">console</span>.log(age)</span><br><span class="line">    <span class="built_in">console</span>.log(name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;name&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;new Name&#x27;</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">baz</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">28</span></span><br><span class="line">    <span class="built_in">console</span>.log(age)</span><br><span class="line">    <span class="built_in">console</span>.log(name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
 
+<h2 id="减少数据读取次数"><a href="#减少数据读取次数" class="headerlink" title="减少数据读取次数"></a>减少数据读取次数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;skip&#x27;</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasEle</span>(<span class="params">ele, cls</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ele.className === cls</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasEle</span>(<span class="params">ele, cls</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> clsName = ele.className</span><br><span class="line">  <span class="keyword">return</span> clsName === cls</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
 
+<h2 id="字面量与构造式"><a href="#字面量与构造式" class="headerlink" title="字面量与构造式"></a>字面量与构造式</h2><p>字面量创造基本类型差异较大<br>构造式会调用函数，而字面量直接在堆区中开辟空间，会更快<br>构造式是一个对象可以沿原型链调用方法，而字面量会内部转换成一个对象<br>扩容时构造式会更好些</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123; </span><br><span class="line">  <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  obj.name = <span class="string">&#x27;name&#x27;</span></span><br><span class="line">  obj.age = <span class="string">&#x27;age&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&#x27;string&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="string">&#x27;name&#x27;</span>,</span><br><span class="line">    age: <span class="string">&#x27;age&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;string&#x27;</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="减少循环体中活动"><a href="#减少循环体中活动" class="headerlink" title="减少循环体中活动"></a>减少循环体中活动</h2><p>每次循环用到的不变的，放到循环外</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123; </span><br><span class="line">  <span class="keyword">var</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arr[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line">  <span class="keyword">var</span> len = arr.length</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; len;i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arr[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line">  <span class="keyword">var</span> len = arr.length</span><br><span class="line">  <span class="keyword">while</span>(len--)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arr[len])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="减少声明及语句数"><a href="#减少声明及语句数" class="headerlink" title="减少声明及语句数"></a>减少声明及语句数</h2><p>之前，数据访问减少层级<br>示例中<br>优化前，代码多，词法分析时，代码没有执行，js编译器按照一定规则进行拆分，拆除w，h，空格，等号，这些单处拿出变成词法单元，之后做语法分析，最终展示st语法树，再去转成代码去执行<br>优化后，只对ele做词法分析，return中的只是数据访问</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> w = ele.offsetWidth</span><br><span class="line">  <span class="keyword">let</span> h = ele.offsetHeight</span><br><span class="line">  <span class="keyword">return</span> w * h</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> ele.offsetWidth * ele.offsetHeight</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br>
+
+<p>语句数越少，执行越快，但是不便于代码维护</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123; </span><br><span class="line">  <span class="keyword">var</span> name  = <span class="string">&#x27;name&#x27;</span></span><br><span class="line">  <span class="keyword">var</span> age = <span class="string">&#x27;age&#x27;</span></span><br><span class="line">  <span class="keyword">var</span> slogan = <span class="string">&#x27;slogan&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> name + age + slogan</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> name  = <span class="string">&#x27;name&#x27;</span>,</span><br><span class="line">      age = <span class="string">&#x27;age&#x27;</span>,</span><br><span class="line">      slogan = <span class="string">&#x27;slogan&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> name + age + slogan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="采用事件绑定"><a href="#采用事件绑定" class="headerlink" title="采用事件绑定"></a>采用事件绑定</h2><p>利用事件冒泡的机制将子元素的事件绑定到父元素上，利用父元素完成事件的监听<br>好处：解决内存的大量占用，减少事件注册</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showTxt</span> (<span class="params">ev</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = ev.target</span><br><span class="line">  <span class="keyword">if</span>(obj.nodeName.toLowerCase() === <span class="string">&#x27;li&#x27;</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj.innerHTML)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> list)&#123;</span><br><span class="line">  item.onclick = showTxt</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化后</span></span><br><span class="line"><span class="keyword">var</span> oUl = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;ul&#x27;</span>)</span><br><span class="line"></span><br><span class="line">oUl.addEventListener(<span class="string">&#x27;click&#x27;</span>, showTxt, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
         </div>
 
         
@@ -297,68 +324,143 @@
     
 
         
-            
-    <div class="valine-container">
-        <script 
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-        <div id="vcomments"></div>
-        <script >
-            function loadValine() {
-                new Valine({
-                    el: '#vcomments',
-                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
-                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
-                    meta: ['nick', 'mail', 'link'],
-                    avatar: 'wavatar',
-                    enableQQ: true,
-                    placeholder: '😜 尽情吐槽吧~',
-                    lang: 'en'.toLowerCase()
-                });
+            .valine-container {
 
-                function getAuthor(language) {
-                    switch (language) {
-                        case 'en':
-                            return 'Author';
-                        case 'zh-CN':
-                            return '博主';
-                        default:
-                            return 'Master';
-                    }
-                }
+  #vcomments {
 
-                // Add "Author" identify
-                const getValineDomTimer = setInterval(() => {
-                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
-                    if (vcards.length > 0) {
-                        let author = 'kadina';
+    .vwrap {
 
-                        if (author) {
-                            for (let vcard of vcards) {
-                                const vnick_dom = vcard.querySelector('.vhead .vnick');
-                                const vnick = vnick_dom.innerHTML;
-                                if (vnick === author) {
-                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
-                                }
-                            }
-                        }
-                        clearInterval(getValineDomTimer);
-                    } else {
-                        clearInterval(getValineDomTimer);
-                    }
-                }, 2000);
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
             }
+          }
+        }
 
-            if ('false') {
-                const loadValineTimeout = setTimeout(() => {
-                    loadValine();
-                    clearTimeout(loadValineTimeout);
-                }, 1000);
-            } else {
-                window.addEventListener('DOMContentLoaded', loadValine);
-            }
-        </script>
-    </div>
+      }
 
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
 
 
         
@@ -490,7 +592,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">JavaScript性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%8E%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">慎用全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">缓存全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95"><span class="nav-text">通过原型对象新增方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%BC%80%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1"><span class="nav-text">避开闭包陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">避免属性访问方法的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96"><span class="nav-text">For循环优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%96%B9%E6%B3%95"><span class="nav-text">选择最优的循环方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%A2%8E%E7%89%87%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0"><span class="nav-text">文档碎片优化节点添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="nav-text">克隆优化节点操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E9%87%8F%E6%9B%BF%E6%8D%A2new-Object"><span class="nav-text">直接量替换new Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSBench-%E4%BD%BF%E7%94%A8"><span class="nav-text">JSBench 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E4%B8%AD%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">堆栈中代码执行流程</span></a>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">JavaScript性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%8E%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">慎用全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">缓存全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95"><span class="nav-text">通过原型对象新增方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%BC%80%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1"><span class="nav-text">避开闭包陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">避免属性访问方法的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96"><span class="nav-text">For循环优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%96%B9%E6%B3%95"><span class="nav-text">选择最优的循环方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%A2%8E%E7%89%87%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0"><span class="nav-text">文档碎片优化节点添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E4%BC%98%E5%8C%96%E8%8A%82%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="nav-text">克隆优化节点操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E9%87%8F%E6%9B%BF%E6%8D%A2new-Object"><span class="nav-text">直接量替换new Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSBench-%E4%BD%BF%E7%94%A8"><span class="nav-text">JSBench 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E4%B8%AD%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">堆栈中代码执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E5%88%A4%E6%96%AD%E5%B1%82%E7%BA%A7"><span class="nav-text">减少判断层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E6%9F%A5%E6%89%BE%E5%B1%82%E7%BA%A7"><span class="nav-text">减少作用域链查找层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E6%AC%A1%E6%95%B0"><span class="nav-text">减少数据读取次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%8E%E6%9E%84%E9%80%A0%E5%BC%8F"><span class="nav-text">字面量与构造式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E5%BE%AA%E7%8E%AF%E4%BD%93%E4%B8%AD%E6%B4%BB%E5%8A%A8"><span class="nav-text">减少循环体中活动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E5%A3%B0%E6%98%8E%E5%8F%8A%E8%AF%AD%E5%8F%A5%E6%95%B0"><span class="nav-text">减少声明及语句数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A"><span class="nav-text">采用事件绑定</span></a>
     </div>
 </div>
         </aside>

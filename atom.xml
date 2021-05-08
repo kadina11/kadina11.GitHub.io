@@ -6,7 +6,7 @@
   <link href="atom.xml" rel="self"/>
   
   <link href="https://kadina11.github.io/"/>
-  <updated>2021-05-08T04:04:53.611Z</updated>
+  <updated>2021-05-08T06:48:12.157Z</updated>
   <id>https://kadina11.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="2021/05/07/2021-05-07%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A6%82%E8%BF%B0/"/>
     <id>2021/05/07/2021-05-07%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A6%82%E8%BF%B0/</id>
     <published>2021-05-07T10:07:47.000Z</published>
-    <updated>2021-05-08T04:04:53.611Z</updated>
+    <updated>2021-05-08T06:48:12.157Z</updated>
     
     <content type="html"><![CDATA[<h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="工程化概述"><a href="#工程化概述" class="headerlink" title="工程化概述"></a>工程化概述</h1><ul><li>面临的问题<br>技术是为了解决问题而存在的<blockquote><p>使用ES6+ 新特性，但是兼容有问题<br>使用Less / Sass / PostCss增强CSS编程性，但是运行环境不能直接支持<br>使用模块化，组件化的方式提高项目的可维护性，但运行环境不支持<br>部署上线前需要<strong>手动</strong>压缩代码及资源文件，部署过程需要手动上传代码到服务器<br>多人协同开发，无法硬性统一代码风格，从仓库中pull回来的代码质量无法保证<br>部分功能开发时需要等待后端服务接口提前完成</p></blockquote></li></ul>]]></content>
     

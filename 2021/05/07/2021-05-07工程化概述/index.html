@@ -200,7 +200,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>191 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>416 Words</span>
         </span>
     
     
@@ -225,6 +225,55 @@
 <li>面临的问题<br>技术是为了解决问题而存在的<blockquote>
 <p>使用ES6+ 新特性，但是兼容有问题<br>使用Less / Sass / PostCss增强CSS编程性，但是运行环境不能直接支持<br>使用模块化，组件化的方式提高项目的可维护性，但运行环境不支持<br>部署上线前需要<strong>手动</strong>压缩代码及资源文件，部署过程需要手动上传代码到服务器<br>多人协同开发，无法硬性统一代码风格，从仓库中pull回来的代码质量无法保证<br>部分功能开发时需要等待后端服务接口提前完成</p>
 </blockquote>
+</li>
+</ul>
+<h2 id="工程化表现"><a href="#工程化表现" class="headerlink" title="工程化表现"></a>工程化表现</h2><p>一切以提高效率、降低成本、质量保证为目的的手段都属于【工程化】<br>项目开发流程<br>创建项目 -&gt; 编码 -&gt; 预览/测试 -&gt; 提交</p>
+<div id="flowchart-0" class="flow-chart"></div>
+
+<ul>
+<li><p>创建项目过程中</p>
+<ul>
+<li>创建项目结构</li>
+<li>创建特定类型文件</li>
+</ul>
+</li>
+<li><p>编码</p>
+<ul>
+<li>格式化代码</li>
+<li>校验代码风格</li>
+<li>编译 / 构建 / 打包</li>
+</ul>
+</li>
+<li><p>预览/编译</p>
+<ul>
+<li>Web Server/Mock</li>
+<li>Live Reloading/HMR</li>
+<li>Source Map</li>
+</ul>
+</li>
+<li><p>提交</p>
+<ul>
+<li>Git Hooks</li>
+<li>Lint-staged</li>
+<li>持续集成</li>
+</ul>
+</li>
+<li><p>部署</p>
+<ul>
+<li>CI / CD</li>
+<li>自动发布</li>
+</ul>
+<p><img src="/2021/05/07//process.png" alt="工程化" loading="lazy"><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">start=>start: 创建项目|invalid
+op1=>operation: 编码|invalid
+op2=>operation: 预览/测试|invalid
+op3=>operation: 提交|invalid
+op4=>operation: 部署|invalid
+io1=>inputoutput: |request
+io2=>inputoutput: catch something…|request
+io3=>inputoutput: catch something…|request
+io4=>inputoutput: catch something…|request
+
+start(right)->op1(right)->op2(right)->op3(right)->op4(right)->op1(bot)</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 </li>
 </ul>
 
@@ -448,7 +497,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A6%82%E8%BF%B0"><span class="nav-text">工程化概述</span></a>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A6%82%E8%BF%B0"><span class="nav-text">工程化概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%8C%96%E8%A1%A8%E7%8E%B0"><span class="nav-text">工程化表现</span></a>
     </div>
 </div>
         </aside>

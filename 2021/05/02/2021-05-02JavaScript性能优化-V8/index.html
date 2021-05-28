@@ -252,7 +252,7 @@
 <li>标记整理后将活动对象拷贝至To</li>
 <li>From与To空间交换完成释放</li>
 </ul>
-<p><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v81.png" alt="V8内存分配" loading="lazy"></p>
+<p><img src="/2021/05/02//v81.png" alt="V8内存分配" loading="lazy"></p>
 <h3 id="回收细节说明"><a href="#回收细节说明" class="headerlink" title="回收细节说明"></a>回收细节说明</h3><p> <strong>拷贝过程中可能出现晋升</strong>，晋升就是将新生代对象移至老生代<br> 触发条件</p>
 <ul>
 <li>一轮GC还存活的新生代需要晋升</li>
@@ -273,7 +273,7 @@
 <li>新生代区域垃圾回收使用空间换时间</li>
 <li>老生代区域，内存大，数据多不适合空间复制算法</li>
 </ul>
-<h3 id="标记增量如何优化垃圾回收"><a href="#标记增量如何优化垃圾回收" class="headerlink" title="标记增量如何优化垃圾回收"></a>标记增量如何优化垃圾回收</h3><p><strong>垃圾回收工作时会阻塞JavaScript执行</strong><br> <img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v82.png" alt="标记增量如何优化垃圾回收" loading="lazy"></p>
+<h3 id="标记增量如何优化垃圾回收"><a href="#标记增量如何优化垃圾回收" class="headerlink" title="标记增量如何优化垃圾回收"></a>标记增量如何优化垃圾回收</h3><p><strong>垃圾回收工作时会阻塞JavaScript执行</strong><br> <img src="/2021/05/02//v82.png" alt="标记增量如何优化垃圾回收" loading="lazy"></p>
 <h2 id="Performance工具介绍"><a href="#Performance工具介绍" class="headerlink" title="Performance工具介绍"></a>Performance工具介绍</h2><ul>
 <li>GC的目的是为了实现内存空间的良性循环</li>
 <li>良性循环的基石是合理利用</li>
@@ -294,13 +294,13 @@
 <li>堆快照查找分离 DOM</li>
 <li>判断是否存在频繁的垃圾回收</li>
 </ul>
-<h3 id="任务管理器监控内存"><a href="#任务管理器监控内存" class="headerlink" title="任务管理器监控内存"></a>任务管理器监控内存</h3><p><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v83.png" alt="任务管理器监控内存" loading="lazy"></p>
-<h3 id="Timeline记录内存"><a href="#Timeline记录内存" class="headerlink" title="Timeline记录内存"></a>Timeline记录内存</h3><p>可以查看每个事件的内存消耗和界面变化，更便于定位代码块<br><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v84.png" alt="Timeline记录内存" loading="lazy"></p>
+<h3 id="任务管理器监控内存"><a href="#任务管理器监控内存" class="headerlink" title="任务管理器监控内存"></a>任务管理器监控内存</h3><p><img src="/2021/05/02//v83.png" alt="任务管理器监控内存" loading="lazy"></p>
+<h3 id="Timeline记录内存"><a href="#Timeline记录内存" class="headerlink" title="Timeline记录内存"></a>Timeline记录内存</h3><p>可以查看每个事件的内存消耗和界面变化，更便于定位代码块<br><img src="/2021/05/02//v84.png" alt="Timeline记录内存" loading="lazy"></p>
 <h3 id="堆快照查找分离DOM"><a href="#堆快照查找分离DOM" class="headerlink" title="堆快照查找分离DOM"></a>堆快照查找分离DOM</h3><p>对当前JS堆进行照片留存，照片可以看到所有信息，这就是如何监控的由来<br>使用时，专门针对分离DOM的查找行为<br>什么是分离DOM</p>
 <ul>
 <li>界面元素存活在DOM树上</li>
 <li>垃圾对象时的DOM节点（从当前DOM树上进行了脱离，且JS未引用）</li>
-<li>分离状态的DOM节点（从当前DOM树上进行了脱离，但JS引用，内存泄漏）<br><img src="/2021/05/02/2021-05-02JavaScript性能优化-V8/v85.png" alt="Timeline记录内存" loading="lazy"></li>
+<li>分离状态的DOM节点（从当前DOM树上进行了脱离，但JS引用，内存泄漏）<br><img src="/2021/05/02//v85.png" alt="Timeline记录内存" loading="lazy"></li>
 </ul>
 <h3 id="判断是否存在频繁GC"><a href="#判断是否存在频繁GC" class="headerlink" title="判断是否存在频繁GC"></a>判断是否存在频繁GC</h3><p><strong>为什么确定频繁垃圾回收</strong></p>
 <ul>

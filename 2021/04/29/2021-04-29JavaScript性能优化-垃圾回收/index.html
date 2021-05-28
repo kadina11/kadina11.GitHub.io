@@ -256,7 +256,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createGroup</span>(<span class="params">obj1, obj2</span>)</span>&#123;</span><br><span class="line">  obj1.next = obj22</span><br><span class="line">  obj2.prev = obj1</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    obj1,</span><br><span class="line">    obj2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = createGroup(&#123;<span class="attr">name</span>: <span class="string">&#x27;obj1&#x27;</span>&#125;, &#123;<span class="attr">name</span>: <span class="string">&#x27;obj2&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
 <br>
 
-<p><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc1.png" alt="可达对象" loading="lazy"></p>
+<p><img src="/2021/04/29//gc1.png" alt="可达对象" loading="lazy"></p>
 <h2 id="GC算法介绍"><a href="#GC算法介绍" class="headerlink" title="GC算法介绍"></a>GC算法介绍</h2><ul>
 <li>GC是一种机制，垃圾回收器完成具体的工作</li>
 <li>GC可以找到内存中的垃圾、并释放和回收空间</li>
@@ -295,13 +295,13 @@
 <br>
 
 <h2 id="标记清除算法实现原理"><a href="#标记清除算法实现原理" class="headerlink" title="标记清除算法实现原理"></a>标记清除算法实现原理</h2><p>核心思想：将垃圾回收分成标记和清除两个阶段，遍历所有对象找标记活动对象，遍历所有对象清除没有标记对象（同时抹掉一阶段标记，方便下次操作）</p>
-<p>a1和a2在局部作用域，不可达，不被标记，被清除<br><strong>回收空间放在空闲列表中，方便后续代码申请空间使用</strong><br><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc2.png" alt="标记清除算法" loading="lazy"></p>
+<p>a1和a2在局部作用域，不可达，不被标记，被清除<br><strong>回收空间放在空闲列表中，方便后续代码申请空间使用</strong><br><img src="/2021/04/29//gc2.png" alt="标记清除算法" loading="lazy"></p>
 <h3 id="标记清除算法优点"><a href="#标记清除算法优点" class="headerlink" title="标记清除算法优点"></a>标记清除算法优点</h3><ul>
 <li>回收循环引用的对象</li>
 </ul>
 <h3 id="标记清除算法缺点"><a href="#标记清除算法缺点" class="headerlink" title="标记清除算法缺点"></a>标记清除算法缺点</h3><ul>
 <li>不会立即回收垃圾对象</li>
-<li>空间碎片化（回收空间地址不连续）<br>红色可达，蓝色不可达<br>头存放语言信息（大小，地址），域存放数据<br><img src="/2021/04/29/2021-04-29JavaScript性能优化-垃圾回收/gc3.png" alt="标记清除算法缺点" loading="lazy"></li>
+<li>空间碎片化（回收空间地址不连续）<br>红色可达，蓝色不可达<br>头存放语言信息（大小，地址），域存放数据<br><img src="/2021/04/29//gc3.png" alt="标记清除算法缺点" loading="lazy"></li>
 </ul>
 <h2 id="标记整理算法实现原理"><a href="#标记整理算法实现原理" class="headerlink" title="标记整理算法实现原理"></a>标记整理算法实现原理</h2><ul>
 <li>标记整理可以看做是标记清除算法的增强</li>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            基于Nacos集中管理应用配置 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于Nacos集中管理应用配置</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-05-22 21:50:46
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>15 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="配置中心：基于-Nacos-集中管理应用配置"><a href="#配置中心：基于-Nacos-集中管理应用配置" class="headerlink" title="配置中心：基于 Nacos 集中管理应用配置"></a>配置中心：基于 Nacos 集中管理应用配置</h1><p>构建 Nacos 配置中心正是 Sentinel 实现集群保护的基础所在，前面咱们在 Dashboard 配置的一系列规则都要在生产环境中基于 Nacos 配置中心进行持久化存储。</p>
+<h2 id="为什么微服务架构必须部署配置中心"><a href="#为什么微服务架构必须部署配置中心" class="headerlink" title="为什么微服务架构必须部署配置中心"></a>为什么微服务架构必须部署配置中心</h2><p>现在微服务开发的主流技术是基于 Spring Boot 进行的，我们都知道 Spring Boot 默认配置文件为 application.yml 或者 application.properties。它保存了应用的主要配置信息，这些配置文件会随着应用发布被打包放入 Jar 文件，随着应用加载并运行。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/1.png" alt="配置文件分散在应用中" loading="lazy"></p>
+<center>配置文件分散在应用中</center>
+
+<p>当我们的应用只有几个微服务时这些配置文件分散的存放在各个 Jar 中还没有问题。但是如果我们开发了大型互联网应用，涉及几十个研发团队、上百台服务器、上千个服务实例时，互联网的运维团队就要面对因为数量级增加带来的挑战了，总结下运维主要来自三个方面。</p>
+<p>第一，纯粹的工作量增加。假设微服务 A 有 400 个实例，这些配置文件 application.yml 分散存储在每一个 Jar 中，此时因为机房环境变化，数据库服务器的 IP 变更，运维人员就不得不在 400 个实例中对每一个数据库连接 URL 进行调整，这个过程费时费力还容易出错。</p>
+<p>第二，版本管理的需求。因为生产环境的状况远比开发、测试环境复杂，谁都无法保证新版本服务上线时新应用一定不会出问题。如果出现重大故障，生产环境下必须具备应用版本回滚的机制，保证生产可用的前提下再分析故障原因，而这个场景中如何对配置文件进行版本管理也是必须要考虑到的。</p>
+<p>第三，多环境之间的切换。在成熟的软件研发流程中，是拥有多套不同环境的，例如：开发环境、测试环境、UAT 环境、仿真环境、生产环境。不同环境中各种组件的 IP、用户名、密码、配置项都会有差异，在不同环境下运行要求应用具备快速切换并加载对应的配置文件的能力，显然将配置写死在 Jar 中是无法满足这个要求的。</p>
+<p>为了解决这些问题，在现有的微服务架构下，必须额外的引入“配置中心”这一组件，配置中心的职责就是集中管理微服务架构中每一个服务实例的配置数据。当微服务架构引入配置中心后，微服务应用只需持有应用启动的最小化配置，在应用启动时微服务应用所需的其他配置数据，诸如数据库连接字符串、各种用户名密码、IP 等信息均从配置中心远程下载，不再本地保存。同时，作为开发应用的程序员，在书写应用配置时也不再直接写入 application.yml 配置，而是直接在配置中心提供的 UI 进行设置。</p>
+<p>当引入配置中心后，微服务的架构会产生如下变化。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/2.png" alt="配置中心的作用" loading="lazy"></p>
+<center>配置中心的作用</center>
+
+<p>研发运维人员在配置中心提前定义各种环境的配置信息，之后在微服务实例启动时根据服务名、环境等从配置中心查询配置数据并下载到服务实例本地，最后服务实例加载这些来自配置中心的配置信息完成应用的启动。</p>
+<p>说到这想必你对配置中心的作用已经了解，在 Spring Cloud Alibaba 这个架构下，Nacos 除了能作为注册中心，还提供了配置中心的功能。别看 Nacos 身兼多职，但每一项职责也并不平庸，Nacos 作为配置中心，除了基本的配置存储，还提供了版本管理、变更推送、监听查询以及友好的中文 UI 界面，无论是研发人员还是运维人员都可以快速上手实现应用配置。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/3.png" alt="Nacos 动态配置服务" loading="lazy"></p>
+<center>Nacos 动态配置服务</center>
+
+<h2 id="部署-Nacos-配置中心与服务接入"><a href="#部署-Nacos-配置中心与服务接入" class="headerlink" title="部署 Nacos 配置中心与服务接入"></a>部署 Nacos 配置中心与服务接入</h2><h3 id="部署-Nacos-配置中心"><a href="#部署-Nacos-配置中心" class="headerlink" title="部署 Nacos 配置中心"></a>部署 Nacos 配置中心</h3><p>Nacos 本身就同时具备注册中心与配置中心职责，在部署方面与之前部署 Nacos 集群基本一致。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/4.png" alt="配置列表页面" loading="lazy"></p>
+<center>配置列表页面</center>
+
+<h3 id="微服务接入-Nacos-配置中心"><a href="#微服务接入-Nacos-配置中心" class="headerlink" title="微服务接入 Nacos 配置中心"></a>微服务接入 Nacos 配置中心</h3><p>第一步，创建工程引入依赖。</p>
+<p>利用 Spring Initializr 向导创建 order-service 订单服务工程，确保 pom.xml 引入以下 3 个依赖。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring Boot Web模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Nacos注册中心starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Nacos配置中心starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>第二步，在工程创建配置文件。</p>
+<p>在接入 Nacos 配置中心之前，要确保 Spring Boot 配置是完整的。application.yml 文件内容如下，注意最后两行，custom 开头的配置项是自定义的，等一下用于演示环境切换。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8000</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">order-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span> <span class="comment">#Nacos通信地址</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line"><span class="attr">custom:</span> <span class="comment">#自定义配置项</span></span><br><span class="line">  <span class="attr">flag:</span> <span class="string">development</span></span><br><span class="line">  <span class="attr">database:</span> <span class="number">192.168</span><span class="number">.10</span><span class="number">.31</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>第三步，创建演示代码。</p>
+<p>新建 TestController，增加 /test 接口，将配置文件中两个自定义配置输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;custom.flag&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String flag;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;custom.database&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String database;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;flag:&quot;</span> + flag + <span class="string">&quot;&lt;br/&gt; database:&quot;</span> + database;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第四步，启动应用查看结果。</p>
+<p>打开浏览器，访问下面网址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:8000/test</span></span><br><span class="line">结果如下：</span><br><span class="line"><span class="attr">flag</span>:development</span><br><span class="line"><span class="attr">database</span>:<span class="number">192.168</span><span class="number">.10</span><span class="number">.31</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中 flag：development 说明当前是“开发环境”。<br>一切准备就绪，下面我们接入 Nacos 配置中心。</p>
+<p>第一步，打开 Nacos 配置中心页面，新建配置。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/5.png" alt="创建新的配置" loading="lazy"></p>
+<center>创建新的配置</center>
+
+<p>在新建配置页面包含六个选项：Data ID、Group、描述、说明、配置格式与配置内容</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/6.png" alt="创建新的配置" loading="lazy"></p>
+<center>order-service-dev.yml 配置</center>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">order-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="comment"># Nacos帮助文档: https://nacos.io/zh-cn/docs/concepts.html</span></span><br><span class="line">    <span class="comment"># Nacos认证信息</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.131</span><span class="string">:8848,192.168.157.130:8848,192.168.157.132:8848</span></span><br><span class="line">        <span class="comment"># 注册到 nacos 的指定 namespace，默认为 public</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">public</span></span><br><span class="line"><span class="comment"># 应用服务 WEB 访问端口</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">okhttp:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">compression:</span></span><br><span class="line">    <span class="attr">request:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">mime-types:</span> <span class="string">text/xml,application/xml,application/json</span></span><br><span class="line">      <span class="attr">min-request-size:</span> <span class="number">1024</span></span><br><span class="line">    <span class="attr">response:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">warehouse-service:</span> <span class="comment">#服务提供者的微服务ID</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="comment">#设置对应的负载均衡类</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.RandomRule</span></span><br><span class="line"></span><br><span class="line"><span class="attr">custom:</span></span><br><span class="line">  <span class="attr">flag:</span> <span class="string">DEVELOPMENT</span></span><br><span class="line">  <span class="attr">database:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Data ID</strong>：配置的唯一标识，格式固定为：{微服务id}-{环境名}.yml，这里填写 order-service-dev.yml，其中 dev 就是环境名代表这个配置文件是 order-service 的开发环境配置文件。</p>
+</li>
+<li><p><strong>Group</strong>：指定配置文件的分组，这里设置默认分组 DEFAULT_GROUP 即可。</p>
+</li>
+<li><p><strong>描述</strong>：说明 order-service-dev.yml 配置文件的用途。</p>
+</li>
+<li><p><strong>配置格式</strong>：指定“配置内容”的类型，这里选择 YAML 即可。</p>
+</li>
+<li><p><strong>配置内容</strong>：将 order-service 工程的 application.yml 文件内容粘贴过来。</p>
+</li>
+</ul>
+<p>与此同时，在 nacos_config 数据库的 config_info 表中也出现了对应配置数据。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/7.png" alt="config_info" loading="lazy"></p>
+<center>config_info 表</center>
+
+<p>第二步，回到 order-service 工程，删除 application.yml，因为这个文件内容已经保存在 Nacos 配置中心中了。</p>
+<p>第三步，在 resources 目录下创建 bootstrap.yml 引导文件，对 Nacos 配置中心地址进行设置。注意，bootstrap.yml 文件名是固定的，不要随意改变。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">order-service</span> <span class="comment">#微服务id</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">dev</span> <span class="comment">#环境名</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">config:</span> <span class="comment">#Nacos配置中心配置</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yml</span> <span class="comment">#文件扩展名</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line"><span class="attr">logging:</span> <span class="comment">#开启debug日志，仅为学习时使用</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">root:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的配置中，包含了两部分内容，第一部分说明 Nacos 配置中心的 IP 端口等信息，第二部分是通过文件中的 “微服务 id”-“环境名”.“文件扩展名” 三部分组合为有效的 data id，即order-service-dev.yml。</p>
+<p><strong>这个 data id 要和 Nacos 的设置大小写保持完全一致</strong>，这样在微服务启动时便自动会从 Nacos配置中心获取 order-service-dev.yml 配置并下载到本地完成启动过程。</p>
+<p>通过 Debug 日志发现，在启动时微服务向 Nacos 查询 order-service-dev.yml 的内容，并将配置内容打印在 Debug 级别日志中，之后作为应用配置加载完成启动。<br>访问 <a class="link" target="_blank" rel="noopener" href="http://localhost:8000/test">http://localhost:8000/test<i class="fas fa-external-link-alt"></i></a> 运行结果如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag:development</span><br><span class="line"><span class="attr">database</span>:<span class="number">192.168</span><span class="number">.10</span><span class="number">.31</span></span><br></pre></td></tr></table></figure>
+
+
+<p>到这里我们完成了 Nacos 配置中心的接入。这里做个小总结，因为我们把配置数据放在 Nacos 配置中心中，微服务在启动时自动进行下载，因此同一个微服务的所有实例得到的配置信息都是一致的，如果需要调整里面的配置，只需在 Nacos 中进行调整，然后让微服务实例重启即可重新下载生效。</p>
+<p>说到这你肯定又联想到另一个问题，一旦配置变更就必须手动重启，那运维的效率还是太低，如果微服务能自动监听到配置变化自动加载新配置那岂不是更好。答案是肯定的，Nacos 通过主动推送方式允许程序在运行期间重新下载配置，下面我们就来介绍几个在生产中实用的配置技巧。</p>
+<h2 id="Nacos-生产环境中的配置技巧"><a href="#Nacos-生产环境中的配置技巧" class="headerlink" title="Nacos 生产环境中的配置技巧"></a>Nacos 生产环境中的配置技巧</h2><h3 id="配置热加载技术"><a href="#配置热加载技术" class="headerlink" title="配置热加载技术"></a>配置热加载技术</h3><p>在 Nacos 中支持配置热加载，在运行过程中允许直接对新的配置项进行重新加载而不需要手动重启。首先咱们了解下热加载背后的处理机制。</p>
+<p>Nacos 采用的是 Pull 拉取模式，但并不是简单的 Pull，而是一种长轮训机制。客户端采用长轮训的方式定时发起 Pull 请求，去检查服务端配置信息是否发生了变更，如果发生了变更，则客户端会根据变更的数据获得最新的配置。所谓的长轮训，是客户端发起轮训请求之后，服务端如果有配置发生变更，就直接返回。</p>
+<p>如果客户端发起 Pull 请求后，发现服务端的配置和客户端的配置是保持一致的，那么服务端会先“Hold”住这个请求，也就是服务端拿到这个连接之后在指定的时间段内一直不返回结果，直到这段时间内配置发生变化，服务端会把原来“Hold”住的请求进行返回，如图所示：</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/8.png" alt="配置中心长轮询机制" loading="lazy"></p>
+<center>Nacos 配置中心长轮询机制</center>
+
+<p>Nacos 服务端收到请求之后，先检查配置是否发生了变更，如果没有，则设置一个定时任务，延期 29.5s 执行，并且把当前的客户端长轮询连接加入 allSubs 队列。这时候有两种方式触发该连接结果的返回：</p>
+<ul>
+<li><p>第一种是在等待 29.5s 后触发自动检查机制，这时候不管配置有没有发生变化，都会把结果返回客户端。而 29.5s 就是这个长连接保持的时间。</p>
+</li>
+<li><p>第二种是在 29.5s 内任意一个时刻，通过 Nacos Dashboard 或者 API 的方式对配置进行了修改，这会触发一个事件机制，监听到该事件的任务会遍历 allSubs 队列，找到发生变更的配置项对应的 ClientLongPolling 任务，将变更的数据通过该任务中的连接进行返回，就完成了一次“推送”操作。</p>
+</li>
+</ul>
+<p>这样既能够保证客户端实时感知配置的变化，也降低了服务端的压力。其中，这个长连接的会话超时时间默认为 30s。</p>
+<p>为了支持热加载，服务 A 的程序针对热加载需要作出如下变动：</p>
+<p>第一，配置数据必须被封装到单独的配置 Bean 中；</p>
+<p>第二，这个配置 Bean 需要被 @Configuration 与 @RefreshScope 两个注解描述。</p>
+<p>下面我们通过实例讲解：<br>对原有 order-server 作出修改，将 flag 与 database 两个属性移到单独的配置 Bean，并加入 @Configuration 与 @RefreshScope 注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.context.config.annotation.RefreshScope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;custom.flag&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String flag;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;custom.database&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String database;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFlag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlag</span><span class="params">(String flag)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flag = flag;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDatabase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> database;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDatabase</span><span class="params">(String database)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.database = database;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中，@Configuration 说明当前 Bean 是一个配置 Bean。是 Spring Boot 自带的 Java Config 注解。而 @RefreshScope 则用于监听，当 Nacos 推送新的配置后，由这个注解负责接收并为属性重新赋值。</p>
+<p>此外，原有的 TestController 代码变更为引用 CustomConfig 对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> CustomConfig customConfig;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;flag:&quot;</span> + customConfig.getFlag() + <span class="string">&quot;&lt;br/&gt; database:&quot;</span> + customConfig.getDatabase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动应用后，咱们在 Nacos 手动改变配置信息</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/9.png" alt="配置变更对比" loading="lazy"></p>
+<center>配置变更对比</center>
+
+<p>确认发布后，在 order-service 服务的日志立即产生重新加载的信息，提示“Refresh Nacos config”。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2022-05-28 01:06:17.673  INFO 16368 --- [68.157.132_8848] o.s.c.e.event.RefreshEventListener       : Refresh keys changed: [custom.flag]</span><br><span class="line"></span><br><span class="line">2022-05-28 01:06:17.673 DEBUG 16368 --- [68.157.132_8848] c.a.c.n.refresh.NacosContextRefresher    : Refresh Nacos config group=DEFAULT_GROUP,dataId=order-service-dev.yml,configInfo=# 应用名称</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下，新的配置已即时生效：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flag:<span class="literal">true</span></span><br><span class="line"><span class="attr">database</span>:<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="切换环境配置文件"><a href="#切换环境配置文件" class="headerlink" title="切换环境配置文件"></a>切换环境配置文件</h3><p>假如产品开发完成准备投产，便可利用 Nacos 提供的环境配置迅速完成从开发到生产环境的切换，来看我演示。</p>
+<p>第一步，在 Nacos 中设置生产环境的配置，Data Id 为 order-service-prd.yml，其中 prd 是 production 的缩写，代表生产环境配置。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">order-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">10.181</span><span class="number">.36</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line"><span class="attr">custom:</span> <span class="comment">#自定义配置项</span></span><br><span class="line">  <span class="attr">flag:</span> <span class="string">production</span></span><br><span class="line">  <span class="attr">database:</span> <span class="number">10.181</span><span class="number">.36</span><span class="number">.22</span></span><br></pre></td></tr></table></figure>
+
+<p>第二步，调整 order-service 的 bootstrap.yml 引导文件，最重要的地方是修改环境名为 prd，同时更换为生产环境 Nacos 的通信地址，打包后发布。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">order-service</span> <span class="comment">#微服务id</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">prd</span> <span class="comment">#环境名</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">config:</span> <span class="comment">#这里配置的是Nacos配置中心</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yml</span> <span class="comment">#指定文件扩展名</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.131</span><span class="string">:8848,192.168.157.130:8848,192.168.157.132:8848</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br></pre></td></tr></table></figure>
+
+<p>访问<a class="link" target="_blank" rel="noopener" href="http://localhsot:8081/test">http://localhsot:8081/test<i class="fas fa-external-link-alt"></i></a><br>运行结果如下，这里看到 flag:production 说明已切换到生产环境。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag:DEVELOPMENT </span><br><span class="line"><span class="attr">database</span>:<span class="number">10.181</span><span class="number">.36</span><span class="number">.22</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="管理基础配置数据"><a href="#管理基础配置数据" class="headerlink" title="管理基础配置数据"></a>管理基础配置数据</h3><p>对比 order-service-dev.yml 与 order-service-prd.yml 发现，在不同环境的配置文件中普遍存在固定的配置项，例如：spring.application.name=order-service 配置项就是稳定的，且修改它会影响所有环境配置文件。对于这种基础的全局配置，我们可以将其存放到单独的 order-service.yml 配置中，在 order-service 服务启动时，这个不带环境名的配置文件必然会被加载。</p>
+<p><img src="/2022/05/22/2022-05-22基于Nacos集中管理应用配置/10.png" alt="order-service.yml" loading="lazy"></p>
+<center>order-service.yml 包含基础配置</center>
+
+<p>order-service-dev.yml 只包含与开发环境的相关配置。</p>
+<p>order-service-prd.yml 只包含与生产环境的相关配置。</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../28/2022-05-28Sentinel%E8%BF%9B%E9%98%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Sentinel进阶应用场景</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../21/2022-05-21%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%9B%AA%E5%B4%A9%E6%95%88%E5%BA%94%E4%B8%8E%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">微服务架构雪崩效应与服务限流</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%EF%BC%9A%E5%9F%BA%E4%BA%8E-Nacos-%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">配置中心：基于 Nacos 集中管理应用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%BF%85%E9%A1%BB%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">为什么微服务架构必须部署配置中心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-Nacos-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%B8%8E%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%85%A5"><span class="nav-text">部署 Nacos 配置中心与服务接入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-Nacos-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">部署 Nacos 配置中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%85%A5-Nacos-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">微服务接入 Nacos 配置中心</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E6%8A%80%E5%B7%A7"><span class="nav-text">Nacos 生产环境中的配置技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%83%AD%E5%8A%A0%E8%BD%BD%E6%8A%80%E6%9C%AF"><span class="nav-text">配置热加载技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">切换环境配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE"><span class="nav-text">管理基础配置数据</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

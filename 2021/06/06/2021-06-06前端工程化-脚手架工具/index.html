@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            前端工程化 —— 脚手架工具 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">前端工程化 —— 脚手架工具</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-06-06 11:39:20
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>993 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><h1 id="脚手架工具"><a href="#脚手架工具" class="headerlink" title="脚手架工具"></a>脚手架工具</h1><h2 id="脚手架的本质作用"><a href="#脚手架的本质作用" class="headerlink" title="脚手架的本质作用"></a>脚手架的本质作用</h2><p>创建项目基础结构、提供项目规范和约定</p>
+<ul>
+<li>相同的组织结构</li>
+<li>相同的开发范式</li>
+<li>相同的模块依赖</li>
+<li>相同的工具配置</li>
+<li>相同的基础代码</li>
+</ul>
+<h2 id="Yeoman"><a href="#Yeoman" class="headerlink" title="Yeoman"></a>Yeoman</h2><p>更像脚手架运行平台，可以搭配不同的generator创建任何类型的项目，创建自己的generator，定制属于自己的前端脚手架</p>
+<ul>
+<li><p>在全局范围安装yo</p>
+<blockquote>
+<p>npm install yo –global # or yarn global add yo</p>
+</blockquote>
+</li>
+<li><p>安装对应的generator</p>
+<blockquote>
+<p>npm install generator-node –global # or yarn global add generator-node</p>
+</blockquote>
+</li>
+<li><p>通过yo运行generator</p>
+<blockquote>
+<p>cd path/to/project-dir<br>mkdir my-module<br>yo node</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Sub-Generator"><a href="#Sub-Generator" class="headerlink" title="Sub Generator"></a>Sub Generator</h2><p>有时候不需要完整的项目结构，在已有项目基础上创建特定类型的文件，使用sub generator生成特定文件</p>
+<ul>
+<li><p>安装 Sub Generator</p>
+<blockquote>
+<p>yo node:cli</p>
+</blockquote>
+</li>
+<li><p>link到全局</p>
+<blockquote>
+<p>yo link</p>
+</blockquote>
+</li>
+<li><p>安装依赖</p>
+<blockquote>
+<p>yarn</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="自定义Generator"><a href="#自定义Generator" class="headerlink" title="自定义Generator"></a>自定义Generator</h2><p>基于自己的基础代码和业务代码，让脚手架去生成这些代码<br>名称命名格式必须是**generator-<name>**的格式</name></p>
+<h3 id="Generator基本结构"><a href="#Generator基本结构" class="headerlink" title="Generator基本结构"></a>Generator基本结构</h3><p><img src="/2021/06/06/2021-06-06前端工程化-脚手架工具/generator.png" alt="generator" loading="lazy"></p>
+<ul>
+<li><p>创建生成器文件夹</p>
+<blockquote>
+<p>mkdir generator-sample<br>cd generator-sample</p>
+</blockquote>
+</li>
+<li><p>创建package.json</p>
+<blockquote>
+<p>yarn init</p>
+</blockquote>
+</li>
+<li><p>安装yeoman-generator 提供生成器基类，提供了一部分工具函数，使生成器创建更加便捷</p>
+<blockquote>
+<p>yarn add yeoman-generator</p>
+</blockquote>
+</li>
+<li><p>创建入口文件</p>
+<blockquote>
+<p>app/index.js</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此文件作为Generator的核心入口</span></span><br><span class="line"><span class="comment">//需要到处一个继承自Yeoman Generator 的类型</span></span><br><span class="line"><span class="comment">//Yeoman Generator在工作时会自动调用我们在此类型中定义的一些生命周期方法</span></span><br><span class="line"><span class="comment">//我们在这些方法中可以通过调用父类提供的一些工具方法实现一些功能，例如文件写入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Generator = <span class="built_in">require</span>(<span class="string">&#x27;yeoman-generator&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Generator</span> </span>&#123;</span><br><span class="line">  writing () &#123;</span><br><span class="line">    <span class="comment">//yeoman 工作时，生成文件阶段，自动调用此方法</span></span><br><span class="line">    <span class="comment">//通过fs往项目中写入文件</span></span><br><span class="line">    <span class="comment">//此fs比node中fs更强大，高度封装</span></span><br><span class="line">    <span class="built_in">this</span>.fs.write(<span class="comment">//接受两个参数，写入文件的绝对路径，写入文件内容</span></span><br><span class="line">      <span class="built_in">this</span>.destinationPath(<span class="string">&#x27;temp.txt&#x27;</span>),<span class="comment">//destinationPath 获取生成项目目录下的路径</span></span><br><span class="line">      <span class="built_in">Math</span>.random().toString()</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用模板去创建多文件或复杂内容文件"><a href="#使用模板去创建多文件或复杂内容文件" class="headerlink" title="使用模板去创建多文件或复杂内容文件"></a>使用模板去创建多文件或复杂内容文件</h4><p>将需要生成的文件放入 app/templates 目录下<br>模板文件可以使用 EJS 模板标记输出数据<br>使用模板时，不需要使用fs来写入文件，可以使用模板引擎的方法</p>
+<h4 id="使用prompting-设置问题、接受用户输入"><a href="#使用prompting-设置问题、接受用户输入" class="headerlink" title="使用prompting() 设置问题、接受用户输入"></a>使用prompting() 设置问题、接受用户输入</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Generator = <span class="built_in">require</span>(<span class="string">&#x27;yeoman-generator&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Generator</span> </span>&#123;</span><br><span class="line">  prompting () &#123;</span><br><span class="line">    <span class="comment">// yeoman 在询问用户环节会自动调用此方法</span></span><br><span class="line">    <span class="comment">// 在此方法中可以调用父类的 prompt() 方法发出对用户的命令行询问</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.prompt([</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;input&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;name&#x27;</span>, <span class="attr">message</span>: <span class="string">&#x27;&#x27;</span>, </span><br><span class="line">        <span class="attr">default</span>: <span class="built_in">this</span>.appname<span class="comment">//父类文件夹名称</span></span><br><span class="line">      &#125;</span><br><span class="line">    ])</span><br><span class="line">    .then(<span class="function"><span class="params">answers</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.answers = answers <span class="comment">//以键对值的方式返回信息</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  writing () &#123;</span><br><span class="line">    <span class="comment">//yeoman 工作时，生成文件阶段，自动调用此方法</span></span><br><span class="line">    <span class="comment">//通过fs往项目中写入文件</span></span><br><span class="line">    <span class="comment">//此fs比node中fs更强大，高度封装</span></span><br><span class="line">    <span class="comment">/* this.fs.write(//接受两个参数，写入文件的绝对路径，写入文件内容</span></span><br><span class="line"><span class="comment">      this.destinationPath(&#x27;temp.txt&#x27;),//destinationPath 获取生成项目目录下的路径</span></span><br><span class="line"><span class="comment">      Math.random().toString()</span></span><br><span class="line"><span class="comment">    ) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过模板方式写入文件到目标目录</span></span><br><span class="line">    <span class="comment">//模板文件路径</span></span><br><span class="line">    <span class="keyword">const</span> tpl = <span class="built_in">this</span>.templatePath(<span class="string">&#x27;foo.txt&#x27;</span>)</span><br><span class="line">    <span class="comment">//输出目标路径</span></span><br><span class="line">    <span class="keyword">const</span> outPut = <span class="built_in">this</span>.destinationPath(<span class="string">&#x27;foo.txt&#x27;</span>)</span><br><span class="line">    <span class="comment">//模板数据上下文</span></span><br><span class="line">    <span class="keyword">const</span> context = &#123;<span class="attr">title</span>: <span class="string">&#x27;hello generator&#x27;</span>, <span class="attr">success</span>: <span class="literal">false</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.fs.copyTpl(tpl, outPut, context)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> tpl1 = <span class="built_in">this</span>.templatePath(<span class="string">&#x27;bar.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> output1 = <span class="built_in">this</span>.destinationPath(<span class="string">&#x27;bar.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> context1 = <span class="built_in">this</span>.answers</span><br><span class="line">    <span class="built_in">this</span>.fs.copyTpl(tpl1, output1, context1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行 yo <name></name></li>
+</ul>
+<h2 id="发布Generator"><a href="#发布Generator" class="headerlink" title="发布Generator"></a>发布Generator</h2><p>发布Generator实际就是发布一个npm模块</p>
+<ul>
+<li><p>托管到公开的源代码仓库<br><img src="/2021/06/06/2021-06-06前端工程化-脚手架工具/publish.png" alt="publish" loading="lazy"></p>
+</li>
+<li><p>发布<br><img src="/2021/06/06/2021-06-06前端工程化-脚手架工具/yarn.png" alt="yarn" loading="lazy"></p>
+</li>
+<li><p>发布成功<br><img src="/2021/06/06/2021-06-06前端工程化-脚手架工具/success.png" alt="success" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="Plop简介"><a href="#Plop简介" class="headerlink" title="Plop简介"></a>Plop简介</h2><p>小型的脚手架工具，用于创建特定文件的脚手架工具，一般集成于项目中，通常同于创建同类型的文件</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../../11/10/2021-11-10react%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">20211-11-10react设计原理</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../../05/07/2021-05-07%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A6%82%E8%BF%B0/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">工程化概述</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7"><span class="nav-text">脚手架工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%89%8B%E6%9E%B6%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%BD%9C%E7%94%A8"><span class="nav-text">脚手架的本质作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yeoman"><span class="nav-text">Yeoman</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sub-Generator"><span class="nav-text">Sub Generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Generator"><span class="nav-text">自定义Generator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-text">Generator基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E5%8E%BB%E5%88%9B%E5%BB%BA%E5%A4%9A%E6%96%87%E4%BB%B6%E6%88%96%E5%A4%8D%E6%9D%82%E5%86%85%E5%AE%B9%E6%96%87%E4%BB%B6"><span class="nav-text">使用模板去创建多文件或复杂内容文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8prompting-%E8%AE%BE%E7%BD%AE%E9%97%AE%E9%A2%98%E3%80%81%E6%8E%A5%E5%8F%97%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5"><span class="nav-text">使用prompting() 设置问题、接受用户输入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83Generator"><span class="nav-text">发布Generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plop%E7%AE%80%E4%BB%8B"><span class="nav-text">Plop简介</span></a>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

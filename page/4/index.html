@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="active"
+                       href="../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/04/06/2021-04-06Promise%E5%AE%9E%E7%8E%B0-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0/">
+                        Promise实现 —— 核心逻辑实现
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营Promise的执行核心逻辑的实现
+Promise就是一个类，在执行这个类的时候，需要传递一个执行器进去，执行器会立即执行
+Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Apr 06 2021 22:11:26 GMT+0800">2021-04-06</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/04/06/2021-04-06Promise%E5%AE%9E%E7%8E%B0-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/04/06/2021-04-06JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-Generator/">
+                        JavaScript异步编程 —— Generator
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营本章介绍了Generator提供的异步方案，用生成器函数yield暂停生成器函数执行的特点，来使用生成器函数生成更优的异步编程体验。Async/Await语法糖，不需要调用next()方法，就可达成异步效果。
+G...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Apr 06 2021 22:04:24 GMT+0800">2021-04-06</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/04/06/2021-04-06JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B-Generator/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/04/05/2021-04-05JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-Promise/">
+                        JavaScript异步函数 —— Promise
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营Promise相比传统回调的方式，最大的优势：通过链式调用解决回调过程中的问题。
+
+Promise对象的then方法会返回一个全新的Promise对象
+后面的then方法就是在为上一个then返回的Promise...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Apr 05 2021 17:39:55 GMT+0800">2021-04-05</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/04/05/2021-04-05JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-Promise/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/04/04/2021-04-04JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">
+                        JavaScript异步函数 —— 前置知识
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。
+优点：安全，简单缺点：出现假死情况...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Apr 04 2021 14:07:13 GMT+0800">2021-04-04</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/04/04/2021-04-04JavaScript%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/30/2021-03-30%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Folktale/">
+                        函数式编程 —— Folktale
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+Task异步执行
+异步任务的实现过于复杂，我们使用folktale中的Task来演示
+folktale一个标准的函数式编程库
+和lodash、ramda不同的是，他没有提供很多功能函数
+只提供了一些函数式处理...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Mar 30 2021 21:57:00 GMT+0800">2021-03-30</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/30/2021-03-30%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Folktale/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/23/2021-03-23%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-lodash-FP%E6%A8%A1%E5%9D%97/">
+                        函数式编程lodash —— FP模块
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+lodash中的FP模块
+lodash的fp模块提供了实用的对函数式编程友好的方法
+提供了不可变auto-curries iteratee-first data-last的方法
+lodash和lodash/f...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Mar 23 2021 22:04:45 GMT+0800">2021-03-23</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/23/2021-03-23%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-lodash-FP%E6%A8%A1%E5%9D%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/22/2021-03-22%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88/">
+                        函数式编程 —— 函数组合
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+函数组合
+
+
+纯函数和柯里化很容易写出洋葱代码 h(g(f(x)))
+函数组合可以让我们把细粒度的函数重新组合成一个新的函数
+lodash中组合函数flow()或者flowRight()，他们都可以组合多个函...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Mar 22 2021 22:47:29 GMT+0800">2021-03-22</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/22/2021-03-22%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/21/2021-03-21%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E7%BA%AF%E5%87%BD%E6%95%B0/">
+                        函数式编程 —— 纯函数
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+纯函数
+
+纯函数的概念
+函数的返回结果只依赖于它的参数
+函数执行过程里面没有副作用
+
+纯函数对相同的输入始终有相同的输出
+lodash是一个纯函数的功能库，提供了对数组、数字、对象、字符串、函数等操作的一些方...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Mar 21 2021 14:03:21 GMT+0800">2021-03-21</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/21/2021-03-21%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E7%BA%AF%E5%87%BD%E6%95%B0/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/21/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E9%97%AD%E5%8C%85/">
+                        函数式编程 —— 闭包
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+闭包函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Mar 21 2021 00:18:59 GMT+0800">2021-03-21</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/21/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E9%97%AD%E5%8C%85/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/03/20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/">
+                        函数式编程 —— 前置知识（三）
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        文章内容输入来源：拉勾教育大前端训练营
+
+常用的高阶函数
+forEach 
+map 
+filter
+every
+some
+find/findIndex
+reduce
+sort
+……
+
+本篇模拟了常用的几个高阶函数高阶函数都需要函数作为参数，这样使函数...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Mar 20 2021 21:58:14 GMT+0800">2021-03-20</span></span>
+        
+        
+    </div>
+
+    <a href="../../2021/03/20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+        <a class="prev btn"
+           href="../3/"
+        >Prev</a>
+    
+
+    
+        <a class="next btn"
+           href="../5/"
+        >Next</a>
+    
+</div>
+
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            Seata分布式事务实战教程 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Seata分布式事务实战教程</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-06-16 23:22:42
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/java-%E5%BE%AE%E6%9C%8D%E5%8A%A1-seata/">java | 微服务 seata</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/java-%E5%BE%AE%E6%9C%8D%E5%8A%A1-nacos-seata/">java,微服务,nacos seata</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>18 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="综合应用：Seata-分布式事务实战教程"><a href="#综合应用：Seata-分布式事务实战教程" class="headerlink" title="综合应用：Seata 分布式事务实战教程"></a>综合应用：Seata 分布式事务实战教程</h1><p>在前面的章节，我们分别讲解了 Spring Cloud Alibaba 中主要的组成部分，其中包括：注册中心与配置管理组件 Nacos、Ribbon 客户端负载均衡、OpenFeign 与 Dubbo 通信组件、Sentinel 服务限流与熔断保护组件、Sleuth+Zipkin 与 Skywalking 实现分布式追踪、Seata 分布式事务组件以及 RocketMQ 消息异步通信中间件，这些组件各司其职为微服务架构提供了有效的支撑。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/1.png" alt="Spring Cloud Alibaba 中主要的组成部分" loading="lazy"></p>
+<p>从本章开始，我们综合运用这些组件，再结合我多年来分布式开发的经验，为你分享一些成熟的组合搭配与案例，让你在分布式开发这条路上少走些弯路。</p>
+<p>本讲咱们进入第一个话题：利用 Seata 与 Nacos 构建分布式事务架构。之前介绍了Seata 的使用原理及解决方案，但并未涉及落地的开发技巧。今天我们补上这一块内容，我将手把手带你搭建可用的 Seata 分布式事务架构。</p>
+<p>按搭建顺序将分为以下几个阶段：</p>
+<ul>
+<li><p><strong>部署 Nacos 注册中心与配置中心</strong>；</p>
+</li>
+<li><p><strong>部署 TC 组件 Seata-Server</strong>；</p>
+</li>
+<li><p><strong>开发 RM 资源管理器</strong>；</p>
+</li>
+<li><p><strong>开发 TM 事务管理器</strong>；</p>
+</li>
+<li><p><strong>验证分布式事务</strong>。</p>
+</li>
+</ul>
+<p>下面我们一步步实现前面的“商城销售积分”应用案例。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/2.png" alt="案例示意图" loading="lazy"></p>
+<center>案例示意图</center>
+
+<p>首先咱们来看整体架构图：</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/3.png" alt="基于 Seata 的分布式事务架构" loading="lazy"></p>
+<center>基于 Seata 的分布式事务架构</center>
+
+<p>我在 192.168.157.138 虚拟机构建了 5 个 MySQL 5.7 数据库实例，通过设置不同端口来模拟 5 台数据库服务器，它们的用途是：</p>
+<ul>
+<li><p>3306 端口数据库存储 Nacos 配置信息以及 Seata-Server 的分布式事务数据；</p>
+</li>
+<li><p>3307 端口数据库存储 TM 端商城数据；</p>
+</li>
+<li><p>3308 端口数据库存储 RM 端订单服务数据；</p>
+</li>
+<li><p>3309 端口数据库存储 RM 端会员积分数据；</p>
+</li>
+<li><p>3310 端口数据库存储 RM 端库存数据。</p>
+</li>
+</ul>
+<p>应用方面包含 6 个节点：</p>
+<ul>
+<li><p>192.168.157.131:8848 节点是 Nacos 注册中心与配置中心服务器，提供微服务架构核心支撑；</p>
+</li>
+<li><p>192.168.157.136:8091 节点是 Seata-Server，也就是 TC 组件，用于协调全局事务的开启、提交与回滚；</p>
+</li>
+<li><p>192.168.157.139:8001 节点是 TM，也就是商城应用，TM用于定义事务边界与事务的范围；</p>
+</li>
+<li><p>192.168.157.140:8002/8003/8004 则是具体的 RM 实例，分别对应订单、积分与库存服务。</p>
+</li>
+</ul>
+<p>其中所有 TM、RM、TC 实例在启动时都要向 Nacos 进行注册登记，以保证服务可以被发现。同时 TC(Seata-Server) 自身的配置信息也要托管在 Nacos 配置中心中，不再单独存储。所有 TM、RM 在启动时也要额外在 TC 中进行注册，以保证全局事务的完整性。</p>
+<p>下面咱们开始第一个阶段：部署 Nacos 注册中心与配置中心。</p>
+<h2 id="部署-Nacos-注册中心与配置中心"><a href="#部署-Nacos-注册中心与配置中心" class="headerlink" title="部署 Nacos 注册中心与配置中心"></a>部署 Nacos 注册中心与配置中心</h2><p>部署 Nacos 注册中心与配置中心与前面课程内容并无二致，咱们快速完成即可。</p>
+<h3 id="第一步，下载-Nacos，上传到-192-168-31-103-节点解压缩。"><a href="#第一步，下载-Nacos，上传到-192-168-31-103-节点解压缩。" class="headerlink" title="第一步，下载 Nacos，上传到 192.168.31.103 节点解压缩。"></a>第一步，下载 Nacos，上传到 192.168.31.103 节点解压缩。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf nacos-server-1.4.0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步，配置-conf-application-properties，增加数据库配置。"><a href="#第二步，配置-conf-application-properties，增加数据库配置。" class="headerlink" title="第二步，配置 conf/application.properties，增加数据库配置。"></a>第二步，配置 conf/application.properties，增加数据库配置。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">### Count of DB:</span><br><span class="line">db.num=1</span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0=jdbc:mysql://192.168.157.138:3306/nacos_config?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC</span><br><span class="line">db.user=root</span><br><span class="line">db.password=root</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三步，创建-3309-端口的-nacos-config-数据库，执行-conf-nacos-mysql-sql，完成-Nacos-注册中心表创建。"><a href="#第三步，创建-3309-端口的-nacos-config-数据库，执行-conf-nacos-mysql-sql，完成-Nacos-注册中心表创建。" class="headerlink" title="第三步，创建 3309 端口的 nacos_config 数据库，执行 conf/nacos-mysql.sql，完成 Nacos 注册中心表创建。"></a>第三步，创建 3309 端口的 nacos_config 数据库，执行 conf/nacos-mysql.sql，完成 Nacos 注册中心表创建。</h3><p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/4.png" alt="基于 Seata 的分布式事务架构" loading="lazy"></p>
+<center>基于 Seata 的分布式事务架构</center>
+
+<h3 id="第四步，创建-conf-cluster-conf-集群配置文件，配置一个单节点集群。"><a href="#第四步，创建-conf-cluster-conf-集群配置文件，配置一个单节点集群。" class="headerlink" title="第四步，创建 conf/cluster.conf 集群配置文件，配置一个单节点集群。"></a>第四步，创建 conf/cluster.conf 集群配置文件，配置一个单节点集群。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#it is ip</span><br><span class="line">#example</span><br><span class="line">192.168.157.131:8848</span><br></pre></td></tr></table></figure>
+
+<h3 id="第五步，运行-startup-脚本，启动-Nacos。"><a href="#第五步，运行-startup-脚本，启动-Nacos。" class="headerlink" title="第五步，运行 startup 脚本，启动 Nacos。"></a>第五步，运行 startup 脚本，启动 Nacos。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh /usr/local/nacos/bin/startup.sh</span><br></pre></td></tr></table></figure>
+
+<p>至此，阶段一：Nacos 注册中心与配置中心部署完成，因为这些内容前面都讲过，所以不再赘述。<br>下面咱们开始阶段二：部署 TC 组件 Seata-Server。</p>
+<p>从部署 TC 组件 Seata-Server 开始就是全新的内容，我将更细致地为你介绍每一步操作过程。</p>
+<h2 id="部署-TC-组件-Seata-Server"><a href="#部署-TC-组件-Seata-Server" class="headerlink" title="部署 TC 组件 Seata-Server"></a>部署 TC 组件 Seata-Server</h2><h3 id="第一步-下载-Seata-Server。"><a href="#第一步-下载-Seata-Server。" class="headerlink" title="第一步 下载 Seata-Server。"></a>第一步 下载 Seata-Server。</h3><p>在 192.168.157.136 设备上安装好 JDK 1.8，之后访问 Seata 的 GitHub，下载最新的 1.4.0 压缩包。</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/seata/seata/releases/download/v1.4.0/seata-server-1.4.0.tar.gz">https://github.com/seata/seata/releases/download/v1.4.0/seata-server-1.4.0.tar.gz<i class="fas fa-external-link-alt"></i></a></p>
+<p>解压后将 seata-server-1.4 上传到 192.168.157.136 节点的 /usr/local 目录下。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/5.png" alt="Seata-Server 目录结构" loading="lazy"></p>
+<center>Seata-Server 目录结构</center>
+
+<h3 id="第二步-编辑-conf-registry-conf-文件"><a href="#第二步-编辑-conf-registry-conf-文件" class="headerlink" title="第二步 编辑 conf/registry.conf 文件"></a>第二步 编辑 conf/registry.conf 文件</h3><p>这个配置文件说明 Seata-Server 接入哪种注册中心与配置中心，官方提供的默认模板存在大量冗余配置，这里我提供接入 Nacos 最精简的配置内容以方便学习。下面是 Seata-Server 接入注册中心的配置信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">registry &#123;</span><br><span class="line">  # Seata-Server支持以下几种注册中心，这里改为nacos，默认是file文件形式不介入任何注册中心。</span><br><span class="line">  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa</span><br><span class="line">  type = &quot;nacos&quot;</span><br><span class="line">  # 负载均衡采用随机策略</span><br><span class="line">  loadBalance = &quot;RandomLoadBalance&quot;</span><br><span class="line">  loadBalanceVirtualNodes = 10</span><br><span class="line">  # nacos注册中心接入配置</span><br><span class="line">  nacos &#123;</span><br><span class="line">    # 应用名称</span><br><span class="line">    application = &quot;seata-server&quot;</span><br><span class="line">    #IP地址与端口</span><br><span class="line">    serverAddr = &quot;192.168.157.131:8848&quot;</span><br><span class="line">    # 分配应用组，采用默认值SEATA_GROUP即可</span><br><span class="line">    group = &quot;SEATA_GROUP&quot;</span><br><span class="line">    namespace = &quot;&quot;</span><br><span class="line">    # 集群名称，采用默认值default即可</span><br><span class="line">    cluster = &quot;default&quot;</span><br><span class="line">    # Nacos接入用户名密码</span><br><span class="line">    username = &quot;nacos&quot;</span><br><span class="line">    password = &quot;nacos&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">#Seata-Server接入配置中心</span><br><span class="line">config &#123;</span><br><span class="line">  # Seata-Server支持以下配置中心产品，这里设置为nacos，默认是file即文件形式保存配置内容。</span><br><span class="line">  # file、nacos 、apollo、zk、consul、etcd3</span><br><span class="line">  type = &quot;nacos&quot;</span><br><span class="line">  # 设置Nacos的通信地址</span><br><span class="line">  nacos &#123;</span><br><span class="line">    serverAddr = &quot;192.168.157.131:8848&quot;</span><br><span class="line">    namespace = &quot;&quot;</span><br><span class="line">    group = &quot;SEATA_GROUP&quot;</span><br><span class="line">    username = &quot;nacos&quot;</span><br><span class="line">    password = &quot;nacos&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的配置文件你可以直接复制到自己工程中修改下 IP 端口即可。</p>
+<h3 id="第三步-在-Nacos-配置中心中初始化-Seata-配置。"><a href="#第三步-在-Nacos-配置中心中初始化-Seata-配置。" class="headerlink" title="第三步 在 Nacos 配置中心中初始化 Seata 配置。"></a>第三步 在 Nacos 配置中心中初始化 Seata 配置。</h3><p>Seata 官方也为我们提供了初始化配置脚本，请按我的步骤操作。</p>
+<p>首先访问下面的地址查看 Seata 在 Nacos 中需要的设置项。</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/seata/seata/blob/1.4.0/script/config-center/config.txt">https://github.com/seata/seata/blob/1.4.0/script/config-center/config.txt<i class="fas fa-external-link-alt"></i></a></p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/6.png" alt="Seata-Server 配置项" loading="lazy"></p>
+<center>Seata-Server 配置项</center>
+
+<p>将 GitHub 页面中 80 行文本内容复制后，在 /usr/local/seata-server-1.4.0 目录下创建 config.txt 文件，将 80 行文本粘贴其中。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/7.png" alt="config.txt 文件路径" loading="lazy"></p>
+<center>config.txt 文件路径</center>
+
+<p>在内容粘贴到 config.txt 后，有两个地方需要修改：</p>
+<ul>
+<li><p>34 行 store.mode=file 改为 store.mode=db 代表采用数据库存储 Seata-Server 的全局事务数据</p>
+</li>
+<li><p>44~46 行配置 Seata-Server 的全局事务数据库，数据库 URL 指向 107 节点 3306 端口。这个全局事务数据库是 Seata 维护分布式事务的关键所在，后面咱们马上就要创建这个数据库。</p>
+</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">store.db.url</span>=<span class="string">jdbc:mysql://192.168.157.138:3306/seata?useUnicode=true&amp;rewriteBatchedStatements=true</span></span><br><span class="line"><span class="meta">store.db.user</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">store.db.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<p>config.txt 保存后，还需要访问下面地址下载 nacos-config.sh 运行脚本。<br><a class="link" target="_blank" rel="noopener" href="https://github.com/seata/seata/blob/1.4.0/script/config-center/nacos/nacos-config.sh">https://github.com/seata/seata/blob/1.4.0/script/config-center/nacos/nacos-config.sh<i class="fas fa-external-link-alt"></i></a></p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/8.png" alt="nacos-config.sh" loading="lazy"></p>
+<center>nacos-config.sh</center>
+
+<p>这个脚本用来读取前面的 config.txt 并将配置项载入 Nacos 配置中心。将页面中 101 行文本复制，然后在 /usr/local/seata-server-1.4.0 目录下创建 script 子目录，在 scirpt 子目录下创建 nacos-config.sh 文件，并将 101 行文本保存其中。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/9.png" alt="nacos-config.sh 文件路径" loading="lazy"></p>
+<center>nacos-config.sh 文件路径</center>
+
+<p>保存后执行下面命令运行导入脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh nacos-config.sh -h 192.168.157.131</span><br></pre></td></tr></table></figure>
+
+<p>这条命令有两个参数，h 选项指向 Nacos 的 IP，执行后你会看到如下日志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Set metrics.registryType=compact successfully </span><br><span class="line">Set metrics.exporterList=prometheus successfully </span><br><span class="line">Set metrics.exporterPrometheusPort=9898 successfully </span><br><span class="line">=========================================================================</span><br><span class="line"> Complete initialization parameters,  total-count:80 ,  failure-count:0 </span><br><span class="line">=========================================================================</span><br><span class="line"> Init nacos config finished, please start seata-server.</span><br></pre></td></tr></table></figure>
+
+<p>80 个配置选项导入成功后，我们便可在 Nacos 的配置中心页面看到它们，访问 Nacos 后台<a class="link" target="_blank" rel="noopener" href="http://192.168.157.131:8848/nacos">http://192.168.157.131:8848/nacos<i class="fas fa-external-link-alt"></i></a><br>你会看到大量 SEATA_GROUP 分组的配置，这些配置信息在 Seata-Server 启动时都会自动读取。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/10.png" alt="Seata-Server 配置信息" loading="lazy"></p>
+<center>Seata-Server 配置信息</center>
+
+<h3 id="第四步-创建并初始化-Seata-Server-全局事务数据库。"><a href="#第四步-创建并初始化-Seata-Server-全局事务数据库。" class="headerlink" title="第四步 创建并初始化 Seata-Server 全局事务数据库。"></a>第四步 创建并初始化 Seata-Server 全局事务数据库。</h3><p>访问下面网址</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/seata/seata/blob/1.4.0/script/server/db/mysql.sql%EF%BC%8C%E4%B8%8B%E8%BD%BD">https://github.com/seata/seata/blob/1.4.0/script/server/db/mysql.sql，下载<i class="fas fa-external-link-alt"></i></a> SQL 脚本。在 3309 端口 MySQL 创建新的数据库 seata，执行 SQL 脚本创建全局事务表。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/10.png" alt="Seata 全局事务数据库" loading="lazy"></p>
+<center>Seata 全局事务数据库</center>
+
+<p>脚本执行后会创建 3 张表，我们了解下即可。</p>
+<ul>
+<li><p>global_table 保存全局事务数据；</p>
+</li>
+<li><p>branch_table 保存分支事务数据；</p>
+</li>
+<li><p>lock_table 保存锁定资源数据。</p>
+</li>
+</ul>
+<h3 id="第五步-启动-seata-server。"><a href="#第五步-启动-seata-server。" class="headerlink" title="第五步 启动 seata-server。"></a>第五步 启动 seata-server。</h3><p>seata-server 启动只需要执行 bin/seata-server.sh。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh bin/seata-server.sh</span><br></pre></td></tr></table></figure>
+
+<p>启动后，看到下面 Server started 代表启动成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10:52:38.254  INFO --- [                     main] com.alibaba.druid.pool.DruidDataSource   : &#123;dataSource-1&#125; inited</span><br><span class="line"></span><br><span class="line">10:52:38.501  INFO --- [                     main] i.s.core.rpc.netty.NettyServerBootstrap  : Server started, listen port: 8091</span><br></pre></td></tr></table></figure>
+
+<p>这里有个细节，如果启动过程中提示数据库无法访问，说明 IP、端口配置有问题，可以通过 Nacos 配置中心设置 store.db.url 选项，而不是重新导入 config.txt。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/11.png" alt="修改 Seata 连接字符串" loading="lazy"></p>
+<center>修改 Seata 连接字符串</center>
+
+<p>到这里，<strong>阶段二：部署 TC 组件 Seata-Server 已经完成</strong>。后面的事情就是基于 TC 组件 Seata-Server 实现分布式事务。</p>
+<h2 id="开发-RM-资源管理器"><a href="#开发-RM-资源管理器" class="headerlink" title="开发 RM 资源管理器"></a>开发 RM 资源管理器</h2><p>在 Seata 中 RM 资源管理器代表处理具体业务的模块，例如：订单服务创建订单、会员服务增加积分、库存服务减少库存都是 RM 资源管理器，下面我们来开发订单服务、会员服务与库存服务。</p>
+<h3 id="订单服务-rm-order"><a href="#订单服务-rm-order" class="headerlink" title="订单服务 rm-order"></a>订单服务 rm-order</h3><p>这里开发框架采用 Spring Boot + JPA（Hibernate）+ Druid 实现。</p>
+<h3 id="第一步，创建-seata-order-数据库与-undo-log-表。"><a href="#第一步，创建-seata-order-数据库与-undo-log-表。" class="headerlink" title="第一步，创建 seata-order 数据库与 undo_log 表。"></a>第一步，创建 seata-order 数据库与 undo_log 表。</h3><p>在 103 节点的 3306 数据库上，创建 seata-order 数据库，执行下面的 SQL 初始化数据库。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> NAMES utf8mb4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Table structure for order</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `<span class="keyword">order</span>`;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `<span class="keyword">order</span>`  (</span><br><span class="line"></span><br><span class="line">  `order_id` <span class="type">int</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT COMMENT <span class="string">&#x27;订单编号&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  `goods_id` <span class="type">int</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;商品编号&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  `member_id` <span class="type">int</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;会员编号&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  `quantity` <span class="type">int</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;购买数量&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  `points` <span class="type">int</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;增加会员积分&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`order_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line"></span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB AUTO_INCREMENT <span class="operator">=</span> <span class="number">51</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> <span class="keyword">Dynamic</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Table structure for undo_log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `undo_log`;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `undo_log`  (</span><br><span class="line"></span><br><span class="line">  `id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line"></span><br><span class="line">  `branch_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `xid` <span class="type">varchar</span>(<span class="number">100</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `context` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `rollback_info` longblob <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `log_status` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `log_created` datetime(<span class="number">0</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `log_modified` datetime(<span class="number">0</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  `ext` <span class="type">varchar</span>(<span class="number">100</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`) <span class="keyword">USING</span> BTREE,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">UNIQUE</span> INDEX `ux_undo_log`(`xid`, `branch_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line"></span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB AUTO_INCREMENT <span class="operator">=</span> <span class="number">5</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> <span class="keyword">Dynamic</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>数据库包含两张表，一张是订单业务表 order，字段含义已在脚本中注释。而另一张 undo_log 回滚日志表。undo_log 是 Seata 强制要求在每个 RM 端数据库创建的表，用于存储反向 SQL 的元数据。undo_log 表的脚本可以从 Seata GitHub 官方获取，然后在自己的业务库中执行。</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/seata/seata/blob/1.4.0/script/client/at/db/mysql.sql">https://github.com/seata/seata/blob/1.4.0/script/client/at/db/mysql.sql<i class="fas fa-external-link-alt"></i></a></p>
+<p>到这里 RM 数据库创建完毕。</p>
+<p><img src="/2022/06/16/2022-06-16Seata分布式事务实战教程/12.png" alt="seata-order 数据库" loading="lazy"></p>
+<center>seata-order 数据库</center>
+
+<h3 id="第二步，利用-Spring-Initializr-向导创建-rm-order-工程，确保-pom-xml-引入以下依赖。"><a href="#第二步，利用-Spring-Initializr-向导创建-rm-order-工程，确保-pom-xml-引入以下依赖。" class="headerlink" title="第二步，利用 Spring Initializr 向导创建 rm-order 工程，确保 pom.xml 引入以下依赖。"></a>第二步，利用 Spring Initializr 向导创建 rm-order 工程，确保 pom.xml 引入以下依赖。</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Spring Boot JPA--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Web MVC--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Nacos客户端--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--seata--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-seata<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--seata 客户端最新版--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--seata与spring boot starter--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--JDBC驱动--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这份依赖有个注意事项，默认 starter-alibaba-seata 依赖内置的是旧版 1.3.0 的 Seata 客户端，因此要排除，在后面引入最新的 1.4.0，保证客户端与 Seate-Server 版本一致。</p>
+<h3 id="第三步，配置-application-yml。"><a href="#第三步，配置-application-yml。" class="headerlink" title="第三步，配置 application.yml。"></a>第三步，配置 application.yml。</h3><p>application.yml 额外配置了事务分组与 Nacos 的信息，我已在配置文件中进行了注释说明。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#seata配置</span></span><br><span class="line"><span class="attr">seata:</span></span><br><span class="line"><span class="comment">#  开启seata分布式事务</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#  事务服务分组名,与naocs一致</span></span><br><span class="line">  <span class="attr">tx-service-group:</span> <span class="string">my_test_tx_group</span></span><br><span class="line"><span class="comment">#  是否启用数据源代理</span></span><br><span class="line">  <span class="attr">enable-auto-data-source-proxy:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#  事务服务配置</span></span><br><span class="line">  <span class="attr">service:</span></span><br><span class="line">    <span class="attr">vgroup-mapping:</span></span><br><span class="line"><span class="comment">#      事务分组对应集群名称</span></span><br><span class="line">      <span class="attr">my_test_tx_group:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">grouplist:</span></span><br><span class="line"><span class="comment">#      Seata-Server服务的IP地址与端口</span></span><br><span class="line">      <span class="attr">default:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.107</span><span class="string">:8091</span></span><br><span class="line">    <span class="attr">enable-degrade:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">disable-global-transaction:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#    Nacos配置中心信息</span></span><br><span class="line">  <span class="attr">config:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">serverAddr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group:</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line"><span class="comment">#      Nacos注册中心信息</span></span><br><span class="line">  <span class="attr">registry:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">seata-server</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group :</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line"><span class="comment"># 应用配置</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">rm-order</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.31.103:3306/seata-order</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8002</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">io:</span></span><br><span class="line">      <span class="attr">seata:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第四步，像单机应用一样开发数据库-CRUD，代码很简单，我已给出注释。"><a href="#第四步，像单机应用一样开发数据库-CRUD，代码很简单，我已给出注释。" class="headerlink" title="第四步，像单机应用一样开发数据库 CRUD，代码很简单，我已给出注释。"></a>第四步，像单机应用一样开发数据库 CRUD，代码很简单，我已给出注释。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JPA实体类</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;`order`&quot;)</span> <span class="comment">//对应order表</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;order_id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer id; <span class="comment">//订单编号</span></span><br><span class="line">    <span class="keyword">private</span> Integer memberId; <span class="comment">//会员编号</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;goods_id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer goodsId; <span class="comment">//商品编号</span></span><br><span class="line">    <span class="keyword">private</span> Integer points; <span class="comment">//新增积分</span></span><br><span class="line">    <span class="keyword">private</span> Integer quantity; <span class="comment">//销售数量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span><span class="params">(Integer id, Integer memberId, Integer goodsId, Integer points, Integer quantity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.memberId = memberId;</span><br><span class="line">        <span class="keyword">this</span>.points = points;</span><br><span class="line">        <span class="keyword">this</span>.goodsId = goodsId;</span><br><span class="line">        <span class="keyword">this</span>.quantity = quantity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...getter &amp; setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OrderRepository 接口用于声明 CRUD 操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Order</span>,<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OrderService 的 createOrder 方法实现创建订单的业务逻辑，注意在 createOrder 方法上必须增加 @Transactional 注解，Seata 客户端对这个注解进行扩展支持了分布式事务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> OrderRepository orderRepository;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Order <span class="title">createOrder</span><span class="params">(Integer orderId,Integer memberId,Integer goodsId,Integer points,Integer quantity)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> orderRepository.save(<span class="keyword">new</span> Order(orderId, memberId,goodsId,points,quantity));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OrderController 的 createOrder 方法用于对外暴露 RESTful API，等待被 TM 调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/create_order&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createOrder</span><span class="params">(Integer orderId,Integer memberId,Integer goodsId,Integer points,Integer quantity)</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">        Map result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Order order = orderService.createOrder(orderId,memberId,goodsId,points,quantity);</span><br><span class="line">        result.put(<span class="string">&quot;code&quot;</span>, <span class="string">&quot;0&quot;</span>);</span><br><span class="line">        result.put(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;create order success&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ObjectMapper().writeValueAsString(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第五步，让-Seata-客户端在处理事务时自动生成反向-SQL"><a href="#第五步，让-Seata-客户端在处理事务时自动生成反向-SQL" class="headerlink" title="第五步，让 Seata 客户端在处理事务时自动生成反向 SQL"></a>第五步，让 Seata 客户端在处理事务时自动生成反向 SQL</h3><p>最重要的一步，要让 Seata 客户端在处理事务时自动生成反向 SQL，必须额外配置 DataSourceProxy 数据源代理类，DataSourceProxy 是 Seata 提供的 DataSource 代理类，在分布式事务执行过程中，用于自动生成 undo_log 回滚数据，以及自动完成 RM 端分布式事务的提交或回滚操作。</p>
+<p>在 Spring Boot 中利用 Java Config 方式对 DataSourceProxy 进行配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lagou.rmorder.datasource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> io.seata.rm.datasource.DataSourceProxy;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Primary;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceProxyConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">//创建Druid数据源</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DruidDataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//建立DataSource数据源代理</span></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSourceProxy <span class="title">dataSource</span><span class="params">(DruidDataSource druidDataSource)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceProxy(druidDataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，启动 rm-order，在浏览器地址栏访问 create_order 接口，看到 create order success，在数据库中也出现对应记录。<br><a class="link" target="_blank" rel="noopener" href="http://192.168.31.106:8002/create_order?orderId=6&amp;memberId=1&amp;goodsId=2&amp;points=20&amp;quantity=200">http://192.168.31.106:8002/create_order?orderId=6&amp;memberId=1&amp;goodsId=2&amp;points=20&amp;quantity=200<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    code: <span class="string">&quot;0&quot;</span>,</span><br><span class="line">    message: <span class="string">&quot;create order success&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../13/2022-06-13%E5%9F%BA%E4%BA%8ERocketMQ%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E9%80%9A%E4%BF%A1/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于RocketMQ实现服务异步通信</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8%EF%BC%9ASeata-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B"><span class="nav-text">综合应用：Seata 分布式事务实战教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-Nacos-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">部署 Nacos 注册中心与配置中心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E4%B8%8B%E8%BD%BD-Nacos%EF%BC%8C%E4%B8%8A%E4%BC%A0%E5%88%B0-192-168-31-103-%E8%8A%82%E7%82%B9%E8%A7%A3%E5%8E%8B%E7%BC%A9%E3%80%82"><span class="nav-text">第一步，下载 Nacos，上传到 192.168.31.103 节点解压缩。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C%E9%85%8D%E7%BD%AE-conf-application-properties%EF%BC%8C%E5%A2%9E%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E3%80%82"><span class="nav-text">第二步，配置 conf&#x2F;application.properties，增加数据库配置。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%8C%E5%88%9B%E5%BB%BA-3309-%E7%AB%AF%E5%8F%A3%E7%9A%84-nacos-config-%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E6%89%A7%E8%A1%8C-conf-nacos-mysql-sql%EF%BC%8C%E5%AE%8C%E6%88%90-Nacos-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E8%A1%A8%E5%88%9B%E5%BB%BA%E3%80%82"><span class="nav-text">第三步，创建 3309 端口的 nacos_config 数据库，执行 conf&#x2F;nacos-mysql.sql，完成 Nacos 注册中心表创建。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%8C%E5%88%9B%E5%BB%BA-conf-cluster-conf-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E3%80%82"><span class="nav-text">第四步，创建 conf&#x2F;cluster.conf 集群配置文件，配置一个单节点集群。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%8C%E8%BF%90%E8%A1%8C-startup-%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%90%AF%E5%8A%A8-Nacos%E3%80%82"><span class="nav-text">第五步，运行 startup 脚本，启动 Nacos。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-TC-%E7%BB%84%E4%BB%B6-Seata-Server"><span class="nav-text">部署 TC 组件 Seata-Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5-%E4%B8%8B%E8%BD%BD-Seata-Server%E3%80%82"><span class="nav-text">第一步 下载 Seata-Server。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E7%BC%96%E8%BE%91-conf-registry-conf-%E6%96%87%E4%BB%B6"><span class="nav-text">第二步 编辑 conf&#x2F;registry.conf 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5-%E5%9C%A8-Nacos-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%B8%AD%E5%88%9D%E5%A7%8B%E5%8C%96-Seata-%E9%85%8D%E7%BD%AE%E3%80%82"><span class="nav-text">第三步 在 Nacos 配置中心中初始化 Seata 配置。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5-%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96-Seata-Server-%E5%85%A8%E5%B1%80%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%82"><span class="nav-text">第四步 创建并初始化 Seata-Server 全局事务数据库。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5-%E5%90%AF%E5%8A%A8-seata-server%E3%80%82"><span class="nav-text">第五步 启动 seata-server。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91-RM-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">开发 RM 资源管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95%E6%9C%8D%E5%8A%A1-rm-order"><span class="nav-text">订单服务 rm-order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E5%88%9B%E5%BB%BA-seata-order-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E-undo-log-%E8%A1%A8%E3%80%82"><span class="nav-text">第一步，创建 seata-order 数据库与 undo_log 表。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C%E5%88%A9%E7%94%A8-Spring-Initializr-%E5%90%91%E5%AF%BC%E5%88%9B%E5%BB%BA-rm-order-%E5%B7%A5%E7%A8%8B%EF%BC%8C%E7%A1%AE%E4%BF%9D-pom-xml-%E5%BC%95%E5%85%A5%E4%BB%A5%E4%B8%8B%E4%BE%9D%E8%B5%96%E3%80%82"><span class="nav-text">第二步，利用 Spring Initializr 向导创建 rm-order 工程，确保 pom.xml 引入以下依赖。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%8C%E9%85%8D%E7%BD%AE-application-yml%E3%80%82"><span class="nav-text">第三步，配置 application.yml。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%8C%E5%83%8F%E5%8D%95%E6%9C%BA%E5%BA%94%E7%94%A8%E4%B8%80%E6%A0%B7%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93-CRUD%EF%BC%8C%E4%BB%A3%E7%A0%81%E5%BE%88%E7%AE%80%E5%8D%95%EF%BC%8C%E6%88%91%E5%B7%B2%E7%BB%99%E5%87%BA%E6%B3%A8%E9%87%8A%E3%80%82"><span class="nav-text">第四步，像单机应用一样开发数据库 CRUD，代码很简单，我已给出注释。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%8C%E8%AE%A9-Seata-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9C%A8%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1%E6%97%B6%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%8F%8D%E5%90%91-SQL"><span class="nav-text">第五步，让 Seata 客户端在处理事务时自动生成反向 SQL</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

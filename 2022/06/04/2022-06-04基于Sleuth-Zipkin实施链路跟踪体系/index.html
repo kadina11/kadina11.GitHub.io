@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            基于Sleuth+Zipkin实施链路跟踪体系 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于Sleuth+Zipkin实施链路跟踪体系</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-06-04 14:38:13
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="链路跟踪：基于-Sleuth-Zipkin-实施链路跟踪体系"><a href="#链路跟踪：基于-Sleuth-Zipkin-实施链路跟踪体系" class="headerlink" title="链路跟踪：基于 Sleuth+Zipkin 实施链路跟踪体系"></a>链路跟踪：基于 Sleuth+Zipkin 实施链路跟踪体系</h1><h2 id="微服务链路追踪"><a href="#微服务链路追踪" class="headerlink" title="微服务链路追踪"></a>微服务链路追踪</h2><p>都知道在微服务架构下，系统的功能是由大量的微服务协调组成的，例如：电商创建订单业务就需要订单服务、库存服务、支付服务、短信通知服务逐级调用才能完成。而每个服务可能是由不同的团队进行开发，部署在成百上千台服务器上。</p>
+<p><img src="/2022/06/04/2022-06-04基于Sleuth-Zipkin实施链路跟踪体系/1.png" alt="复杂的调用链路" loading="lazy"></p>
+<center>复杂的调用链路</center>
+
+<p>如此复杂的消息传递过程，当系统发生故障的时候，就需要一种机制对故障点进行快速定位，确认是哪个服务出了问题，链路追踪技术由此而生。所谓的链路追踪，就是运行时通过某种方式记录下服务之间的调用过程，在通过可视化的 UI 界面帮研发运维人员快速定位到出错点。引入链路追踪，是微服务架构运维的底层基础，没有它，运维人员就像盲人摸象一样，根本无法了解服务间通信过程。</p>
+<p>在 Spring Cloud 标准生态下内置了 Sleuth 这个组件，它通过扩展 Logging 日志的方式实现微服务的链路追踪。说起来比较晦涩，咱们看一个实例就明白了，在标准的微服务下日志产生的格式是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">01</span>-<span class="number">12</span> <span class="number">17</span>:<span class="number">00</span>:<span class="number">33.441</span> INFO [nio-<span class="number">7000</span>-exec-<span class="number">2</span>] c.netflix.config.ChainedDynamicProperty  : Flipping property: b-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = <span class="number">2147483647</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是当引入 Spring Cloud Sleuth 链路追踪组件后就会变成下面的格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">01</span>-<span class="number">12</span> <span class="number">17</span>:<span class="number">00</span>:<span class="number">33.441</span>  INFO [a-service,5f70945e0eefa832,5f70945e0eefa832,<span class="keyword">true</span>] <span class="number">18404</span> --- [nio-<span class="number">7000</span>-exec-<span class="number">2</span>] c.netflix.config.ChainedDynamicProperty  : Flipping property: b-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = <span class="number">2147483647</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">比较后会发现，在原有日志中额外附加了下面的文本</span><br><span class="line">[a-service,5f70945e0eefa832,5f70945e0eefa832,true]</span><br></pre></td></tr></table></figure>
+
+<p>这段文本就是 Sleuth 在微服务日志中附加的链路调用数据，它的格式是固定的，包含以下四部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[微服务 Id,TraceId,SpanId,isExport]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/06/04/2022-06-04基于Sleuth-Zipkin实施链路跟踪体系/2.png" alt="链路追踪数据的组成" loading="lazy"></p>
+<center>链路追踪数据的组成</center>
+
+<ul>
+<li><p><strong>微服务 Id</strong>，说明日志是由哪个微服务产生的。</p>
+</li>
+<li><p><strong>TraceId</strong>，轨迹编号。一次完整的业务处理过程被称为轨迹，例如：实现登录功能需要从服务 A 调用服务 B，服务B再调用服务 C，那这一次登录处理的过程就是一个轨迹，从前端应用发来请求到接收到响应，每一次完整的业务功能处理过程都对应唯一的 TraceId。</p>
+</li>
+<li><p><strong>SpanId</strong>，步骤编号。刚才要实现登录功能需要从服务 A 到服务 C 涉及 3 个微服务处理，按处理前后顺序，每一个微服务处理时日志都被赋予不同的 SpanId。一个 TraceId 拥有多个 SpanId，而 SpanId 只能隶属于某一个 TraceId。</p>
+</li>
+<li><p><strong>导出标识</strong>，当前这个日志是否被导出，该值为 true 的时候说明当前轨迹数据允许被其他链路追踪可视化服务收集展现。</p>
+</li>
+</ul>
+<p>下面我们看一个完整的追踪数据实例：</p>
+<p>我模拟了服务 A -&gt; 服务 B -&gt; 服务 C的调用链路，下面是分别产生的日志。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#服务 A 应用控制台日志</span><br><span class="line"></span><br><span class="line"><span class="number">2021</span>-<span class="number">01</span>-<span class="number">12</span> <span class="number">22</span>:<span class="number">16</span>:<span class="number">54.394</span> DEBUG [a-service,e8ca7047a782568b,e8ca7047a782568b,<span class="keyword">true</span>] <span class="number">21320</span> --- [nio-<span class="number">7000</span>-exec-<span class="number">1</span>] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br><span class="line">#服务 B 应用控制台日志</span><br><span class="line"></span><br><span class="line"><span class="number">2021</span>-<span class="number">01</span>-<span class="number">12</span> <span class="number">22</span>:<span class="number">16</span>:<span class="number">54.402</span> DEBUG [b-service,e8ca7047a782568b,b6aa80fb33e71de6,<span class="keyword">true</span>] <span class="number">21968</span> --- [nio-<span class="number">8000</span>-exec-<span class="number">2</span>] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br><span class="line">#服务 C 应用控制台日志</span><br><span class="line"></span><br><span class="line"><span class="number">2021</span>-<span class="number">01</span>-<span class="number">12</span> <span class="number">22</span>:<span class="number">16</span>:<span class="number">54.405</span> DEBUG [c-service,e8ca7047a782568b,537098c59827a242,<span class="keyword">true</span>] <span class="number">17184</span> --- [nio-<span class="number">9000</span>-exec-<span class="number">2</span>] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以发现，在 DEBUG 级别下链路追踪数据被打印出来，按调用时间先后顺序分别是 A 到 C 依次出现。因为是一次完整业务处理，TraceId 都是相同的，SpanId 却各不相同，这些日志都已经被 Sleuth 导出，可以被 ZipKin 收集展示。</p>
+<p>Zipkin 是 推特的一个开源项目，它能收集各个服务实例上的链路追踪数据并可视化展现。刚才 ABC 服务控制台产生的日志在 ZipKin 的 UI 界面中会以链路追踪图表的形式展现。</p>
+<p><img src="/2022/06/04/2022-06-04基于Sleuth-Zipkin实施链路跟踪体系/3.png" alt="链路追踪图表" loading="lazy"></p>
+<center>链路追踪图表</center>
+
+<p>通过这个图表可以非常直观的了解业务处理过程中服务间的依赖关系与处理时间、处理状态等信息，是开发运维人员进行故障分析时必要的工具。</p>
+<p>下面咱们通过实例讲解如何在微服务架构中进行链路追踪。这个过程分为两个阶段：</p>
+<ul>
+<li><p>在服务中加入 Spring Cloud Sleuth 生成链路追踪日志；</p>
+</li>
+<li><p>通过 ZipKin 收集链路最终日志，生成可视化图表。</p>
+</li>
+</ul>
+<h3 id="微服务整合-Sleuth"><a href="#微服务整合-Sleuth" class="headerlink" title="微服务整合 Sleuth"></a>微服务整合 Sleuth</h3><p>为了演示需要，这里创建 a-service、b-service、c-service 三个微服务工程，配置过程十分简单，我们把关键代码拿出来说明。</p>
+<p><img src="/2022/06/04/2022-06-04基于Sleuth-Zipkin实施链路跟踪体系/4.png" alt="调用链路示意图" loading="lazy"></p>
+<center>调用链路示意图</center>
+
+<p>第一步，创建 a-service、b-service、c-service 三个 Spring Boot 工程，pom.xml 依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Spring Web应用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Nacos 客户端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--服务间通信组件OpenFeign --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>c-service的pom.xml依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为调用关系是服务 A 调用服务 B，服务 B 调用服务 C，所以在 A、B 两个服务中需要额外依赖 OpenFeign 实现服务间通信。</p>
+<p>第二步，配置 ABC 服务的 application.yml，这三个配置文件除了应用名称与服务端口不同外，其他都一样。这里设置 A 服务端口为 7000，B 服务端口 8000，C 服务端口 9000。</p>
+<p>第二步，配置 ABC 服务的 application.yml，这三个配置文件除了应用名称与服务端口不同外，其他都一样。这里设置 A 服务端口为 7000，B 服务端口 8000，C 服务端口 9000。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">7000</span> <span class="comment">#a:7000/b:8000/c:9000 </span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">a-service</span> <span class="comment">#a-service/b-service/c-service</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">root:</span> <span class="string">debug</span> <span class="comment">#为演示需要，开启debug级别日志</span></span><br></pre></td></tr></table></figure>
+
+<p>第三步，实现业务逻辑，代码如下：</p>
+<p>c-service 工程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SampleController，methodC方法产生响应字符串“-&gt; Service C”，方法映射地址“/c”</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/c&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">methodC</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String result = <span class="string">&quot; -&gt; Service C&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>b-service 工程。</p>
+<p>CServiceFeignClient 通过 OpenFeign 实现了 C 服务的通信客户端，方法名为 methodC。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(&quot;c-service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CServiceFeignClient</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/c&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">methodC</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SampleController 通过 methodB 方法调用 methodC 的同时为响应附加的字符串“-&gt; Service B”，方法映射地址“/b”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> CServiceFeignClient cService;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/b&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">methodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String result = cService.methodC();</span><br><span class="line">        result = <span class="string">&quot; -&gt; Service B&quot;</span> + result;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>a-service 工程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BServiceFeignClient通过OpenFeign实现了B服务的通信客户端，方法名为methodB</span><br><span class="line"><span class="meta">@FeignClient(&quot;b-service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BServiceFeignClient</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/b&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">methodB</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SampleController 通过 methodA 方法调用 methodB 的同时，成为响应附加的字符串“-&gt; Service A”，方法映射地址“/a”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> BServiceFeignClient bService;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/a&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String result = bService.methodB();</span><br><span class="line">        result = <span class="string">&quot;-&gt; Service A&quot;</span> + result;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样一个完整的调用链路已形成。在 3 个服务实例启动后，访问 A 实例<br>访问 <a class="link" target="_blank" rel="noopener" href="http://localhost:7000/a">http://localhost:7000/a<i class="fas fa-external-link-alt"></i></a> 得到运行结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-&gt; ServiceA -&gt; Service B -&gt; Service C</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 ABC 三个服务按前后顺序依次产生结果，但目前在日志中并没有包含任何链路追踪数据，那如何引入 Sleuth 呢？</p>
+<p>很简单，只需要打开三个服务工程的 pom.xml 文件分别引入 spring-cloud-starter-sleuth 依赖。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加Sleuth依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-sleuth<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>加入依赖后，重启服务，无须做任何额外设置，Spring Cloud Sleuth 便自动为日志增加了链路追踪数据，下面是经过我整理后的追踪数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#服务 A 应用控制台日志，已附加链路追踪数据</span><br><span class="line"></span><br><span class="line">2021-01-12 22:16:54.394 DEBUG [a-service,e8ca7047a782568b,e8ca7047a782568b,true] 21320 --- [nio-7000-exec-1] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br><span class="line">#服务 B 应用控制台日志</span><br><span class="line"></span><br><span class="line">2021-01-12 22:16:54.402 DEBUG [b-service,e8ca7047a782568b,b6aa80fb33e71de6,true] 21968 --- [nio-8000-exec-2] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br><span class="line">#服务 C 应用控制台日志</span><br><span class="line"></span><br><span class="line">2021-01-12 22:16:54.405 DEBUG [c-service,e8ca7047a782568b,537098c59827a242,true] 17184 --- [nio-9000-exec-2] org.apache.tomcat.util.http.Parameters   : ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>虽然数据已产生，但如果在生产环境靠人工组织数以万计的链路日志显然不现实，我们还需要部署链路追踪数据的分析工具 ZipKin 来简化这个过程。</p>
+<h3 id="构建-Zipkin-Server-实现链路追踪的可视化管理"><a href="#构建-Zipkin-Server-实现链路追踪的可视化管理" class="headerlink" title="构建 Zipkin Server 实现链路追踪的可视化管理"></a>构建 Zipkin Server 实现链路追踪的可视化管理</h3>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../05/2022-06-05%E5%9F%BA%E4%BA%8ESkyWalking%E5%AE%9E%E6%96%BD%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于SkyWalking实施链路追踪</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../../05/28/2022-05-28Sentinel%E8%BF%9B%E9%98%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Sentinel进阶应用场景</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%EF%BC%9A%E5%9F%BA%E4%BA%8E-Sleuth-Zipkin-%E5%AE%9E%E6%96%BD%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E4%BD%93%E7%B3%BB"><span class="nav-text">链路跟踪：基于 Sleuth+Zipkin 实施链路跟踪体系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA"><span class="nav-text">微服务链路追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%95%B4%E5%90%88-Sleuth"><span class="nav-text">微服务整合 Sleuth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA-Zipkin-Server-%E5%AE%9E%E7%8E%B0%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86"><span class="nav-text">构建 Zipkin Server 实现链路追踪的可视化管理</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

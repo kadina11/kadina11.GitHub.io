@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            Ribbon负载均衡策略 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Ribbon负载均衡策略</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-05-08 15:51:33
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Ribbon负载均衡策略"><a href="#Ribbon负载均衡策略" class="headerlink" title="Ribbon负载均衡策略"></a>Ribbon负载均衡策略</h1><h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>指通过软件或者硬件措施。它将来自客户端的请求按照某种策略平均的分配到集群的每一个节点上，保证这些节点的 CPU、内存等设备负载情况大致在一条水平线，避免由于局部节点负载过高产生宕机，再将这些处理压力传递到其他节点上产生系统性崩溃。</p>
+<p>负载均衡按实现方式分类可区分为：<strong>服务端负载均衡</strong>与<strong>客户端负载均衡</strong>。</p>
+<h3 id="服务端负载均衡"><a href="#服务端负载均衡" class="headerlink" title="服务端负载均衡"></a>服务端负载均衡</h3><p>在架构中会提供专用的负载均衡器，由负载均衡器持有后端节点的信息，服务消费者发来的请求经由专用的负载均衡器分发给服务提供者，进而实现负载均衡的作用。目前常用的负载均衡器软硬件有：F5、Nginx、HaProxy 等。<br><img src="/2022/05/08/2022-05-08Ribbon负载均衡策略/1.png" alt="服务端负载均衡" loading="lazy"></p>
+<h3 id="客户端负载均衡"><a href="#客户端负载均衡" class="headerlink" title="客户端负载均衡"></a>客户端负载均衡</h3><p>在架构中不再部署额外的负载均衡器，在每个服务消费者内部持有客户端负载均衡器，由内置的负载均衡策略决定向哪个服务提供者发起请求。说到这，我们的主角登场了，Netfilx Ribbon 是 Netflix 公司开源的一个负载均衡组件，是属于客户端负载均衡器。目前Ribbon 已被 Spring Cloud 官方技术生态整合，运行时以 SDK 形式内嵌到每一个微服务实例中，为微服务间通信提供负载均衡与高可用支持。为了更容易理解，我们通过应用场景说明 Ribbon 的执行流程。假设订单服务在查询订单时需要附带对应商品详情，这就意味着订单服务依赖于商品服务，两者必然产生服务间通信，此时 Ribbon 的执行过程如下图所示：<br><img src="/2022/05/08/2022-05-08Ribbon负载均衡策略/2.png" alt="客户端负载均衡" loading="lazy"></p>
+<h2 id="netflix-Ribbon"><a href="#netflix-Ribbon" class="headerlink" title="netflix.Ribbon"></a>netflix.Ribbon</h2><p>负载均衡策略的本质都是com.netflix.loadbalancer包下的类<br><img src="/2022/05/08/2022-05-08Ribbon负载均衡策略/3.png" alt="netflix.Ribbon" loading="lazy"></p>
+<h3 id="RoundRobinRule"><a href="#RoundRobinRule" class="headerlink" title="RoundRobinRule"></a>RoundRobinRule</h3><center>轮询策略，Ribbon默认策略</center>
+默认超过10次获取到的server都不可用，会返回一个空的server
+
+<h3 id="RandomRule"><a href="#RandomRule" class="headerlink" title="RandomRule"></a>RandomRule</h3><center>随机策略</center>
+如果随机到的server为null或者不可用的话，会不停的循环选取
+没有失效时间的概念，只要serverList没都挂
+
+<h3 id="RetryRule"><a href="#RetryRule" class="headerlink" title="RetryRule"></a>RetryRule</h3><center>重试策略，一定时限内循环重试</center>
+每次选取后，对选举的server进行判断是否为null，是否alive，并且在500ms内不停的选取判断
+
+<h3 id="BestAvailableRule"><a href="#BestAvailableRule" class="headerlink" title="BestAvailableRule"></a>BestAvailableRule</h3><center>最小连接数策略</center>
+遍历serverList，选取出可用的且连接数最小的一个server
+会调用RoundRobinRule重新选取
+
+<h3 id="AvailabilityFilteringRule"><a href="#AvailabilityFilteringRule" class="headerlink" title="AvailabilityFilteringRule"></a>AvailabilityFilteringRule</h3><center>可用过滤策略</center>
+扩展了轮询策略，会先通过默认的轮询选取一个server
+再去判断该server是否超时可用、当前连接数是否超限，都成功再返回
+
+<h3 id="ZoneAvoidanceRule"><a href="#ZoneAvoidanceRule" class="headerlink" title="ZoneAvoidanceRule"></a>ZoneAvoidanceRule</h3><center>区域权衡策略</center>
+扩展了轮询策略，除了过滤超时和连接数过多的server
+还会过滤掉不符合要求的zone区域里面的所有节点
+始终保证在一个区域/机房内的服务实例进行轮询
+
+<h2 id="OpenFeign"><a href="#OpenFeign" class="headerlink" title="OpenFeign"></a>OpenFeign</h2><p>OpenFeign相比RestTemplate技术，大幅简化了服务间高通信可用处理过程</p>
+<h3 id="Feign-与-OpenFeign"><a href="#Feign-与-OpenFeign" class="headerlink" title="Feign 与 OpenFeign"></a>Feign 与 OpenFeign</h3><p>Spring Cloud OpenFeign 并不是独立的技术。它底层基于 Netflix Feign，Netflix Feign 是 Netflix 设计的开源的声明式 WebService 客户端，用于简化服务间通信。Netflix Feign 采用 <strong>“接口+注解”</strong> 的方式开发，通过模仿 RPC 的客户端与服务器模式（CS），采用接口方式开发来屏蔽网络通信的细节。OpenFeign 则是在 Netflix Feign 的基础上进行封装，结合原有 Spring MVC 的注解，对 Spring Cloud 微服务通信提供了良好的支持。使用 OpenFeign 开发的方式与开发 Spring MVC Controller 颇为相似。</p>
+<p>创建OpenFeign的通信接口与响应对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lagou.orderservice.feignclient;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.lagou.orderservice.dto.Stock;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.openfeign.FeignClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FeignClient(&quot;warehouse-service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WarehouseServiceFeignClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/stock&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Stock <span class="title">getStock</span><span class="params">(<span class="meta">@RequestParam(&quot;skuId&quot;)</span> Long skuId)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>创建一个 feignclient 包用于保存通信接口。OpenFeign 通过“接口+注解”形式描述数据传输逻辑，并不需要程序员编写具体实现代码便能实现服务间高可用通信，下面我们来学习这段代码：</p>
+<ul>
+<li><p>@FeignClient 注解说明当前接口为 OpenFeign 通信客户端，参数值 warehouse-service 为服务提供者 ID，这一项必须与 Nacos 注册 ID 保持一致。在 OpenFeign 发送请求前会自动在 Nacos 查询 warehouse-service 所有可用实例信息，再通过内置的 Ribbon 负载均衡选择一个实例发起 RESTful 请求，进而保证通信高可用。</p>
+</li>
+<li><p>声明的方法结构，接口中定义的方法通常与服务提供者的方法定义保持一致。这里有个非常重要的细节：用于接收数据的 Stock 对象并不强制要求与提供者端 Stock 对象完全相同，消费者端的 Stock 类可以根据业务需要删减属性，但属性必须要与提供者响应的 JSON 属性保持一致。距离说明，我们在代码发现消费者端 Stock 的包名与代码与提供者都不尽相同，而且因为消费者不需要 description 属性便将其删除，其余属性只要保证与服务提供者响应 JSON 保持一致，在 OpenFeign 获取响应后便根据 JSON 属性名自动反序列化到 Stock 对象中。</p>
+</li>
+<li><p>@GetMapping/@PostMapping，以前我们在编写 Spring MVC 控制器时经常使用 @GetMapping 或者@ PostMapping 声明映射方法的请求类型。虽然 OpenFeign 也使用了这些注解，但含义完全不同。在消费者端这些注解的含义是：OpenFeign 向服务提供者 warehouse-service 的 stock 接口发起 Get 请求。简单总结下，如果在服务提供者书写 @GetMapping 是说明 Controller 接收数据的请求类型必须是 Get，而写在消费者端接口中则说明 OpenFeign 采用 Get 请求发送数据，大多数情况下消费者发送的请求类型、URI 与提供者定义要保持一致。</p>
+</li>
+<li><p>@RequestParam，该注解说明方法参数与请求参数之间的映射关系。举例说明，当调用接口的 getStock() 方法时 skuId 参数值为 1101，那实际通信时 OpenFeign 发送的 Get 请求格式就是：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//warehouse-service可用实例 ip:端口/stock?skuId=1101</span></span><br></pre></td></tr></table></figure>
+
+<p>介绍每一个细节后，我用自然语言完整描述<strong>处理逻辑</strong>：</p>
+<ol>
+<li><p>在第一次访问 WarehouseServiceFeignClient 接口时，Spring 自动生成接口的实现类并实例化对象。</p>
+</li>
+<li><p>当调用 getStock() 方法时，Ribbon 获取 warehouse-service 可用实例信息，根据负载均衡策略选择合适实例。</p>
+</li>
+<li><p>OpenFeign 根据方法上注解描述的映射关系生成完整的 URL 并发送 HTTP 请求，如果请求方法是 @PostMapping，则参数会附加在请求体中进行发送。</p>
+</li>
+<li><p>warehouse-service 处理完毕返回 JSON 数据，消费者端 OpenFeign 接收 JSON 的同时反序列化到 Stock 对象，并将该对象返回。</p>
+</li>
+</ol>
+<h2 id="生产环境-OpenFeign-的配置事项"><a href="#生产环境-OpenFeign-的配置事项" class="headerlink" title="生产环境 OpenFeign 的配置事项"></a>生产环境 OpenFeign 的配置事项</h2><p><strong>Spring Cloud OpenFeign的官方文档</strong><br><a class="link" target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.6.RELEASE/reference/html/">https://docs.spring.io/spring-cloud-openfeign/docs/2.2.6.RELEASE/reference/html/<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="更改默认的负载均衡策略"><a href="#更改默认的负载均衡策略" class="headerlink" title="更改默认的负载均衡策略"></a>更改默认的负载均衡策略</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">warehouse-service: #服务提供者的微服务ID</span><br><span class="line">  ribbon:</span><br><span class="line">    #设置对应的负载均衡类</span><br><span class="line">    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule</span><br></pre></td></tr></table></figure>
+
+<h3 id="开启默认数据压缩功能"><a href="#开启默认数据压缩功能" class="headerlink" title="开启默认数据压缩功能"></a>开启默认数据压缩功能</h3><p>在 OpenFeign 中，默认并没有开启数据压缩功能。但如果你在服务间单次传递数据超过 1K 字节，强烈推荐开启数据压缩功能。默认 OpenFeign 使用 Gzip 方式压缩数据，对于大文本通常压缩后尺寸只相当于原始数据的 10%~30%，这会极大提高带宽利用率。但有一种情况除外，如果应用属于计算密集型，CPU 负载长期超过 70%，因数据压缩、解压缩都需要 CPU 运算，开启数据压缩功能反而会给 CPU 增加额外负担，导致系统性能降低，这是不可取的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  compression:</span><br><span class="line">    request:</span><br><span class="line">      # 开启请求数据的压缩功能</span><br><span class="line">      enabled: <span class="keyword">true</span></span><br><span class="line">      # 压缩支持的MIME类型</span><br><span class="line">      mime-types: text/xml,application/xml, application/json</span><br><span class="line">      # 数据压缩下限 <span class="number">1024</span>表示传输数据大于<span class="number">1024</span> 才会进行数据压缩(最小压缩值标准)</span><br><span class="line">      min-request-size: <span class="number">1024</span></span><br><span class="line">    # 开启响应数据的压缩功能</span><br><span class="line">    response:</span><br><span class="line">      enabled: <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="替换默认通信组件"><a href="#替换默认通信组件" class="headerlink" title="替换默认通信组件"></a>替换默认通信组件</h3><ol>
+<li>引入 feign-okhttp 依赖包。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;feign-okhttp&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">11.0</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在应用入口，利用 Java Config 形式初始化 OkHttpClient 对象。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderServiceApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Spring IOC容器初始化时构建okHttpClient对象</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> okhttp3.<span class="function">OkHttpClient <span class="title">okHttpClient</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> okhttp3.OkHttpClient.Builder()</span><br><span class="line">                <span class="comment">//读取超时时间</span></span><br><span class="line">                .readTimeout(<span class="number">10</span>, TimeUnit.SECONDS)</span><br><span class="line">                <span class="comment">//连接超时时间</span></span><br><span class="line">                .connectTimeout(<span class="number">10</span>, TimeUnit.SECONDS)</span><br><span class="line">                <span class="comment">//写超时时间</span></span><br><span class="line">                .writeTimeout(<span class="number">10</span>, TimeUnit.SECONDS)</span><br><span class="line">                <span class="comment">//设置连接池</span></span><br><span class="line">                .connectionPool(<span class="keyword">new</span> ConnectionPool())</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OrderServiceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 application.yml 中启用 OkHttp。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  okhttp:</span><br><span class="line">    enabled: <span class="keyword">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../14/2022-05-14Dubbo%E4%B8%8ENacos%E4%BD%93%E7%B3%BB%E5%A6%82%E4%BD%95%E5%8D%8F%E5%90%8C%E4%BD%9C%E4%B8%9A/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Dubbo与Nacos体系如何协同作业</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../05/2022-05-05%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%94%9F%E6%80%81%E4%B8%8EspringCloudAlibaba/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">微服务生态与springCloudAlibaba</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ribbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-text">Ribbon负载均衡策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">服务端负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">客户端负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netflix-Ribbon"><span class="nav-text">netflix.Ribbon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RoundRobinRule"><span class="nav-text">RoundRobinRule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RandomRule"><span class="nav-text">RandomRule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RetryRule"><span class="nav-text">RetryRule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BestAvailableRule"><span class="nav-text">BestAvailableRule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AvailabilityFilteringRule"><span class="nav-text">AvailabilityFilteringRule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZoneAvoidanceRule"><span class="nav-text">ZoneAvoidanceRule</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenFeign"><span class="nav-text">OpenFeign</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign-%E4%B8%8E-OpenFeign"><span class="nav-text">Feign 与 OpenFeign</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83-OpenFeign-%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BA%8B%E9%A1%B9"><span class="nav-text">生产环境 OpenFeign 的配置事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-text">更改默认的负载均衡策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E5%8A%9F%E8%83%BD"><span class="nav-text">开启默认数据压缩功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4%E9%80%9A%E4%BF%A1%E7%BB%84%E4%BB%B6"><span class="nav-text">替换默认通信组件</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            微服务生态与springCloudAlibaba |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">微服务生态与springCloudAlibaba</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-05-05 21:59:59
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>6 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="顶层设计：微服务生态与SpringCloudAlibaba"><a href="#顶层设计：微服务生态与SpringCloudAlibaba" class="headerlink" title="顶层设计：微服务生态与SpringCloudAlibaba"></a>顶层设计：微服务生态与SpringCloudAlibaba</h1><h2 id="通用的微服务架构应包含哪些组件"><a href="#通用的微服务架构应包含哪些组件" class="headerlink" title="通用的微服务架构应包含哪些组件"></a>通用的微服务架构应包含哪些组件</h2><p>相对于单体式架构的简单粗暴，微服务架构将应用打散，形成多个微服务进行独立开发、测试、部署与运维。虽然从管理与逻辑上更符合业务需要，但微服务架构也带来了诸多急需解决的核心问题：</p>
+<ol>
+<li><p>如何发现新服务节点以及检查服务节点的状态？</p>
+</li>
+<li><p>如何发现服务及负载均衡如何实现？</p>
+</li>
+<li><p>服务间如何进行消息通信？</p>
+</li>
+<li><p>如何对使用者暴露服务 API？</p>
+</li>
+<li><p>如何集中管理众多服务节点的配置文件？</p>
+</li>
+<li><p>如何收集服务节点的日志并统一管理？</p>
+</li>
+<li><p>如何实现服务间调用链路追踪？</p>
+</li>
+<li><p>如何对系统进行链路保护，避免微服务雪崩？</p>
+</li>
+</ol>
+<p>业内已经有了标准答案，下图清晰的说明微服务架构需要的标准组件。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/1.png" alt="微服务架构标准组件" loading="lazy"></p>
+<center>微服务架构标准组件</center>
+
+<h3 id="下面我来介绍每种组件的职责。"><a href="#下面我来介绍每种组件的职责。" class="headerlink" title="下面我来介绍每种组件的职责。"></a>下面我来介绍每种组件的职责。</h3><ul>
+<li><h5 id="注册中心（Service-Registry）"><a href="#注册中心（Service-Registry）" class="headerlink" title="注册中心（Service Registry）"></a>注册中心（Service Registry）</h5><p>注册中心是微服务架构最核心的组件。它起到新服务节点的注册与状态维护的作用，通过注册中心解决了上述问题 1。微服务节点在启动时会将自身的服务名称、IP、端口等信息在注册中心中进行登记，注册中心会定时检查该节点的运行状态。注册中心通常会采用心跳机制最大程度保证其持有的服务节点列表都是可用的。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/2.png" alt="服务注册流程" loading="lazy"></p>
+<center>服务注册流程</center></li>
+<li><h5 id="负载均衡（Load-Balance）"><a href="#负载均衡（Load-Balance）" class="headerlink" title="负载均衡（Load Balance）"></a>负载均衡（Load Balance）</h5><p>负载均衡器解决了问题 2。通常在微服务彼此调用时并不是直接通过IP、端口直接访问，而是首先通过服务名在注册中心查询该服务拥有哪些可用节点，然后注册中心将可用节点列表返回给服务调用者，这个过程称为“服务发现”。因服务高可用的要求，服务调用者会接收到多个可用节点，必须要从中进行选择，因此在服务调用者一端必须内置负载均衡器，通过负载均衡策略选择适合的节点发起实质的通信请求。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/3.png" alt="服务发现与负载均衡" loading="lazy"></p>
+<center>服务发现与负载均衡</center></li>
+<li><h4 id="服务通信（Communication）"><a href="#服务通信（Communication）" class="headerlink" title="服务通信（Communication）"></a>服务通信（Communication）</h4><p>服务通信组件解决了问题 3。在微服务定义中阐述服务间通信采用轻量级协议，通常是 HTTP RESTful 风格。但因 RESTful 风格过于灵活，必须加以约束，通常在应用时对其进行上层封装，例如在 Spring Cloud 中就提供了 Feign 和 RestTemplate 两种技术屏蔽底层实现 RESTful 通信细节，所有开发者是基于封装后统一的SDK进行开发，这有利于团队间协作。</p>
+</li>
+<li><h4 id="API-服务网关（API-Gateway）"><a href="#API-服务网关（API-Gateway）" class="headerlink" title="API 服务网关（API Gateway）"></a>API 服务网关（API Gateway）</h4><p>服务网关解决问题 4。对于最终用户来说，微服务的通信与各种实现细节应该是透明的，用户只需关注他要使用的 API 接口即可。因此微服务架构引入服务网关控制用户的访问权限。服务网关是外部环境访问内部微服务的唯一途径，在这个基础上还可以扩展出其他功能，例如：用户认证与授权、容错限流、动态路由、A/B测试、灰度发布等。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/4.png" alt="API 服务网关" loading="lazy"></p>
+<center>API 服务网关</center></li>
+<li><h4 id="配置中心（Config-Management）"><a href="#配置中心（Config-Management）" class="headerlink" title="配置中心（Config Management）"></a>配置中心（Config Management）</h4><p>配置中心解决问题 5。微服务架构下，微服务节点都包含自己的各种配置文件，如JDBC地址、自定义配置、环境配置等。要知道互联网公司微服务节点可能是成千上万个，如果这些配置信息分散存储在节点上，如发生配置变更就必须逐个调整，这必将给运维人员带来巨大的工作量。配置中心便因此而生，通过部署配置中心服务器，将原本分散的配置文件从应用中剥离，集中转存到配置中心。一般配置中心会提供 UI 界面，可以方便快捷的实现大规模集群的配置调整。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/5.png" alt="庞杂而重复的配置文件" loading="lazy"></p>
+<center>庞杂而重复的配置文件</center></li>
+</ul>
+<p><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/6.png" alt="引入配置中心集中管理配置" loading="lazy"></p>
+<center>引入配置中心集中管理配置</center>
+
+<ul>
+<li><h4 id="集中式日志管理（Centralized-Logging）"><a href="#集中式日志管理（Centralized-Logging）" class="headerlink" title="集中式日志管理（Centralized Logging）"></a>集中式日志管理（Centralized Logging）</h4><p>集中式日志解决问题 6。因为微服务架构默认将应用日志分散保存在每一个微服务节点上，当系统进行用户行为分析、数据统计时必须收集所有节点日志数据。那如何有效收集所有节点的运行日志，并对其进行分析汇总呢？业内常见的方案有 ELK、EFK，通过搭建独立的日志收集系统，定时抓取增量日志形成有效的统计报表，为决策提供数据支撑。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/7.png" alt="ELK 日志收集系统" loading="lazy"></p>
+<center>ELK 日志收集系统</center></li>
+<li><h4 id="分布式链路追踪（Distributed-Tracing）"><a href="#分布式链路追踪（Distributed-Tracing）" class="headerlink" title="分布式链路追踪（Distributed Tracing）"></a>分布式链路追踪（Distributed Tracing）</h4><p>分布式追踪解决问题 7。一个复杂的业务流程可能需要连续调用多个微服务，我们需要记录一个完整业务逻辑涉及的每一个微服务的运行状态，再通过可视化链路图展现，帮助软件工程师在系统出错时分析解决问题。<br><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/8.png" alt="微服务链路追踪" loading="lazy"></p>
+<center>微服务链路追踪</center></li>
+</ul>
+<p><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/9.png" alt="Zipkin 链路图" loading="lazy"></p>
+<center>Zipkin 链路图</center>
+
+<ul>
+<li><h4 id="服务保护（Service-Protection）"><a href="#服务保护（Service-Protection）" class="headerlink" title="服务保护（Service Protection）"></a>服务保护（Service Protection）</h4>服务保护解决问题 8。在服务间通信过程中，如果某个微服务出现响应高延迟可能会导致线程池满载，严重时会引起系统崩溃。这里就需要引入服务保护组件实现高延迟服务的快速降级，避免系统崩溃。</li>
+</ul>
+<h2 id="Spring-Cloud-是如何支撑微服务架构的"><a href="#Spring-Cloud-是如何支撑微服务架构的" class="headerlink" title="Spring Cloud 是如何支撑微服务架构的"></a>Spring Cloud 是如何支撑微服务架构的</h2><p>下面这张图很好地诠释了 Spring、Spring Boot、Spring Cloud 它们之间的关系。</p>
+<p>Spring 是整个微服务开发生态的基石，在此基础上 Spring 经过封装和简化，形成了Spring Boot 敏捷开发框架，而 Spring Cloud 开发微服务则必须掌握 Spring Boot。</p>
+<p>Spring Cloud 提供了完整的微服务架构的技术生态，像刚才我们提到的微服务架构标准组件，在 Spring Cloud 中都有着对应的实现。</p>
+<p><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/10.png" alt="Spring Cloud 内置组件" loading="lazy"></p>
+<center>Spring Cloud 内置组件</center>
+
+<h3 id="功能更强大的国产微服务生态Spring-Cloud-Alibaba"><a href="#功能更强大的国产微服务生态Spring-Cloud-Alibaba" class="headerlink" title="功能更强大的国产微服务生态Spring Cloud Alibaba"></a>功能更强大的国产微服务生态Spring Cloud Alibaba</h3><p>Spring Cloud Alibaba是直接隶属于 Spring Cloud 的子项目。官网是：<a class="link" target="_blank" rel="noopener" href="https://spring.io/projects/spring-cloud-alibaba#overview">https://spring.io/projects/spring-cloud-alibaba#overview<i class="fas fa-external-link-alt"></i></a></p>
+<p>Spring Cloud Alibaba是国产的微服务开发一站式解决方案，与原有 Spring Cloud 兼容的同时对微服务生态进行扩展，通过添加少量的配置注解，便可实现更符合国情的微服务架构。</p>
+<p>下面是 Spring Cloud 与 Spring Cloud Alibaba 的对比。</p>
+<p><img src="/2022/05/05/2022-05-05微服务生态与springCloudAlibaba/11.png" alt="Spring Cloud 与 Spring Cloud Alibaba 的对比" loading="lazy"></p>
+<center>Spring Cloud 与 Spring Cloud Alibaba 的对比</center>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../08/2022-05-08Ribbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Ribbon负载均衡策略</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../04/2022-05-04%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">微服务架构设计</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B6%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%94%9F%E6%80%81%E4%B8%8ESpringCloudAlibaba"><span class="nav-text">顶层设计：微服务生态与SpringCloudAlibaba</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%BA%94%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E7%BB%84%E4%BB%B6"><span class="nav-text">通用的微服务架构应包含哪些组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E9%9D%A2%E6%88%91%E6%9D%A5%E4%BB%8B%E7%BB%8D%E6%AF%8F%E7%A7%8D%E7%BB%84%E4%BB%B6%E7%9A%84%E8%81%8C%E8%B4%A3%E3%80%82"><span class="nav-text">下面我来介绍每种组件的职责。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%EF%BC%88Service-Registry%EF%BC%89"><span class="nav-text">注册中心（Service Registry）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%EF%BC%88Load-Balance%EF%BC%89"><span class="nav-text">负载均衡（Load Balance）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E9%80%9A%E4%BF%A1%EF%BC%88Communication%EF%BC%89"><span class="nav-text">服务通信（Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%EF%BC%88API-Gateway%EF%BC%89"><span class="nav-text">API 服务网关（API Gateway）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%EF%BC%88Config-Management%EF%BC%89"><span class="nav-text">配置中心（Config Management）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E4%B8%AD%E5%BC%8F%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%EF%BC%88Centralized-Logging%EF%BC%89"><span class="nav-text">集中式日志管理（Centralized Logging）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%EF%BC%88Distributed-Tracing%EF%BC%89"><span class="nav-text">分布式链路追踪（Distributed Tracing）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%EF%BC%88Service-Protection%EF%BC%89"><span class="nav-text">服务保护（Service Protection）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-%E6%98%AF%E5%A6%82%E4%BD%95%E6%94%AF%E6%92%91%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84"><span class="nav-text">Spring Cloud 是如何支撑微服务架构的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E6%9B%B4%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%9B%BD%E4%BA%A7%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%94%9F%E6%80%81Spring-Cloud-Alibaba"><span class="nav-text">功能更强大的国产微服务生态Spring Cloud Alibaba</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

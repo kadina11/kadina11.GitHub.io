@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kadina">
+    
+    <title>
+        
+            基于SkyWalking实施链路追踪 |
+        
+        kadina&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="../../../../images/logo.svg">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"https:///kadina11.github.io","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"道阻且长 行则将至"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="atom.xml" title="kadina's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                kadina&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="../../../../about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="../../../../about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于SkyWalking实施链路追踪</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="../../../../images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kadina</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-06-05 15:20:14
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="应用性能监控：通过-SkyWalking-实施链路追踪"><a href="#应用性能监控：通过-SkyWalking-实施链路追踪" class="headerlink" title="应用性能监控：通过 SkyWalking 实施链路追踪"></a>应用性能监控：通过 SkyWalking 实施链路追踪</h1><h2 id="APM-与-SkyWalking"><a href="#APM-与-SkyWalking" class="headerlink" title="APM 与 SkyWalking"></a>APM 与 SkyWalking</h2><p>这些年随着微服务体系的不断完善，链路追踪已经不是什么新兴的概念与技术，很多厂商也提供了自己的链路追踪产品，例如 Spring Cloud Slueth、Zipkin、阿里鹰眼、大众点评 Cat、SkyWalking 等。但这些产品都有一个共同的名字：APM（Application Performance Management），即应用性能管理系统。顾名思义这些产品的根本目的就是对应用程序单点性能与整个分布式应用进行监控，记录每一个环节程序执行状况，通过图表与报表的形式让运维人员随时掌握系统的运行状况，其中在这些著名的产品中我非常推荐各位掌握 SkyWalking 这款 APM 产品，理由很简单，它在简单易用的前提下实现了比 Zipkin 功能更强大的链路追踪、同时拥有更加友好、更详细的监控项，并能自动生成可视化图表。相比 Sleuth+Zipkin 这种不同厂商间混搭组合，SkyWalking 更符合国内软件业的“一站式解决方案”的设计理念，下面咱们来了解下 SKyWalking。</p>
+<p>SkyWalking 是中国人吴晟（华为）开源的应用性能管理系统（APM）工具，使用Java语言开发，后来吴晟将其贡献给 Apache，在 Apache 的背书下 SkyWalking 发展迅速，现在已属于 Apache 旗下顶级开源项目，它的官网：<a class="link" target="_blank" rel="noopener" href="http://skywalking.apache.org/">http://skywalking.apache.org/<i class="fas fa-external-link-alt"></i></a> 。</p>
+<p>SkyWalking 提供了分布式追踪、服务网格遥测分析、度量聚合和可视化一体化解决方案。</p>
+<p>对比 Sleuth+Zipkin 与 SkyWalking 做对比，看两者的优劣。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/1.png" alt="Sleuth+Zipkin 与 SkyWalking 对比" loading="lazy"></p>
+<p>通过比较我们可以发现，在易用性和使用体验上，SkyWalking 明显好于 Zipkin，功能更丰富的同时也更符合国人习惯，但因为迭代速度较快，社区文档相对陈旧，这也导致很多技术问题需要程序员自己研究解决，因此在解决问题方面需要更多的时间。</p>
+<h2 id="部署-SkyWalking-服务端与-Java-Agent"><a href="#部署-SkyWalking-服务端与-Java-Agent" class="headerlink" title="部署 SkyWalking 服务端与 Java Agent"></a>部署 SkyWalking 服务端与 Java Agent</h2><h3 id="部署-SkyWalking-服务端"><a href="#部署-SkyWalking-服务端" class="headerlink" title="部署 SkyWalking 服务端"></a>部署 SkyWalking 服务端</h3><p>首先咱们要理解 SkyWalking 架构图</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/2.png" alt="SkyWalking 的架构图" loading="lazy"></p>
+<center>SkyWalking 的架构图</center>
+
+<p>SkyWalking 同样采用客户端与服务端架构模式，SkyWalking 服务端用于接收来自 Java Agent 客户端发来的链路跟踪与指标数据，汇总统计后由 SkyWalking UI 负责展现。SkyWalking 服务端同时支持 gRPC 与 HTTP 两种上报方式。其中 gRPC 默认监听服务器 11800 端口，HTTP 默认监听 12800 端口，而 SKyWalking UI 应用则默认监听 8080 端口，这三个端口在生产环境下要在防火墙做放行配置。在存储层面，SkyWalking 底层支持 ElasticSearch 、MySQL、H2等多种数据源，官方优先推荐使用 ElasticSearch，如果此时你不会 ElasticSearch 也没关系，按文中步骤操作也能完成部署。</p>
+<p>首先咱们根据架构图部署 SkyWalking 服务端。</p>
+<h4 id="第一步，安装-ElasticSearch-全文检索引擎"><a href="#第一步，安装-ElasticSearch-全文检索引擎" class="headerlink" title="第一步，安装 ElasticSearch 全文检索引擎"></a>第一步，安装 ElasticSearch 全文检索引擎</h4><p>ElasticSearch 简称 ES，是业内最著名的全文检索引擎，常用于构建站内搜索引擎，SkyWalking 官方推荐使用 ES 作为数据存储组件。这里直接访问 ES 官网下载页：</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/elasticsearch">https://www.elastic.co/cn/downloads/elasticsearch<i class="fas fa-external-link-alt"></i></a></p>
+<p>下载对应平台的 ES 服务器程序。</p>
+<p>下载后会得到 elasticsearch-7.17.4-linux-x86_64.tar.gz 文件，解压缩后无须任何修改直接运行 bin/elasticsearch.bat 文件，如果是 Linux 系统则运行 elasticsearch.sh 文件。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/3.png" alt="ElasticSearch 启动成功画面" loading="lazy"></p>
+<center>ElasticSearch 启动成功画面</center>
+
+<p>默认 ES 监听 9200 与 9300 端口，其中 9200 是 ES 对外提供服务的端口；9300 是 ES 进行集群间通信与数据传输的端口，请确保这两个端口没有被占用。</p>
+<h4 id="第二步，下载-SkyWalking"><a href="#第二步，下载-SkyWalking" class="headerlink" title="第二步，下载 SkyWalking"></a>第二步，下载 SkyWalking</h4><p>访问 <a class="link" target="_blank" rel="noopener" href="https://skywalking.apache.org/downloads/">https://skywalking.apache.org/downloads/<i class="fas fa-external-link-alt"></i></a></p>
+<p>下载 apache-skywalking-apm-es7-8.7.0.tar.gz</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/4.png" alt="SkyWalking 下载页" loading="lazy"></p>
+<center>SkyWalking 下载页</center>
+
+<h4 id="第三步，配置-SkyWalking-数据源"><a href="#第三步，配置-SkyWalking-数据源" class="headerlink" title="第三步，配置 SkyWalking 数据源"></a>第三步，配置 SkyWalking 数据源</h4><p>SKyWalking 收集到的数据要被存储在 ElasticSearch 中，因此需要指定数据源。在 config 目录下找到 application.yml，这是 SkyWalking 的核心配置文件。</p>
+<p>在配置文件 找到 storage 配置片段。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">storage:</span></span><br><span class="line">  <span class="attr">selector:</span> <span class="string">$&#123;SW_STORAGE:h2&#125;</span></span><br><span class="line">  <span class="attr">elasticsearch:</span> <span class="comment">#ES6配置 </span></span><br><span class="line">    <span class="string">...</span></span><br><span class="line">  <span class="attr">elasticsearch:</span> <span class="comment">#ES配置</span></span><br><span class="line">    <span class="attr">nameSpace:</span> <span class="string">$&#123;SW_NAMESPACE:&quot;&quot;&#125;</span></span><br><span class="line">    <span class="attr">clusterNodes:</span> <span class="string">$&#123;SW_STORAGE_ES_CLUSTER_NODES:localhost:9200&#125;</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">$&#123;SW_STORAGE_ES_HTTP_PROTOCOL:&quot;http&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>默认 SkyWalking 采用内置 H2 数据库存储监控数据，现在需要改为 elasticsearch，这样就完成了数据源存储的切换，在启动时 SkyWalking 会自动初始化 ES 的索引。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector:</span> <span class="string">$&#123;SW_STORAGE:elasticsearch7&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>到这里，SkyWalking 数据源配置成功。</p>
+<h4 id="第四步，启动-SkyWalking-应用"><a href="#第四步，启动-SkyWalking-应用" class="headerlink" title="第四步，启动 SkyWalking 应用"></a>第四步，启动 SkyWalking 应用</h4><p>在 bin 目录下找到 startup.bat 运行，如果是 Linux 系统运行 startup.sh。</p>
+<p>启动后会产生两个 Java 进程：</p>
+<p>Skywalking-Collector 是数据收集服务，默认监听 11800（gRPC）与 12800（HTTP） 端口。</p>
+<p>Skywalking-Webapp 是 SkyWalking UI，用于展示数据，默认监听 8080 端口。</p>
+<p>启动成功后，访问<a class="link" target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/<i class="fas fa-external-link-alt"></i></a> ，如果看到 SkyWalking UI 首页，则说明服务端配置成功。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/5.png" alt="SkyWalking UI 首页" loading="lazy"></p>
+<center>SkyWalking UI 首页</center>
+
+<h3 id="安装-SkyWalking-Java-Agent"><a href="#安装-SkyWalking-Java-Agent" class="headerlink" title="安装 SkyWalking Java Agent"></a>安装 SkyWalking Java Agent</h3><p>在前面提到，SkyWalking 可以在不修改应用源码的前提下，无侵入的实现链路追踪与 JVM 指标监控，它是怎么做到的？这里涉及一个 Java1.5 新增的特性，Java Agent 探针技术，想必对于很多工作多年 Java 工程师来说，Java Agent 也是一个陌生的东西。</p>
+<p>Java Agent 探针说白了就是 Java 提供的一种“外挂”技术，允许在应用开发的时候在通过启动时增加 java agent 参数来外挂一些额外的程序。</p>
+<p>Java Agent 并不复杂，其扩展类有着严格的规范，必须创建名为 premain 的方法，该方法将在目标应用 main 方法前执行，下面就是最简单的 Java Agent 扩展类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleAgent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation inst)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;=========开始执行premain============&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要完成 Java Agent，还需要提供正确的 MANIFEST.MF，以便 JVM 能够选择正确的类。在 META-INF 目录下找到你的 MANIFEST.MF 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Premain-Class: com.lagou.agent.SimpleAgent</span><br></pre></td></tr></table></figure>
+
+<p>之后我们将这个类打包为 agent.jar，假设原始应用为 oa.jar，在 oa.jar 启动时需要在额外附加 javaagent 参数，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:agent.jar -jar oa.jar</span><br></pre></td></tr></table></figure>
+
+<p>在应用启动时 Java 控制台会输出如下日志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">=========开始执行 premain============</span><br><span class="line">正在启动 OA 办公自动化系统...</span><br><span class="line">....</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过结果你会发现 java agent 在目标应用main执行前先执行了premain，实现了不修改OA源码的前提下增加了新的功能。</p>
+<p>SkyWalking 也是利用 Java Agent 的特性，在 premain 中通过字节码增强技术对目标方法进行扩展，当目标方法执行时自动收集链路追踪及监控数据并发往 SkyWalking 服务端。</p>
+<p>下面咱们来讲解如何加载并使用 SkyWalking Java Agent，我们还是以实例进行讲解，因为 Java Agent 是无侵入的，并不需要源码，这里我就直接给出调用关系图帮助咱们理解。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/6.png" alt="调用关系图" loading="lazy"></p>
+<center>调用关系图</center>
+
+<p>简单介绍下，用户访问 a 服务的 a 接口，a 服务通过 OpenFeign 远程调用 b 服务的 b 接口，b 服务通过 OpenFeign 调用 c 服务的 c 接口，最后 c 接口通过 JDBC 将业务数据存储到 MySQL 数据库。</p>
+<p>下面咱们演示 SkyWalking Java Agent 的用法，在 skywalking 的 agent 目录下存在 skywalking-agent.jar，这就是 skywalking 提供的 Java Agent 扩展类。</p>
+<p>如果是生产环境下在启动应用时附加 javaagent 参数即可。</p>
+<p>a 服务启动命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:D:\Develop\env\skywalking-agent\skywalking-agent.jar -Dskywalking.agent.service_name=a-service -Dskywalking.collector.backend_service=127.0.0.1:11800 -Dskywalking.logging.file_name=a-service-api.log -jar a-service.jar</span><br></pre></td></tr></table></figure>
+
+<p>b 服务启动命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:D:\Develop\env\skywalking-agent\skywalking-agent.jar -Dskywalking.agent.service_name=b-service -Dskywalking.collector.backend_service=127.0.0.1:11800 -Dskywalking.logging.file_name=b-service-api.log -jar b-service.jar</span><br></pre></td></tr></table></figure>
+
+<p>c 服务启动命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:D:\Develop\env\skywalking-agent\skywalking-agent.jar -Dskywalking.agent.service_name=c-service -Dskywalking.collector.backend_service=127.0.0.1:11800 -Dskywalking.logging.file_name=c-service-api.log -jar c-service.jar</span><br></pre></td></tr></table></figure>
+
+<p>如果是在 idea 开发环境运行，需要在 VM options 附加 javaagent。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/7.png" alt="IDEA 中使用 SkyWalking Java Agent" loading="lazy"></p>
+<center>IDEA 中使用 SkyWalking Java Agent</center>
+
+<p>除了 javaagent 指定具体 agent 文件外，agent 本身也支持一系列配置参数，在刚才的启动时涉及 3 个。</p>
+<ul>
+<li><p><strong>skywalking.agent.service_name</strong>：指定在 SkyWalking 上报数据时的服务名。</p>
+</li>
+<li><p><strong>skywalking.collector.backend_service</strong>：指定 SkyWalking 服务端的通信IP与端口。</p>
+</li>
+<li><p><strong>skywalking.logging.file_name</strong>：指定 agent 生成的上报日志文件名，日志文件保存 agent 的 logs 目录中。</p>
+</li>
+</ul>
+<h2 id="介绍-SkyWalking-常用视图"><a href="#介绍-SkyWalking-常用视图" class="headerlink" title="介绍 SkyWalking 常用视图"></a>介绍 SkyWalking 常用视图</h2><p>当服务启动后，为了演示需要，我利用 PostMan 对 a 接口模拟 10000次 用户访问，看 SkyWalking UI 中产生哪些变化。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/8.png" alt="PostMan 压力测试" loading="lazy"></p>
+<center>PostMan 压力测试</center>
+
+<p>此时访问<a class="link" target="_blank" rel="noopener" href="http://192.168.31.10:8080/">http://192.168.31.10:8080/<i class="fas fa-external-link-alt"></i></a> ，打开 SKyWalking UI，默认显示全局的应用性能，具体用途我已在图中标出，其中我认为比较重要的是服务状态指数与高延迟端点列表两项，服务状态指数越接近 1 代表该服务运行状况越好，而高延迟端点列表则将处理延迟高的 API 端点列出，这可能是我们重点排查与优化的对象。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/9.png" alt="全局监控" loading="lazy"></p>
+<center>全局监控</center>
+
+<p>除了全局监控外，SkyWalking 链路追踪的展示也非常友好，点击“拓扑”按钮可以查看访问拓扑图。服务间依赖关系一目了然。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/10.png" alt="拓扑图" loading="lazy"></p>
+<center>拓扑图</center>
+
+<p>除此之外，链路追踪的展示也非常强大，服务间的 API 调用关系与执行时间、调用状态清晰列出，而且因为 SkyWalking 是方法层面上的扩展，会提供更加详细的方法间的调用过程。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/11.png" alt="链路追踪图" loading="lazy"></p>
+<center>链路追踪图</center>
+
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/12.png" alt="提供不同维度的视图" loading="lazy"></p>
+<center>提供不同维度的视图</center>
+
+<p>SkyWalking 基于 Java Agent 对数据库的运行指标也进行收集，点击”database”便进入数据库指标监控。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/13.png" alt="数据库视图" loading="lazy"></p>
+<center>数据库视图</center>
+
+<p>如果你用过 SkyWalking 一定会被它简单的使用方法与强大的功能所折服，在SkyWalking提供了多达几十种不同维度、不同方式的数据展示方案，例如基于服务实例的JVM检测仪表盘就能让我们了解该服务 JVM 的资源分配过程，分析其中潜在的问题。</p>
+<p><img src="/2022/06/05/2022-06-05基于SkyWalking实施链路追踪/14.png" alt="服务实例的 JVM 监控" loading="lazy"></p>
+<center>服务实例的 JVM 监控</center>
+
+<p>当然 SKyWalking 也不是全能的，在生产环境下 SkyWalking 还需要额外考虑很多问题，如 SkyWalking 的集群管理、访问权限控制、自监控、风险预警等都要逐步完善，因此很多互联网公司也基于 SkyWalking 做二次开发以满足自身的需求，希望你也能在使用过程中对 SkyWalking 的潜力进行挖掘、了解。</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="../../12/2022-06-12AlibabaSeata%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">AlibabaSeata如何实现分布式事务</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="../../04/2022-06-04%E5%9F%BA%E4%BA%8ESleuth-Zipkin%E5%AE%9E%E6%96%BD%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E4%BD%93%E7%B3%BB/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于Sleuth+Zipkin实施链路跟踪体系</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            .valine-container {
+
+  #vcomments {
+
+    .vwrap {
+
+      border: 1px solid var(--third-text-color);
+
+      .vheader {
+
+        .vinput {
+
+          color: var(--default-text-color);
+          border-color: var(--third-text-color);
+
+          &:focus {
+            border-bottom: 1px dashed var(--primary-color) !important;
+          }
+        }
+      }
+
+
+      .vedit {
+
+        .veditor {
+          color: var(--default-text-color);
+        }
+
+        .vctrl {
+
+          .vicon {
+
+            fill: var(--default-text-color);
+
+            &.actived {
+              fill: var(--primary-color);
+            }
+          }
+        }
+
+      }
+
+
+      button.vsubmit {
+
+        background: transparent !important;
+        color: var(--default-text-color) !important;
+        border: 1px solid var(--default-text-color) !important;
+
+        &:hover {
+          color: var(--primary-color) !important;
+          border: 1px solid var(--primary-color) !important;
+        }
+      }
+
+
+    }
+
+
+    .vcount {
+      color: var(--default-text-color);
+
+      .vnum {
+        color: var(--second-text-color);
+      }
+    }
+
+
+    .vcard {
+
+      .vnick {
+        .author {
+          font-weight: 450;
+          font-size: 12px;
+          padding: 2px;
+          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
+          color: #fff;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+      }
+
+
+      .vhead {
+
+        .vnick {
+          color: var(--primary-color);
+        }
+
+        .vsys {
+          color: var(--default-text-color);
+          background: var(--fourth-text-color) !important;
+        }
+      }
+
+
+      .vcontent {
+        P {
+          color: var(--default-text-color);
+
+          code {
+            color: var(--code-foreground);
+            background: var(--code-background);
+          }
+        }
+      }
+
+
+      .vh {
+        border-bottom-color: var(--border-color);
+      }
+
+      .vquote {
+        border-left-color: var(--border-color);
+      }
+    }
+
+
+    .vcopy {
+      color: var(--third-text-color);
+    }
+
+
+    .vpage {
+
+      .vmore {
+        border: 1px solid var(--border-color);
+        color: var(--second-text-color);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kadina</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%EF%BC%9A%E9%80%9A%E8%BF%87-SkyWalking-%E5%AE%9E%E6%96%BD%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA"><span class="nav-text">应用性能监控：通过 SkyWalking 实施链路追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#APM-%E4%B8%8E-SkyWalking"><span class="nav-text">APM 与 SkyWalking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-SkyWalking-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E-Java-Agent"><span class="nav-text">部署 SkyWalking 服务端与 Java Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-SkyWalking-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-text">部署 SkyWalking 服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E5%AE%89%E8%A3%85-ElasticSearch-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="nav-text">第一步，安装 ElasticSearch 全文检索引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C%E4%B8%8B%E8%BD%BD-SkyWalking"><span class="nav-text">第二步，下载 SkyWalking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%8C%E9%85%8D%E7%BD%AE-SkyWalking-%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-text">第三步，配置 SkyWalking 数据源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%8C%E5%90%AF%E5%8A%A8-SkyWalking-%E5%BA%94%E7%94%A8"><span class="nav-text">第四步，启动 SkyWalking 应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-SkyWalking-Java-Agent"><span class="nav-text">安装 SkyWalking Java Agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-SkyWalking-%E5%B8%B8%E7%94%A8%E8%A7%86%E5%9B%BE"><span class="nav-text">介绍 SkyWalking 常用视图</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script>
+
+
+    <script src="/js/local-search.js"></script>
+
+
+
+    <script src="/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

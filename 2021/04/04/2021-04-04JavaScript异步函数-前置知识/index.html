@@ -226,7 +226,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>680 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>662 Words</span>
         </span>
     
     
@@ -247,9 +247,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<p>JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。</p>
+            <p>JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。</p>
 <p>优点：安全，简单<br>缺点：出现假死情况</p>
 <p>为了防止出现这种阻塞执行问题。JavaScript将任务的执行模式分成了两种（<strong>运行环境的API是以同步或异步模式的方式工作</strong>）</p>
 <ul>
@@ -267,13 +265,12 @@
 <h2 id="同步模式"><a href="#同步模式" class="headerlink" title="同步模式"></a>同步模式</h2><p>代码在调用栈中依次执行，通俗的说：js在执行引擎中维护了一个正在工作的工作表</p>
 <h2 id="异步模式"><a href="#异步模式" class="headerlink" title="异步模式"></a>异步模式</h2><p>不会等待这个任务结束才去执行下一个任务，任务开启过后就立即往后执行下一个任务，后续逻辑一般会通过回调函数的方式定义,<br>难点：执行顺序混乱</p>
 <h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下代码执行顺序</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;global begin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;time1 invoke&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;time2 invoke&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">time2inner</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;time2inner invoke&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;global end&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<br>
 
 <p><img src="/2021/04/04/2021-04-04JavaScript异步函数-前置知识/Asynchronous1.png" alt="开始" loading="lazy"></p>
 <p>加载全部代码，在调用栈中压入一个匿名的全局调用，依次执行每行代码，同步API和同步模式一致，打印global begin,<br>web API为timer1开启一个倒计时器，<strong>倒计时器单独工作，不会受当前js线程影响，有各自的time line，不会受到调用栈和消息队列影响</strong>，开始过后即开始执行，打印global end后，整体的匿名调用就执行完成，清空调用栈。<br><img src="/2021/04/04/2021-04-04JavaScript异步函数-前置知识/Asynchronous2.png" alt="开始" loading="lazy"><br>调用栈清空后，此时Event loop发挥作用，监听调用栈和消息队列。<br>timer2倒计时器先结束，timer2函数放置于消息队列，消息队列发生改变，Event loop将消息队列中第一个压入调用栈，开启新一轮的执行<br><img src="/2021/04/04/2021-04-04JavaScript异步函数-前置知识/Asynchronous3.png" alt="开始" loading="lazy"></p>
 <p>过程又遇到异步调用，放入API中单独执行<br><img src="/2021/04/04/2021-04-04JavaScript异步函数-前置知识/Asynchronous4.png" alt="开始" loading="lazy"></p>
 <p>直到调用栈和消息队列中没有需要执行的任务，整体代码执行完成。<br><strong>js引擎先做完调用栈中的所有任务，然后通过事件循环从消息队列中依次取出任务执行</strong><br><img src="/2021/04/04/2021-04-04JavaScript异步函数-前置知识/Asynchronous5.png" alt="开始" loading="lazy"></p>
-<br>
+
         </div>
 
         
@@ -509,7 +506,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%A6%81%EF%BC%9A"><span class="nav-text">内容概要：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">同步模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">异步模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-text">例子：</span></a>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%A6%81%EF%BC%9A"><span class="nav-text">内容概要：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">同步模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">异步模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-text">例子：</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

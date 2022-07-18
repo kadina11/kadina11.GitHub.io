@@ -183,9 +183,12 @@
 
                 <div class="home-article-content markdown-body">
                     
-                        文章内容输入来源：拉勾教育大前端训练营Promise的执行核心逻辑的实现
+                        Promise的执行核心逻辑的实现
 Promise就是一个类，在执行这个类的时候，需要传递一个执行器进去，执行器会立即执行
-Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等...
+Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等待 pending
+
+
+pending...
                     
                 </div>
 
@@ -243,8 +246,8 @@ Promise中有三种状态，分别为 成功 fulfilled 失败 rejected 等...
 
                 <div class="home-article-content markdown-body">
                     
-                        文章内容输入来源：拉勾教育大前端训练营本章介绍了Generator提供的异步方案，用生成器函数yield暂停生成器函数执行的特点，来使用生成器函数生成更优的异步编程体验。Async/Await语法糖，不需要调用next()方法，就可达成异步效果。
-G...
+                        本章介绍了Generator提供的异步方案，用生成器函数yield暂停生成器函数执行的特点，来使用生成器函数生成更优的异步编程体验。Async/Await语法糖，不需要调用next()方法，就可达成异步效果。
+Generator提供的异步方案ES20...
                     
                 </div>
 
@@ -302,10 +305,11 @@ G...
 
                 <div class="home-article-content markdown-body">
                     
-                        文章内容输入来源：拉勾教育大前端训练营Promise相比传统回调的方式，最大的优势：通过链式调用解决回调过程中的问题。
+                        Promise相比传统回调的方式，最大的优势：通过链式调用解决回调过程中的问题。
 
 Promise对象的then方法会返回一个全新的Promise对象
-后面的then方法就是在为上一个then返回的Promise...
+后面的then方法就是在为上一个then返回的Promise注册回调
+前面then方法中回调函数的...
                     
                 </div>
 
@@ -363,10 +367,9 @@ Promise对象的then方法会返回一个全新的Promise对象
 
                 <div class="home-article-content markdown-body">
                     
-                        文章内容输入来源：拉勾教育大前端训练营
-
-JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。
-优点：安全，简单缺点：出现假死情况...
+                        JavaScript环境以单线程模式执行，因为最早设计javaScript实现页面的动态交互，交互的核心是dom操作，这使得它必须以单线程操作，否则出现复杂的线程同步问题。
+优点：安全，简单缺点：出现假死情况
+为了防止出现这种阻塞执行问题。JavaS...
                     
                 </div>
 
@@ -549,16 +552,12 @@ Point Fr...
                 <div class="home-article-content markdown-body">
                     
                         函数组合
-
-
 纯函数和柯里化很容易写出洋葱代码 h(g(f(x)))
 函数组合可以让我们把细粒度的函数重新组合成一个新的函数
 lodash中组合函数flow()或者flowRight()，他们都可以组合多个函数
 函数的组合要满足结合律
 
-
-
-管道下面...
+管道下面这张图表...
                     
                 </div>
 
@@ -616,9 +615,7 @@ lodash中组合函数flow()或者flowRight()，他们都可以组合多个函数
 
                 <div class="home-article-content markdown-body">
                     
-                        纯函数
-
-纯函数的概念
+                        纯函数纯函数的概念
 函数的返回结果只依赖于它的参数
 函数执行过程里面没有副作用
 
@@ -626,7 +623,7 @@ lodash中组合函数flow()或者flowRight()，他们都可以组合多个函数
 lodash是一个纯函数的功能库，提供了对数组、数字、对象、字符串、函数等操作的一些方法
 总结
 
-柯里化可以让我们给一个函数传递...
+柯里化可以让我们给一个函数传递较少...
                     
                 </div>
 

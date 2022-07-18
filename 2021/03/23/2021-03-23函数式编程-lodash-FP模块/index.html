@@ -195,6 +195,32 @@
         <i class="fas fa-edit"></i>&nbsp;2021-03-23 22:04:45
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/JavaScript/lodash/">lodash</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -221,9 +247,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<h1 id="lodash中的FP模块"><a href="#lodash中的FP模块" class="headerlink" title="lodash中的FP模块"></a>lodash中的FP模块</h1><ul>
+            <h1 id="lodash中的FP模块"><a href="#lodash中的FP模块" class="headerlink" title="lodash中的FP模块"></a>lodash中的FP模块</h1><ul>
 <li>lodash的fp模块提供了实用的<strong>对函数式编程友好</strong>的方法</li>
 <li>提供了不可变<strong>auto-curries iteratee-first data-last</strong>的方法</li>
 <li>lodash和lodash/fp模块中map方法的区别</li>
@@ -349,143 +373,68 @@
     
 
         
-            .valine-container {
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
 
-  #vcomments {
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
 
-    .vwrap {
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
 
-      border: 1px solid var(--third-text-color);
-
-      .vheader {
-
-        .vinput {
-
-          color: var(--default-text-color);
-          border-color: var(--third-text-color);
-
-          &:focus {
-            border-bottom: 1px dashed var(--primary-color) !important;
-          }
-        }
-      }
-
-
-      .vedit {
-
-        .veditor {
-          color: var(--default-text-color);
-        }
-
-        .vctrl {
-
-          .vicon {
-
-            fill: var(--default-text-color);
-
-            &.actived {
-              fill: var(--primary-color);
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
             }
-          }
-        }
 
-      }
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
 
-
-      button.vsubmit {
-
-        background: transparent !important;
-        color: var(--default-text-color) !important;
-        border: 1px solid var(--default-text-color) !important;
-
-        &:hover {
-          color: var(--primary-color) !important;
-          border: 1px solid var(--primary-color) !important;
-        }
-      }
-
-
-    }
-
-
-    .vcount {
-      color: var(--default-text-color);
-
-      .vnum {
-        color: var(--second-text-color);
-      }
-    }
-
-
-    .vcard {
-
-      .vnick {
-        .author {
-          font-weight: 450;
-          font-size: 12px;
-          padding: 2px;
-          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          color: #fff;
-          margin-left: 2px;
-          border-radius: 2px;
-        }
-      }
-
-
-      .vhead {
-
-        .vnick {
-          color: var(--primary-color);
-        }
-
-        .vsys {
-          color: var(--default-text-color);
-          background: var(--fourth-text-color) !important;
-        }
-      }
-
-
-      .vcontent {
-        P {
-          color: var(--default-text-color);
-
-          code {
-            color: var(--code-foreground);
-            background: var(--code-background);
-          }
-        }
-      }
-
-
-      .vh {
-        border-bottom-color: var(--border-color);
-      }
-
-      .vquote {
-        border-left-color: var(--border-color);
-      }
-    }
-
-
-    .vcopy {
-      color: var(--third-text-color);
-    }
-
-
-    .vpage {
-
-      .vmore {
-        border: 1px solid var(--border-color);
-        color: var(--second-text-color);
-      }
-    }
-
-
-  }
-
-
-}
 
 
         
@@ -608,7 +557,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lodash%E4%B8%AD%E7%9A%84FP%E6%A8%A1%E5%9D%97"><span class="nav-text">lodash中的FP模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lodash%E7%9A%84map%E6%8E%A5%E6%94%B6%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-text">lodash的map接收三个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%80%8Cfp%E6%A8%A1%E5%9D%97%E7%9A%84map%E6%8E%A5%E6%94%B6%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-text">而fp模块的map接收一个参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Point-Free"><span class="nav-text">Point Free</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Point-Free%E6%A1%88%E4%BE%8B"><span class="nav-text">Point Free案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functor-%E5%87%BD%E5%AD%90"><span class="nav-text">Functor(函子)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E5%87%BD%E5%AD%90"><span class="nav-text">为什么要学函子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFFunctor"><span class="nav-text">什么是Functor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MayBe%E5%87%BD%E5%AD%90"><span class="nav-text">MayBe函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Either%E5%87%BD%E5%AD%90"><span class="nav-text">Either函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E5%87%BD%E5%AD%90"><span class="nav-text">IO函子</span></a>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lodash%E4%B8%AD%E7%9A%84FP%E6%A8%A1%E5%9D%97"><span class="nav-text">lodash中的FP模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lodash%E7%9A%84map%E6%8E%A5%E6%94%B6%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-text">lodash的map接收三个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%80%8Cfp%E6%A8%A1%E5%9D%97%E7%9A%84map%E6%8E%A5%E6%94%B6%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-text">而fp模块的map接收一个参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Point-Free"><span class="nav-text">Point Free</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Point-Free%E6%A1%88%E4%BE%8B"><span class="nav-text">Point Free案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functor-%E5%87%BD%E5%AD%90"><span class="nav-text">Functor(函子)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E5%87%BD%E5%AD%90"><span class="nav-text">为什么要学函子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFFunctor"><span class="nav-text">什么是Functor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MayBe%E5%87%BD%E5%AD%90"><span class="nav-text">MayBe函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Either%E5%87%BD%E5%AD%90"><span class="nav-text">Either函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E5%87%BD%E5%AD%90"><span class="nav-text">IO函子</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

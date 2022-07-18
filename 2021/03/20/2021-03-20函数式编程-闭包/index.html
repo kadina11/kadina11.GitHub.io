@@ -192,15 +192,41 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-03-21 00:18:59
+        <i class="fas fa-edit"></i>&nbsp;2021-03-20 00:18:59
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/JavaScript/%E9%97%AD%E5%8C%85/">闭包</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>470 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>452 Words</span>
         </span>
     
     
@@ -221,9 +247,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</p>
+            <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</p>
 <p>闭包的本质：函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈上移除，<strong>但是堆上的作用域成员因为被外部引用不能释放</strong>，因此内部函数依然可以访问外部函数的成员</p>
 <ul>
 <li><strong>闭包（Closure）：函数和其周围的状态（此法环境）的引用捆绑在一起形成闭包</strong> <ul>
@@ -237,10 +261,10 @@
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makePower</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(number, power)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求平方</span></span><br><span class="line"><span class="keyword">let</span> power2 = makePower(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> power3 = makePower(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power2(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">console</span>.log(power3(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
 <br>
 
-<h3 id="断点查看执行过程"><a href="#断点查看执行过程" class="headerlink" title="断点查看执行过程"></a>断点查看执行过程</h3><p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure1.png" alt="开始" loading="lazy"></p>
-<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure2.png" alt="执行中" loading="lazy"></p>
-<p><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure3.png" alt="结束" loading="lazy"> 9-0c’vvvvvvvvvvvv’SXDZZZZZZZZZZZZZZZZZZZZZZZXS<br><br></p>
-<p><strong>let作用域在script中，而var定义的对象会挂载在全局对象上</strong><br>闭包相关的外部函数是makePower<br>在内存中，外部函数被移除，相关的变量被保留<br><img src="/2021/03/21/2021-03-20函数式编程-闭包/closure4.png" alt="闭包" loading="lazy"></p>
+<h3 id="断点查看执行过程"><a href="#断点查看执行过程" class="headerlink" title="断点查看执行过程"></a>断点查看执行过程</h3><p><img src="/2021/03/20/2021-03-20函数式编程-闭包/closure1.png" alt="开始" loading="lazy"></p>
+<p><img src="/2021/03/20/2021-03-20函数式编程-闭包/closure2.png" alt="执行中" loading="lazy"></p>
+<p><img src="/2021/03/20/2021-03-20函数式编程-闭包/closure3.png" alt="结束" loading="lazy"> 9-0c’vvvvvvvvvvvv’SXDZZZZZZZZZZZZZZZZZZZZZZZXS<br><br></p>
+<p><strong>let作用域在script中，而var定义的对象会挂载在全局对象上</strong><br>闭包相关的外部函数是makePower<br>在内存中，外部函数被移除，相关的变量被保留<br><img src="/2021/03/20/2021-03-20函数式编程-闭包/closure4.png" alt="闭包" loading="lazy"></p>
 
         </div>
 
@@ -252,13 +276,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="../2021-03-21%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E7%BA%AF%E5%87%BD%E6%95%B0/"
+                           href="../2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 纯函数</span>
+                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -268,10 +292,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="../../20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/"
+                           href="../../18/2021-03-18%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%BA%8C%EF%BC%89/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
+                                <span class="post-nav-title-item">函数式编程 —— 前置知识（二）</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -293,143 +317,68 @@
     
 
         
-            .valine-container {
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
 
-  #vcomments {
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
 
-    .vwrap {
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
 
-      border: 1px solid var(--third-text-color);
-
-      .vheader {
-
-        .vinput {
-
-          color: var(--default-text-color);
-          border-color: var(--third-text-color);
-
-          &:focus {
-            border-bottom: 1px dashed var(--primary-color) !important;
-          }
-        }
-      }
-
-
-      .vedit {
-
-        .veditor {
-          color: var(--default-text-color);
-        }
-
-        .vctrl {
-
-          .vicon {
-
-            fill: var(--default-text-color);
-
-            &.actived {
-              fill: var(--primary-color);
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
             }
-          }
-        }
 
-      }
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
 
-
-      button.vsubmit {
-
-        background: transparent !important;
-        color: var(--default-text-color) !important;
-        border: 1px solid var(--default-text-color) !important;
-
-        &:hover {
-          color: var(--primary-color) !important;
-          border: 1px solid var(--primary-color) !important;
-        }
-      }
-
-
-    }
-
-
-    .vcount {
-      color: var(--default-text-color);
-
-      .vnum {
-        color: var(--second-text-color);
-      }
-    }
-
-
-    .vcard {
-
-      .vnick {
-        .author {
-          font-weight: 450;
-          font-size: 12px;
-          padding: 2px;
-          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          color: #fff;
-          margin-left: 2px;
-          border-radius: 2px;
-        }
-      }
-
-
-      .vhead {
-
-        .vnick {
-          color: var(--primary-color);
-        }
-
-        .vsys {
-          color: var(--default-text-color);
-          background: var(--fourth-text-color) !important;
-        }
-      }
-
-
-      .vcontent {
-        P {
-          color: var(--default-text-color);
-
-          code {
-            color: var(--code-foreground);
-            background: var(--code-background);
-          }
-        }
-      }
-
-
-      .vh {
-        border-bottom-color: var(--border-color);
-      }
-
-      .vquote {
-        border-left-color: var(--border-color);
-      }
-    }
-
-
-    .vcopy {
-      color: var(--third-text-color);
-    }
-
-
-    .vpage {
-
-      .vmore {
-        border: 1px solid var(--border-color);
-        color: var(--second-text-color);
-      }
-    }
-
-
-  }
-
-
-}
 
 
         
@@ -552,7 +501,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E6%9F%A5%E7%9C%8B%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-text">断点查看执行过程</span></a>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E6%9F%A5%E7%9C%8B%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-text">断点查看执行过程</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

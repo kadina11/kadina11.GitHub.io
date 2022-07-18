@@ -192,15 +192,41 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-03-18 23:18:13
+        <i class="fas fa-edit"></i>&nbsp;2021-03-18 14:07:13
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/JavaScript/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>782 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>764 Words</span>
         </span>
     
     
@@ -221,9 +247,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<p>一等公民的概念没有明确定义</p>
+            <p>一等公民的概念没有明确定义</p>
 <p>在编程语言中，一等公民可以作为函数参数，可以作为函数返回值，也可以赋值给变量。</p>
 <p>对于 JavaScript 来说，函数可以赋值给变量，也可以作为函数参数，还可以作为函数返回值，因此 JavaScript 中函数是一等公民。</p>
 <p>别的能做的，函数都能做，别的不能做的，函数也能做。</p>
@@ -283,13 +307,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="../../20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/"
+                           href="../../20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E9%97%AD%E5%8C%85/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
+                                <span class="post-nav-title-item">函数式编程 —— 闭包</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -324,143 +348,68 @@
     
 
         
-            .valine-container {
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
 
-  #vcomments {
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
 
-    .vwrap {
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
 
-      border: 1px solid var(--third-text-color);
-
-      .vheader {
-
-        .vinput {
-
-          color: var(--default-text-color);
-          border-color: var(--third-text-color);
-
-          &:focus {
-            border-bottom: 1px dashed var(--primary-color) !important;
-          }
-        }
-      }
-
-
-      .vedit {
-
-        .veditor {
-          color: var(--default-text-color);
-        }
-
-        .vctrl {
-
-          .vicon {
-
-            fill: var(--default-text-color);
-
-            &.actived {
-              fill: var(--primary-color);
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
             }
-          }
-        }
 
-      }
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
 
-
-      button.vsubmit {
-
-        background: transparent !important;
-        color: var(--default-text-color) !important;
-        border: 1px solid var(--default-text-color) !important;
-
-        &:hover {
-          color: var(--primary-color) !important;
-          border: 1px solid var(--primary-color) !important;
-        }
-      }
-
-
-    }
-
-
-    .vcount {
-      color: var(--default-text-color);
-
-      .vnum {
-        color: var(--second-text-color);
-      }
-    }
-
-
-    .vcard {
-
-      .vnick {
-        .author {
-          font-weight: 450;
-          font-size: 12px;
-          padding: 2px;
-          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          color: #fff;
-          margin-left: 2px;
-          border-radius: 2px;
-        }
-      }
-
-
-      .vhead {
-
-        .vnick {
-          color: var(--primary-color);
-        }
-
-        .vsys {
-          color: var(--default-text-color);
-          background: var(--fourth-text-color) !important;
-        }
-      }
-
-
-      .vcontent {
-        P {
-          color: var(--default-text-color);
-
-          code {
-            color: var(--code-foreground);
-            background: var(--code-background);
-          }
-        }
-      }
-
-
-      .vh {
-        border-bottom-color: var(--border-color);
-      }
-
-      .vquote {
-        border-left-color: var(--border-color);
-      }
-    }
-
-
-    .vcopy {
-      color: var(--third-text-color);
-    }
-
-
-    .vpage {
-
-      .vmore {
-        border: 1px solid var(--border-color);
-        color: var(--second-text-color);
-      }
-    }
-
-
-  }
-
-
-}
 
 
         
@@ -583,7 +532,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91"><span class="nav-text">函数是一等公民</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E5%87%BD%E6%95%B0%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F"><span class="nav-text">把函数赋值给变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">高阶函数-函数作为参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-text">什么是高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">函数作为参数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#forEach"><span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#filter"><span class="nav-text">filter</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-text">函数作为返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#once"><span class="nav-text">once</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">使用高阶函数的意义</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%98%AF%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91"><span class="nav-text">函数是一等公民</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E5%87%BD%E6%95%B0%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F"><span class="nav-text">把函数赋值给变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">高阶函数-函数作为参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-text">什么是高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">函数作为参数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#forEach"><span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#filter"><span class="nav-text">filter</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-text">函数作为返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#once"><span class="nav-text">once</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">使用高阶函数的意义</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

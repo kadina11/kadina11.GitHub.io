@@ -195,6 +195,32 @@
         <i class="fas fa-edit"></i>&nbsp;2021-03-21 14:03:21
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/JavaScript/%E7%BA%AF%E5%87%BD%E6%95%B0/">纯函数</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -205,7 +231,7 @@
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>6 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>5 Mins</span>
         </span>
     
     
@@ -221,9 +247,7 @@
         
 
         <div class="article-content markdown-body">
-            <h4 id="文章内容输入来源：拉勾教育大前端训练营"><a href="#文章内容输入来源：拉勾教育大前端训练营" class="headerlink" title="文章内容输入来源：拉勾教育大前端训练营"></a>文章内容输入来源：拉勾教育大前端训练营</h4><br>
-
-<h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><br>
+            <h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><br>
 
 <h2 id="纯函数的概念"><a href="#纯函数的概念" class="headerlink" title="纯函数的概念"></a>纯函数的概念</h2><ul>
 <li><strong>函数的返回结果只依赖于它的参数</strong></li>
@@ -333,10 +357,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="../2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E9%97%AD%E5%8C%85/"
+                           href="../../20/2021-03-20%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%89%EF%BC%89/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">函数式编程 —— 闭包</span>
+                                <span class="post-nav-title-item">函数式编程 —— 前置知识（三）</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -358,143 +382,68 @@
     
 
         
-            .valine-container {
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
 
-  #vcomments {
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
 
-    .vwrap {
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
 
-      border: 1px solid var(--third-text-color);
-
-      .vheader {
-
-        .vinput {
-
-          color: var(--default-text-color);
-          border-color: var(--third-text-color);
-
-          &:focus {
-            border-bottom: 1px dashed var(--primary-color) !important;
-          }
-        }
-      }
-
-
-      .vedit {
-
-        .veditor {
-          color: var(--default-text-color);
-        }
-
-        .vctrl {
-
-          .vicon {
-
-            fill: var(--default-text-color);
-
-            &.actived {
-              fill: var(--primary-color);
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
             }
-          }
-        }
 
-      }
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
 
-
-      button.vsubmit {
-
-        background: transparent !important;
-        color: var(--default-text-color) !important;
-        border: 1px solid var(--default-text-color) !important;
-
-        &:hover {
-          color: var(--primary-color) !important;
-          border: 1px solid var(--primary-color) !important;
-        }
-      }
-
-
-    }
-
-
-    .vcount {
-      color: var(--default-text-color);
-
-      .vnum {
-        color: var(--second-text-color);
-      }
-    }
-
-
-    .vcard {
-
-      .vnick {
-        .author {
-          font-weight: 450;
-          font-size: 12px;
-          padding: 2px;
-          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          color: #fff;
-          margin-left: 2px;
-          border-radius: 2px;
-        }
-      }
-
-
-      .vhead {
-
-        .vnick {
-          color: var(--primary-color);
-        }
-
-        .vsys {
-          color: var(--default-text-color);
-          background: var(--fourth-text-color) !important;
-        }
-      }
-
-
-      .vcontent {
-        P {
-          color: var(--default-text-color);
-
-          code {
-            color: var(--code-foreground);
-            background: var(--code-background);
-          }
-        }
-      }
-
-
-      .vh {
-        border-bottom-color: var(--border-color);
-      }
-
-      .vquote {
-        border-left-color: var(--border-color);
-      }
-    }
-
-
-    .vcopy {
-      color: var(--third-text-color);
-    }
-
-
-    .vpage {
-
-      .vmore {
-        border: 1px solid var(--border-color);
-        color: var(--second-text-color);
-      }
-    }
-
-
-  }
-
-
-}
 
 
         
@@ -617,7 +566,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5%E6%9D%A5%E6%BA%90%EF%BC%9A%E6%8B%89%E5%8B%BE%E6%95%99%E8%82%B2%E5%A4%A7%E5%89%8D%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5"><span class="nav-text">文章内容输入来源：拉勾教育大前端训练营</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0"><span class="nav-text">纯函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">纯函数的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lodash"><span class="nav-text">Lodash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">纯函数的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E7%BC%93%E5%AD%98"><span class="nav-text">可缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E6%B5%8B%E8%AF%95"><span class="nav-text">可测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-text">并行处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-text">纯函数的副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%88Haskell-Brooks-Curry%EF%BC%89"><span class="nav-text">柯里化（Haskell Brooks Curry）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%AF%E9%87%8C%E5%8C%96%E8%A7%A3%E5%86%B3%E4%B8%8A%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B%E7%A1%AC%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98"><span class="nav-text">使用柯里化解决上一个案例硬编码问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lodash%E4%B8%AD%E6%9F%AF%E9%87%8C%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">lodash中柯里化的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-text">柯里化案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%E5%8E%9F%E7%90%86%E6%A8%A1%E6%8B%9F"><span class="nav-text">柯里化原理模拟</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0"><span class="nav-text">纯函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">纯函数的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lodash"><span class="nav-text">Lodash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">纯函数的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E7%BC%93%E5%AD%98"><span class="nav-text">可缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E6%B5%8B%E8%AF%95"><span class="nav-text">可测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-text">并行处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-text">纯函数的副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%88Haskell-Brooks-Curry%EF%BC%89"><span class="nav-text">柯里化（Haskell Brooks Curry）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%AF%E9%87%8C%E5%8C%96%E8%A7%A3%E5%86%B3%E4%B8%8A%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B%E7%A1%AC%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98"><span class="nav-text">使用柯里化解决上一个案例硬编码问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lodash%E4%B8%AD%E6%9F%AF%E9%87%8C%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">lodash中柯里化的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-text">柯里化案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%E5%8E%9F%E7%90%86%E6%A8%A1%E6%8B%9F"><span class="nav-text">柯里化原理模拟</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

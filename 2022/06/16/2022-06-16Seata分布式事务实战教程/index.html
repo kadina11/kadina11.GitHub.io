@@ -200,7 +200,15 @@
             <ul>
                 
                     <li>
-                        <a href="../../../../categories/java-%E5%BE%AE%E6%9C%8D%E5%8A%A1-seata/">java | 微服务 seata</a>&nbsp;
+                        <a href="../../../../categories/java/">java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/java/Spring-Cloud/">Spring Cloud</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/java/Spring-Cloud/Seata/">Seata</a>&nbsp;
                     </li>
                 
             </ul>
@@ -212,7 +220,7 @@
             <ul>
                 
                     <li>
-                        <a href="../../../../tags/java-%E5%BE%AE%E6%9C%8D%E5%8A%A1-nacos-seata/">java,微服务,nacos seata</a>&nbsp;
+                        <a href="../../../../tags/Spring-Cloud/">Spring Cloud</a>&nbsp;
                     </li>
                 
             </ul>
@@ -395,7 +403,7 @@
 
 <p>这份依赖有个注意事项，默认 starter-alibaba-seata 依赖内置的是旧版 1.3.0 的 Seata 客户端，因此要排除，在后面引入最新的 1.4.0，保证客户端与 Seate-Server 版本一致。</p>
 <h3 id="第三步，配置-application-yml。"><a href="#第三步，配置-application-yml。" class="headerlink" title="第三步，配置 application.yml。"></a>第三步，配置 application.yml。</h3><p>application.yml 额外配置了事务分组与 Nacos 的信息，我已在配置文件中进行了注释说明。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#seata配置</span></span><br><span class="line"><span class="attr">seata:</span></span><br><span class="line"><span class="comment">#  开启seata分布式事务</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#  事务服务分组名,与naocs一致</span></span><br><span class="line">  <span class="attr">tx-service-group:</span> <span class="string">my_test_tx_group</span></span><br><span class="line"><span class="comment">#  是否启用数据源代理</span></span><br><span class="line">  <span class="attr">enable-auto-data-source-proxy:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#  事务服务配置</span></span><br><span class="line">  <span class="attr">service:</span></span><br><span class="line">    <span class="attr">vgroup-mapping:</span></span><br><span class="line"><span class="comment">#      事务分组对应集群名称</span></span><br><span class="line">      <span class="attr">my_test_tx_group:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">grouplist:</span></span><br><span class="line"><span class="comment">#      Seata-Server服务的IP地址与端口</span></span><br><span class="line">      <span class="attr">default:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.107</span><span class="string">:8091</span></span><br><span class="line">    <span class="attr">enable-degrade:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">disable-global-transaction:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#    Nacos配置中心信息</span></span><br><span class="line">  <span class="attr">config:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">serverAddr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group:</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line"><span class="comment">#      Nacos注册中心信息</span></span><br><span class="line">  <span class="attr">registry:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">seata-server</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group :</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line"><span class="comment"># 应用配置</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">rm-order</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.31.103:3306/seata-order</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.10</span><span class="string">:8848</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8002</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">io:</span></span><br><span class="line">      <span class="attr">seata:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#seata配置</span></span><br><span class="line"><span class="attr">seata:</span></span><br><span class="line">  <span class="comment">#  开启seata分布式事务</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#  事务服务分组名,与naocs一致</span></span><br><span class="line">  <span class="attr">tx-service-group:</span> <span class="string">my_test_tx_group</span></span><br><span class="line">  <span class="comment">#  是否启用数据源代理</span></span><br><span class="line">  <span class="attr">enable-auto-data-source-proxy:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#  事务服务配置</span></span><br><span class="line">  <span class="attr">service:</span></span><br><span class="line">    <span class="attr">vgroup-mapping:</span></span><br><span class="line">      <span class="comment">#      事务分组对应集群名称</span></span><br><span class="line">      <span class="attr">my_test_tx_group:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">grouplist:</span></span><br><span class="line">      <span class="comment">#      Seata-Server服务的IP地址与端口</span></span><br><span class="line">      <span class="attr">default:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.136</span><span class="string">:8091</span></span><br><span class="line">    <span class="attr">enable-degrade:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">disable-global-transaction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment">#    Nacos配置中心信息</span></span><br><span class="line">  <span class="attr">config:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">serverAddr:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.131</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group:</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line">  <span class="comment">#      Nacos注册中心信息</span></span><br><span class="line">  <span class="attr">registry:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">seata-server</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.131</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">group :</span> <span class="string">SEATA_GROUP</span></span><br><span class="line">      <span class="attr">namespace:</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">default</span></span><br><span class="line"><span class="comment"># 应用配置</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">rm-order-service</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.157.138:3307/seata_order</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">mysql123!</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">nacos</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.157</span><span class="number">.131</span><span class="string">:8848</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8002</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">io:</span></span><br><span class="line">      <span class="attr">seata:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="第四步，像单机应用一样开发数据库-CRUD，代码很简单，我已给出注释。"><a href="#第四步，像单机应用一样开发数据库-CRUD，代码很简单，我已给出注释。" class="headerlink" title="第四步，像单机应用一样开发数据库 CRUD，代码很简单，我已给出注释。"></a>第四步，像单机应用一样开发数据库 CRUD，代码很简单，我已给出注释。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JPA实体类</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;`order`&quot;)</span> <span class="comment">//对应order表</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;order_id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer id; <span class="comment">//订单编号</span></span><br><span class="line">    <span class="keyword">private</span> Integer memberId; <span class="comment">//会员编号</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;goods_id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer goodsId; <span class="comment">//商品编号</span></span><br><span class="line">    <span class="keyword">private</span> Integer points; <span class="comment">//新增积分</span></span><br><span class="line">    <span class="keyword">private</span> Integer quantity; <span class="comment">//销售数量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span><span class="params">(Integer id, Integer memberId, Integer goodsId, Integer points, Integer quantity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.memberId = memberId;</span><br><span class="line">        <span class="keyword">this</span>.points = points;</span><br><span class="line">        <span class="keyword">this</span>.goodsId = goodsId;</span><br><span class="line">        <span class="keyword">this</span>.quantity = quantity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...getter &amp; setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -450,143 +458,68 @@
     
 
         
-            .valine-container {
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '8hngeSx44gq62ssTGWpTrUDQ-gzGzoHsz',
+                    appKey: 'L6XNbAfPj4KMFw9DA5Jxpy3E',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
 
-  #vcomments {
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
 
-    .vwrap {
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'kadina';
 
-      border: 1px solid var(--third-text-color);
-
-      .vheader {
-
-        .vinput {
-
-          color: var(--default-text-color);
-          border-color: var(--third-text-color);
-
-          &:focus {
-            border-bottom: 1px dashed var(--primary-color) !important;
-          }
-        }
-      }
-
-
-      .vedit {
-
-        .veditor {
-          color: var(--default-text-color);
-        }
-
-        .vctrl {
-
-          .vicon {
-
-            fill: var(--default-text-color);
-
-            &.actived {
-              fill: var(--primary-color);
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
             }
-          }
-        }
 
-      }
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
 
-
-      button.vsubmit {
-
-        background: transparent !important;
-        color: var(--default-text-color) !important;
-        border: 1px solid var(--default-text-color) !important;
-
-        &:hover {
-          color: var(--primary-color) !important;
-          border: 1px solid var(--primary-color) !important;
-        }
-      }
-
-
-    }
-
-
-    .vcount {
-      color: var(--default-text-color);
-
-      .vnum {
-        color: var(--second-text-color);
-      }
-    }
-
-
-    .vcard {
-
-      .vnick {
-        .author {
-          font-weight: 450;
-          font-size: 12px;
-          padding: 2px;
-          background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #6699cc, #c594c5);
-          color: #fff;
-          margin-left: 2px;
-          border-radius: 2px;
-        }
-      }
-
-
-      .vhead {
-
-        .vnick {
-          color: var(--primary-color);
-        }
-
-        .vsys {
-          color: var(--default-text-color);
-          background: var(--fourth-text-color) !important;
-        }
-      }
-
-
-      .vcontent {
-        P {
-          color: var(--default-text-color);
-
-          code {
-            color: var(--code-foreground);
-            background: var(--code-background);
-          }
-        }
-      }
-
-
-      .vh {
-        border-bottom-color: var(--border-color);
-      }
-
-      .vquote {
-        border-left-color: var(--border-color);
-      }
-    }
-
-
-    .vcopy {
-      color: var(--third-text-color);
-    }
-
-
-    .vpage {
-
-      .vmore {
-        border: 1px solid var(--border-color);
-        color: var(--second-text-color);
-      }
-    }
-
-
-  }
-
-
-}
 
 
         
